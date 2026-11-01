@@ -1,0 +1,34 @@
+{
+  "name": "forms-zod-examples",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "zod:04": "tsx 04_zod_runtime_vs_types.ts",
+    "zod:05": "tsx 05_zod_parse_safeparse.ts",
+    "zod:06": "tsx 06_zod_infer_input_output.ts",
+    "zod:07": "tsx 07_zod_coerce_transform_default.ts",
+    "zod:08": "tsx 08_zod_refine_superrefine.ts",
+    "zod:09": "tsx 09_zod_object_strictness_composition.ts",
+    "zod:10": "tsx 10_zod_api_boundary.ts",
+    "dev": "vite",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
+    "prism-react-renderer": "^2.4.1",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-hook-form": "^7.62.0",
+    "react-router-dom": "^7.18.4",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "@vitejs/plugin-react": "^6.1.2",
+    "tsx": "^4.20.0",
+    "typescript": "~5.9.0",
+    "vite": "^8.3.4"
+  }
+}

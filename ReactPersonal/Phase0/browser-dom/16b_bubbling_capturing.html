@@ -1,0 +1,175 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>0.16b Bubbling and capturing</title>
+    <style>
+      form {
+        background: #fee;
+        padding: 20px;
+      }
+      form div {
+        background: #efe;
+        padding: 20px;
+      }
+      form div p {
+        background: #eef;
+        padding: 20px;
+        margin: 0;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <!--
+  ============================================================================
+  0.16b  BUBBLING & CAPTURING  (javascript.info/bubbling-and-capturing)
+  ============================================================================
+  Click the blue <p>. Open DevTools console and read the order.
+
+  WHAT YOU NEED TO LEARN FROM THIS FILE
+    1. Three phases: capturing (down) -> target -> bubbling (up)
+    2. Handlers by default run in the BUBBLING phase only
+    3. target (deepest element) vs currentTarget (where the listener is)
+    4. stopPropagation vs stopImmediatePropagation
+    5. Why stopping propagation is usually a bad idea
+    6. Events that do NOT bubble: focus / blur (use focusin / focusout)
+    7. React attaches its listeners at the ROOT and relies on this bubbling
+  ============================================================================
+  -->
+
+    <form id="form">
+      FORM
+      <div id="div">
+        DIV
+        <p id="p">P (click me)</p>
+      </div>
+      <input id="name" placeholder="focus / blur demo" />
+    </form>
+
+    <script>
+      const log = (...args) => console.log(...args);
+
+      const form = document.getElementById("form");
+      const div = document.getElementById("div");
+      const p = document.getElementById("p");
+
+      // ------------------------------------------------------------------
+      // EXAMPLE 1: full trace of the three phases
+      // ------------------------------------------------------------------
+      // Click on <p>. Expected console order:
+      //   CAPTURE form -> CAPTURE div -> CAPTURE p
+      //   BUBBLE  p    -> BUBBLE  div -> BUBBLE  form
+      //
+      // Phase 1 (capturing): window -> document -> html -> body -> form -> div -> p
+      // Phase 2 (target):     the <p> itself
+      // Phase 3 (bubbling):   p -> div -> form -> body -> html -> document -> window
+      //
+      // Why do you only ever see bubbling in day-to-day code?
+      // Because addEventListener's default is capture: false.
+      [form, div, p].forEach((el) => {
+        el.addEventListener(
+          "click",
+          (event) => {
+            log(
+              `CAPTURE ${el.id.padEnd(4)}`,
+              "| target =",
+              event.target.id,
+              "| currentTarget =",
+              event.currentTarget.id,
+              "| eventPhase =",
+              event.eventPhase, // 1 capture, 2 target, 3 bubble
+            );
+          },
+          true, // capture: true -> runs on the way DOWN
+        );
+
+        el.addEventListener("click", (event) => {
+          log(
+            `BUBBLE  ${el.id.padEnd(4)}`,
+            "| target =",
+            event.target.id,
+            "| currentTarget =",
+            event.currentTarget.id,
+            "| eventPhase =",
+            event.eventPhase,
+          );
+        });
+      });
+
+      // KEY POINT: event.target is ALWAYS the <p> (the deepest clicked element),
+      // event.currentTarget changes at every step (the element whose handler is running).
+
+      // ------------------------------------------------------------------
+      // EXAMPLE 2: stopPropagation
+      // ------------------------------------------------------------------
+      // Uncomment to see: the click never reaches <div> or <form> bubble handlers.
+      //
+      // p.addEventListener("click", (event) => {
+      //   event.stopPropagation();
+      //   log("EX2: stopped at p, div/form bubble handlers will NOT run");
+      // });
+      //
+      // GOTCHA: stopPropagation does NOT stop other handlers on the SAME element.
+      // For that you need event.stopImmediatePropagation().
+      //
+      // p.addEventListener("click", (e) => { e.stopImmediatePropagation(); });
+      // p.addEventListener("click", () => log("never runs"));
+      //
+      // WHY IT'S USUALLY A BAD IDEA (production story):
+      //   You stopPropagation in a dropdown so "click outside to close" doesn't fire.
+      //   Later analytics listeners on document stop receiving clicks.
+      //   Other widgets' "click outside" logic breaks, because they never see the event.
+      //   Prefer: check event.target in the outer handler, or set a flag:
+      //     event.myComponentHandled = true  (or use event.defaultPrevented, see 16c)
+
+      // ------------------------------------------------------------------
+      // EXAMPLE 3: focus and blur do NOT bubble
+      // ------------------------------------------------------------------
+      // The form can't hear focus from the input using a normal listener:
+      form.addEventListener("focus", () =>
+        log("EX3: form heard focus (never prints)"),
+      );
+
+      // But CAPTURE works (non-bubbling events still capture) and focusin/focusout DO bubble:
+      form.addEventListener("focusin", () =>
+        log("EX3: form heard focusin (bubbles)"),
+      );
+      form.addEventListener(
+        "focus",
+        () => log("EX3: form heard focus via capture"),
+        true,
+      );
+      // React's onFocus/onBlur are implemented on top of focusin/focusout for this reason.
+
+      // ------------------------------------------------------------------
+      // EXAMPLE 4: React connection
+      // ------------------------------------------------------------------
+      // React 17+ does NOT attach onClick to each button.
+      // It attaches ONE listener per event type on the ROOT container (#root)
+      // and uses event.target + the fiber tree to figure out which component handler to run.
+      // That's event delegation (see 16c) in a library.
+      //
+      // Consequence: if some non-React code calls stopPropagation on a native
+      // element BELOW root, React's onClick above never fires.
+      // And e.stopPropagation() in React stops React's synthetic propagation (and the native
+      // event at root, which stops it reaching document-level listeners).
+
+      /*
+    ========================================================================
+    INTERVIEW TAKEAWAYS
+    ========================================================================
+    - Explain the three phases of event propagation.
+        Capture down from window to target, run at target, bubble back up.
+    - What is the difference between target and currentTarget?
+        target = origin of the event, currentTarget = element the running handler is on.
+    - How do you listen in the capturing phase?
+        addEventListener(type, fn, { capture: true }) (or true).
+    - Which events don't bubble?  focus, blur, mouseenter, mouseleave, load, scroll (on elements).
+        Use focusin / focusout / mouseover / mouseout instead.
+    - Why avoid stopPropagation?  It hides events from everything above, breaking analytics and outside-click logic.
+    ========================================================================
+    */
+    </script>
+  </body>
+</html>

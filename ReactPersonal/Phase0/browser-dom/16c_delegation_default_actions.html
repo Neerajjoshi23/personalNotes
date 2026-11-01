@@ -1,0 +1,204 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>0.16c Delegation and default actions</title>
+  </head>
+  <body>
+    <!--
+  ============================================================================
+  0.16c  EVENT DELEGATION + BROWSER DEFAULT ACTIONS
+  (javascript.info/event-delegation, javascript.info/default-browser-action)
+  ============================================================================
+  WHAT YOU NEED TO LEARN FROM THIS FILE
+    1. Delegation: ONE listener on a parent instead of N on children
+    2. event.target.closest(selector) to find the real element (handles nested children)
+    3. Always check the match is INSIDE your container (contains)
+    4. Works for elements added LATER (dynamic lists)
+    5. data-action "behavior pattern": declare behavior in HTML
+    6. preventDefault: cancel link navigation, form submit, checkbox toggle, context menu
+    7. return false only works for on<event> properties
+    8. defaultPrevented: the polite alternative to stopPropagation
+    9. passive listeners can't call preventDefault
+  ============================================================================
+  -->
+
+    <h3>Delegation list</h3>
+    <ul id="list">
+      <li data-id="1">Task 1 <button data-action="delete">x</button></li>
+      <li data-id="2">Task 2 <button data-action="delete">x</button></li>
+      <li data-id="3">Task 3 <button data-action="delete">x</button></li>
+    </ul>
+    <button id="add">Add task</button>
+
+    <h3>Default actions</h3>
+    <a id="link" href="https://example.com">link (preventDefault)</a>
+    <form id="form">
+      <input name="email" placeholder="email" />
+      <button type="submit">submit (preventDefault)</button>
+    </form>
+    <div id="menu">right click me (contextmenu)</div>
+
+    <script>
+      const log = (...args) => console.log(...args);
+
+      // ------------------------------------------------------------------
+      // EXAMPLE 1: delegation on a list
+      // ------------------------------------------------------------------
+      const list = document.getElementById("list");
+
+      // BAD: 3 listeners now, 3000 later; new <li> elements get nothing.
+      // list.querySelectorAll("button").forEach(b => b.addEventListener("click", ...));
+
+      // GOOD: one listener on the parent. Events bubble up from the buttons.
+      list.addEventListener("click", (event) => {
+        // closest() walks UP from target, so clicking an <svg>/<span> INSIDE the button still works.
+        const button = event.target.closest("button[data-action]");
+
+        if (!button) {
+          return; // clicked on the li text or empty space
+        }
+
+        // GOTCHA: closest() can match an ancestor OUTSIDE your container in nested layouts.
+        // Always verify the match is inside the element holding the listener.
+        if (!list.contains(button)) {
+          return;
+        }
+
+        const li = button.closest("li");
+
+        if (button.dataset.action === "delete") {
+          log("EX1: delete task", li.dataset.id);
+          li.remove();
+        }
+      });
+
+      // ------------------------------------------------------------------
+      // EXAMPLE 2: dynamic elements work with delegation for free
+      // ------------------------------------------------------------------
+      let nextId = 4;
+
+      document.getElementById("add").addEventListener("click", () => {
+        const li = document.createElement("li");
+        li.dataset.id = String(nextId);
+        li.innerHTML = `Task ${nextId} <button data-action="delete">x</button>`;
+        list.append(li);
+        nextId++;
+        // No addEventListener here. The parent listener already handles the new button.
+      });
+
+      // ------------------------------------------------------------------
+      // EXAMPLE 3: behavior pattern with data-action
+      // ------------------------------------------------------------------
+      // One handler dispatching by data-action name: this is how many UI libs
+      // (and Bootstrap's data-toggle) work. Add a new action = add a method.
+      // Note: both this and EX1 react to the same click, so you'll see two logs per delete.
+      // Delegation allows several independent listeners on the same container.
+      class Toolbar {
+        constructor(elem) {
+          elem.addEventListener("click", this.onClick.bind(this));
+        }
+
+        onClick(event) {
+          const action = event.target.dataset.action;
+          console.log("EX3: clicked action =", action);
+          console.log("EX3: event =", this);
+          if (action && this[action]) {
+            console.log("EX3: invoking event =", event);
+            this[action](event);
+          }
+        }
+
+        delete() {
+          log("EX3: toolbar delete()");
+        }
+      }
+      new Toolbar(list);
+
+      // Delegation caveats (interview worthy):
+      //  - Events that don't bubble (focus, blur, mouseenter) can't be delegated normally.
+      //  - If an inner handler calls stopPropagation, the parent never hears it.
+      //  - Slight CPU cost: the container handler runs for EVERY click inside it.
+
+      // ------------------------------------------------------------------
+      // EXAMPLE 4: preventDefault (link / form / context menu)
+      // ------------------------------------------------------------------
+      document.getElementById("link").addEventListener("click", (event) => {
+        event.preventDefault(); // no navigation
+        log("EX4: link click handled in JS (SPA routing does exactly this)");
+      });
+
+      document.getElementById("form").addEventListener("submit", (event) => {
+        event.preventDefault(); // no page reload: React Hook Form's handleSubmit does this for you
+        log(
+          "EX4: submit intercepted, data =",
+          Object.fromEntries(new FormData(event.target)),
+        );
+      });
+
+      document
+        .getElementById("menu")
+        .addEventListener("contextmenu", (event) => {
+          event.preventDefault(); // custom context menu instead of the browser one
+          log("EX4: custom context menu at", event.clientX, event.clientY);
+        });
+
+      // ------------------------------------------------------------------
+      // EXAMPLE 5: return false (on<event> properties ONLY)
+      // ------------------------------------------------------------------
+      // linkEl.onclick = () => false;                       // same as preventDefault
+      // linkEl.addEventListener("click", () => false);      // IGNORED. Does nothing!
+      // In React, return false does nothing either: you must call e.preventDefault().
+
+      // ------------------------------------------------------------------
+      // EXAMPLE 6: defaultPrevented instead of stopPropagation
+      // ------------------------------------------------------------------
+      // Problem: a custom context menu on the child, a "global" context menu on document.
+      // Instead of stopPropagation (hides event from analytics etc.), mark it:
+      document.getElementById("menu").addEventListener("contextmenu", () => {
+        // already preventDefault() above, which sets event.defaultPrevented = true
+      });
+
+      document.addEventListener("contextmenu", (event) => {
+        if (event.defaultPrevented) {
+          return; // a child already took care of it
+        }
+
+        log("EX6: document-level menu (only if nobody prevented it)");
+        event.preventDefault();
+      });
+
+      // ------------------------------------------------------------------
+      // EXAMPLE 7: passive listeners
+      // ------------------------------------------------------------------
+      document.addEventListener(
+        "touchstart",
+        (event) => {
+          // event.preventDefault() here would be IGNORED and log a console warning.
+          // passive: true tells the browser "don't wait for me, scroll right away".
+        },
+        { passive: true },
+      );
+      // Browsers make touchstart/touchmove/wheel on window/document passive by default.
+
+      /*
+    ========================================================================
+    INTERVIEW TAKEAWAYS
+    ========================================================================
+    - What is event delegation, why use it?
+        One listener on a common ancestor using bubbling + event.target.
+        Fewer listeners, less memory, works for dynamically added children.
+    - How do you find the right element in a delegated handler?
+        event.target.closest(selector), then check container.contains(el).
+    - preventDefault vs stopPropagation?
+        preventDefault cancels the browser's default action; stopPropagation stops the event travelling.
+        They are independent.
+    - Why does return false not work with addEventListener?
+        Only on<event> property handlers treat the return value as preventDefault.
+    - What is a passive listener?
+        A promise never to call preventDefault, so the browser can scroll without waiting.
+    ========================================================================
+    */
+    </script>
+  </body>
+</html>

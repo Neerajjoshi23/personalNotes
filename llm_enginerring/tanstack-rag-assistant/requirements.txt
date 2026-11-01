@@ -1,0 +1,9 @@
+requests
+transformers
+chromadb
+rank-bm25
+fastembed
+litellm
+python-dotenv
+pydantic
+gradio

@@ -1,0 +1,8 @@
+//Basics
+https://www.geeksforgeeks.org/c-plus-plus/
+//Input Output
+https://www.geeksforgeeks.org/basic-input-output-c/
+//operator
+https://www.geeksforgeeks.org/operators-in-c/
+//Pattern
+https://drive.google.com/file/d/1onLkPV9zr6HUHEVtgLzxRJCL4tzpY5ux/view

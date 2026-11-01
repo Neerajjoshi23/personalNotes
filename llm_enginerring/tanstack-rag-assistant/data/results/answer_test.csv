@@ -1,0 +1,354 @@
+id,category,question,answer,expected facts,correct,facts,faithful,judge reason,retrieved (top k),MRR,flags,seconds
+d01,direct,Does TanStack Query treat cached data as fresh or stale by default?,"By default, TanStack Query considers cached data as stale [561f1b9c08a1].","- Cached data is considered stale by default
+- staleTime changes this",NO,1/2,yes,"The answer correctly states that cached data is stale by default, but it fails to mention that staleTime can change this behavior.","*important-defaults.md#important-defaults, window-focus-refetching.md#window-focus-refetching, query-invalidation.md#query-invalidation, *important-defaults.md#important-defaults, caching.md#basic-example",1.000,,12.384
+d02,direct,What is the default delay between query retries?,"By default, TanStack Query applies an exponential backoff delay to retry attempts [543306635100, e025b7722881]. This delay starts at 1000ms and doubles with each attempt, but it is capped at a maximum of 30 seconds [543306635100, 021d118fb1aa].","- Delay doubles with each attempt starting at 1000ms
+- It does not exceed 30 seconds",yes,2/2,yes,The answer correctly identifies both the starting delay and the maximum cap.,"*query-retries.md#retry-delay, query-retries.md#query-retries, important-defaults.md#important-defaults, query-retries.md#background-retry-behavior, useQuery.md#options",1.000,no citations,20.7
+d03,direct,How long do inactive queries stay in the cache before garbage collection?,"By default, inactive queries are garbage collected after 5 minutes [ab973ac24c2d, e025b7722881]. You can change this duration by altering the `gcTime` option [e025b7722881].","- 5 minutes by default
+- Configurable with gcTime",yes,2/2,yes,The answer correctly identifies the default time and the configuration option.,"caching.md#basic-example, useQuery.md#options, useMutation.md#options, caching.md#basic-example, *important-defaults.md#important-defaults",0.200,,23.264
+d04,direct,What is the difference between a query's status and its fetchStatus?,"In TanStack Query, `status` and `fetchStatus` provide different information about the state of a query:
+
+*   **`status`**: Provides information about the **data**. It indicates whether the query has data or not [7712f22dda56]. It can be in one of three states:
+    *   `pending`: The query has no data yet [f29383ab0e9c].
+    *   `error`: The query encountered an error [f29383ab0e9c].
+    *   `success`: The query was successful and data is available [f29383ab0e9c].
+
+*   **`fetchStatus`**: Provides information about the **`queryFn`**. It indicates whether the function is currently executing [7712f22dda56]. It can be in one of three states:
+    *   `fetching`: The `queryFn` is currently executing (this includes initial `pending` states as well as background refetches) [e0f48cf49daf, b3be8276fca3].
+    *   `paused`: The query wanted to fetch but is currently paused [e0f48cf49daf, b3be8276fca3].
+    *   `idle`: The query is not doing anything at the moment [e0f48cf49daf, b3be8276fca3].
+
+Because these two properties track different aspects of the query, all combinations are possible [7712f22dda56]. For example, a query can be in a `pending` status without actually fetching data (e.g., if it is `idle` because it is waiting for a dependency to be met) [7712f22dda56, 3fd6c68fb859].","- status describes whether there is data (pending/error/success)
+- fetchStatus describes whether the queryFn is running (fetching/paused/idle)",yes,2/2,yes,The answer correctly identifies the purpose of both status and fetchStatus as defined in the documentation.,"*queries.md#why-two-different-states, *queries.md#fetchstatus, useQuery.md#result-properties, dependent-queries.md#usequery-dependent-query, queries.md#query-basics",1.000,,17.333
+d05,direct,How do I stop a query from running automatically?,"To stop a query from running automatically, you can use the `enabled` option set to `false` [7d016f1ff1e3]. The `enabled` option also accepts a callback that returns a boolean, which allows you to enable or disable the query based on specific conditions, such as waiting for a user to provide input [7d016f1ff1e3, 3efd0585180d].
+
+When `enabled` is set to `false`:
+*   The query will not automatically fetch on mount [7d016f1ff1e3].
+*   The query will not automatically refetch in the background [7d016f1ff1e3].
+*   The query will ignore `invalidateQueries` and `refetchQueries` calls that would normally trigger a refetch [7d016f1ff1e3].
+*   If the query has cached data, it will initialize in the `success` state; if it does not have cached data, it will start in the `pending` state with a `fetchStatus` of `idle` [7d016f1ff1e3].
+
+Additionally, TypeScript users may prefer to use `skipToken` as an alternative to `enabled = false` [7d016f1ff1e3].","- Set enabled: false
+- Use refetch to trigger it manually",NO,1/2,yes,The answer failed to mention that you can use refetch to trigger the query manually.,"*disabling-queries.md#disablingpausing-queries, query-cancellation.md#manual-cancellation, *disabling-queries.md#disablingpausing-queries, disabling-queries.md#lazy-queries, query-cancellation.md#query-cancellation",1.000,,13.306
+d06,direct,How do I cancel a request when using fetch?,"To cancel a request when using `fetch` in TanStack Query v5, you must consume the `signal` provided by the `queryFn` and pass it to your `fetch` call [966d9292be52].
+
+Here is how to implement it:
+
+1.  **Pass the `signal` to your fetch request:** In your `queryFn`, accept the `signal` argument and pass it into the `fetch` options [966d9292be52].
+2.  **Trigger the cancellation:** Use `queryClient.cancelQueries({ queryKey })` to manually cancel the query [966d9292be52].
+
+Example:
+
+```tsx
+const query = useQuery({
+  queryKey: ['todos'],
+  queryFn: async ({ signal }) => {
+    const resp = await fetch('/todos', { signal })
+    return resp.json()
+  },
+})
+
+const queryClient = useQueryClient()
+
+// Call this to cancel the request
+queryClient.cancelQueries({ queryKey: ['todos'] })
+```
+
+When you consume the `signal` in this way, calling `cancelQueries` will cancel the Promise (aborting the fetch) and revert the query to its previous state [966d9292be52, ad579ee550e0].",- Pass the AbortSignal from the query function context to fetch,yes,1/1,yes,The answer correctly identifies that the AbortSignal from the query function context must be passed to the fetch call.,"query-cancellation.md#manual-cancellation, query-cancellation.md#cancel-options, query-cancellation.md#default-behavior, query-cancellation.md#using-graphql-request, infinite-queries.md#example",0.000,,12.19
+d07,direct,How do I keep showing the previous page's data while the next page loads in a paginated list?,"To keep showing the previous page's data while the next page loads, you should use the `placeholderData` option in your `useQuery` hook set to `keepPreviousData` [3a517dc39ee1, 42c4729daacb, d4184f8bd8a5].
+
+When you use `keepPreviousData`, the following behavior occurs:
+*   The data from the last successful fetch remains available while new data is being requested, even though the query key has changed [42c4729daacb].
+*   When the new data arrives, the UI seamlessly swaps the previous data for the new data [42c4729daacb].
+*   You can use the `isPlaceholderData` boolean returned by `useQuery` to determine if the data currently being displayed is placeholder data [42c4729daacb, d4184f8bd8a5].
+
+**Example implementation:**
+
+```tsx
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
+
+const { data, isPlaceholderData } = useQuery({
+  queryKey: ['projects', page],
+  queryFn: () => fetchProjects(page),
+  placeholderData: keepPreviousData,
+})
+```
+
+Alternatively, `placeholderData` can be provided as a function that receives the previous data and query meta information [a05b934a2fd3]:
+
+```tsx
+placeholderData: (previousData, previousQuery) => previousData,
+```",- Use placeholderData: keepPreviousData,yes,1/1,yes,The answer correctly identifies the use of placeholderData: keepPreviousData and provides accurate supporting details.,"useQuery.md#examples, useQuery.md#examples, *paginated-queries.md#better-paginated-queries-with-placeholderdata, placeholder-query-data.md#placeholder-data-as-a-function, *paginated-queries.md#better-paginated-queries-with-placeholderdata",0.333,,24.625
+d08,direct,Does the order of keys inside an object in a query key matter?,"No, the order of keys inside an object within a query key does not matter because query keys are hashed deterministically [01cee4418f5d]. For example, `['todos', { status, page }]` and `['todos', { page, status }]` are considered equal [01cee4418f5d].
+
+However, please note that the order of items within the array itself does matter [01cee4418f5d].","- Object key order does not matter
+- Array item order does matter",yes,2/2,yes,The answer correctly identifies that object key order does not matter and array item order does matter.,"*query-keys.md#query-keys-are-hashed-deterministically, query-keys.md#array-keys-with-variables, query-keys.md#simple-query-keys, query-keys.md#query-keys, query-keys.md#if-your-query-function-depends-on-a-variable-include-it-in-your-query-key",1.000,,15.863
+a01,exact_api,What does skipToken do and when would I use it?,"`skipToken` is used to disable a query in a type-safe manner [9dc655d3c67c]. 
+
+### What it does
+When you provide `skipToken` as the `queryFn`, the query is disabled [9dc655d3c67c]. It functions similarly to `enabled: false`, with the following key differences and limitations:
+
+*   **Type Safety:** It allows you to disable a query based on a condition without needing non-null assertions (e.g., `!`) in your `queryFn` [6b2bb40a29da, 9dc655d3c67c].
+*   **Refetch Limitation:** You cannot use the `refetch` function returned by `useQuery` when `skipToken` is active. Calling `refetch()` while the query is using `skipToken` will result in a ""Missing queryFn"" error because there is no valid function to execute [9dc655d3c67c, 7d016f1ff1e3].
+
+### When to use it
+You should use `skipToken` when you want to disable a query conditionally while maintaining TypeScript type safety [9dc655d3c67c]. 
+
+**Example:**
+If you have a query that depends on a variable (like a `filter` or `postId`) that might be `undefined`, you can use `skipToken` to ensure the `queryFn` is only executed when that variable is defined [9dc655d3c67c, 6b2bb40a29da]:
+
+```tsx
+const { data } = useQuery({
+  queryKey: ['todos', filter],
+  queryFn: filter ? () => fetchTodos(filter) : skipToken,
+})
+```
+
+If you need to manually trigger a query using `refetch()`, you should use `enabled: false` instead of `skipToken` [9dc655d3c67c, 7d016f1ff1e3].",- Disables a query in a type-safe way by passing it as queryFn,yes,1/1,yes,The answer correctly identifies that skipToken disables a query in a type-safe way by passing it as the queryFn.,"*disabling-queries.md#typesafe-disabling-of-queries-using-skiptoken, disabling-queries.md#disablingpausing-queries, useQuery.md#examples, useQuery.md#options, useQuery.md#examples",1.000,,16.579
+a02,exact_api,What properties are on the object passed to a query function?,"The object passed to a query function is the `QueryFunctionContext`, which contains the following properties:
+
+*   **`queryKey`**: The `QueryKey` used for the query [aeb4149cc73e].
+*   **`client`**: The `QueryClient` instance [aeb4149cc73e].
+*   **`signal`**: An optional `AbortSignal` instance provided by TanStack Query, which can be used for query cancellation [aeb4149cc73e].
+*   **`meta`**: An optional field that can be used to store additional information about the query [aeb4149cc73e].
+
+Additionally, if you are using **Infinite Queries**, the object also includes:
+
+*   **`pageParam`**: The page parameter used to fetch the current page [aeb4149cc73e].
+*   **`direction`**: The direction of the current page fetch (note: this is deprecated; it is recommended to add the direction to `pageParam` via `getNextPageParam` and `getPreviousPageParam` instead) [aeb4149cc73e].","- queryKey
+- client
+- signal
+- meta",yes,4/4,yes,The answer correctly identifies all four required properties and provides additional context from the documentation.,"*query-functions.md#queryfunctioncontext, query-cancellation.md#cancel-options, query-functions.md#query-function-variables, useQuery.md#options, query-keys.md#array-keys-with-variables",1.000,,18.741
+a03,exact_api,What does exact: true do in queryClient.invalidateQueries?,"When you use `exact: true` in `queryClient.invalidateQueries`, it ensures that only queries with a query key that matches the provided key exactly are invalidated [88e1e718876c, a434b6f1e0e7].
+
+Without `exact: true`, `invalidateQueries` performs partial matching, meaning it will invalidate any query that starts with the provided prefix [a434b6f1e0e7]. By passing `exact: true`, you restrict the invalidation so that queries with additional variables or subkeys are not affected [88e1e718876c, a434b6f1e0e7].","- Only the query whose key matches exactly is invalidated, not queries with the key as a prefix",yes,1/1,yes,"The answer correctly explains that exact: true restricts invalidation to exact matches, preventing prefix-based matching.","*query-invalidation.md#query-matching-with-invalidatequeries, *query-invalidation.md#query-matching-with-invalidatequeries, query-invalidation.md#query-invalidation, invalidations-from-mutations.md#invalidations-from-mutations, disabling-queries.md#disablingpausing-queries",1.000,,14.933
+a04,exact_api,Which options does useInfiniteQuery need to know how to fetch the next page?,"To fetch the next page using `useInfiniteQuery`, you need the following options:
+
+*   **`initialPageParam`**: This is required to specify the initial page parameter [b5b036a9c637].
+*   **`getNextPageParam`**: This option is used to determine if there is more data to load and to provide the information needed to fetch the next page [b5b036a9c637].
+*   **`queryFn`**: The query function is required to perform the actual data fetching [1440aab696fd]. It receives the `pageParam` as an argument to fetch the specific page [1440aab696fd].
+
+Additionally, you must call the **`fetchNextPage`** function (which is returned by the hook) to trigger the fetching of the next page [1440aab696fd, b5b036a9c637].","- initialPageParam
+- getNextPageParam",yes,2/2,yes,The answer correctly identifies the two required options and provides additional relevant context from the documentation.,"*infinite-queries.md#example, infinite-queries.md#what-if-i-want-to-show-the-pages-in-reversed-order, infinite-queries.md#what-if-my-api-doesnt-return-a-cursor, *infinite-queries.md#infinite-queries, infinite-queries.md#what-if-i-want-to-limit-the-number-of-pages",1.000,,13.009
+a05,exact_api,What does the select option of useQuery do?,"The `select` option in `useQuery` is used to transform or select a specific part of the data returned by the query function [021d118fb1aa]. 
+
+Key details regarding its behavior include:
+
+*   **Data Transformation:** It affects the `data` value returned by the hook, but it does not change the data stored in the query cache [021d118fb1aa].
+*   **Execution:** The `select` function only runs if the `data` has changed or if the reference to the `select` function itself changes [021d118fb1aa].
+*   **Optimization:** To optimize performance, you should memoize the `select` function so that its reference remains stable across calls [021d118fb1aa].
+*   **Usage with Query Options:** You can define a base query configuration using `queryOptions` and then provide a per-component `select` function to transform the data specifically for that component [0f134800b808]. When using this pattern, type inference ensures that the resulting `data` reflects the return type of the `select` function [0f134800b808].",- Transforms or selects part of the query data,yes,1/1,yes,The answer correctly identifies that the select option transforms or selects part of the query data and provides additional accurate details from the documentation.,"infinite-queries.md#what-if-i-want-to-show-the-pages-in-reversed-order, *useQuery.md#options, paginated-queries.md#lagging-infinite-query-results-with-placeholderdata, query-options.md#query-options, useQuery.md#parameters",0.500,,13.47
+a06,exact_api,What does maxPages do for infinite queries?,"The `maxPages` option is used to limit the number of pages stored in the query data [5c9a0c533963]. This helps improve performance and user experience in two scenarios:
+
+*   **Memory usage:** When a user can load a large number of pages [5c9a0c533963].
+*   **Network usage:** When an infinite query needs to be refetched, it prevents the need to sequentially fetch dozens of pages, as only the number of pages defined by `maxPages` will be refetched [5c9a0c533963].
+
+When used in conjunction with `getNextPageParam` and `getPreviousPageParam`, it allows for fetching pages in both directions while keeping only the specified number of pages in the query data array [5c9a0c533963].","- Limits the number of pages kept in the query data
+- Used with getNextPageParam and getPreviousPageParam",yes,2/2,yes,The answer correctly identifies both expected facts and is fully supported by the provided documentation.,"*infinite-queries.md#what-if-i-want-to-limit-the-number-of-pages, infinite-queries.md#infinite-queries, infinite-queries.md#what-if-i-want-to-implement-a-bi-directional-infinite-list, infinite-queries.md#what-if-my-api-doesnt-return-a-cursor, infinite-queries.md#example",1.000,,51.454
+m01,multi_section,How do I update the UI optimistically when adding a todo and roll back if the request fails?,"To update the UI optimistically and handle rollbacks when adding a todo, you should use the `onMutate` and `onError` handlers within `useMutation` to manipulate the cache [6e3f470ec233, 10e6f9f2b38c].
+
+The general process is as follows:
+
+1.  **`onMutate`**: 
+    *   Cancel any outgoing refetches for the query key to prevent them from overwriting your optimistic update [6e3f470ec233, 10e6f9f2b38c].
+    *   Snapshot the current cache data using `getQueryData` so you can restore it later [6e3f470ec233, 10e6f9f2b38c].
+    *   Update the cache optimistically using `setQueryData` [6e3f470ec233, 10e6f9f2b38c].
+    *   Return the snapshotted data (e.g., `{ previousTodos }`) so it can be accessed in the error handler [6e3f470ec233, 10e6f9f2b38c].
+
+2.  **`onError`**:
+    *   If the mutation fails, use the data returned from `onMutate` to revert the cache to its previous state using `setQueryData` [6e3f470ec233, 10e6f9f2b38c].
+
+3.  **`onSettled`**:
+    *   Regardless of success or failure, you should typically invalidate the query to ensure the cache is synchronized with the server state [6e3f470ec233, 10e6f9f2b38c].
+
+For a complete implementation example, refer to the following pattern:
+
+```tsx
+const queryClient = useQueryClient()
+
+useMutation({
+  mutationFn: addTodo,
+  onMutate: async (newTodo) => {
+    await queryClient.cancelQueries({ queryKey: ['todos'] })
+    const previousTodos = queryClient.getQueryData(['todos'])
+
+    queryClient.setQueryData(['todos'], (old) => [...(old ?? []), newTodo])
+
+    return { previousTodos }
+  },
+  onError: (err, newTodo, context) => {
+    queryClient.setQueryData(['todos'], context.previousTodos)
+  },
+  onSettled: () => {
+    queryClient.invalidateQueries({ queryKey: ['todos'] })
+  },
+})
+```
+
+[10e6f9f2b38c]","- Update the cache in onMutate
+- Return the previous value as context
+- Roll back in onError using the context",yes,3/3,yes,"The answer correctly identifies all three required steps and provides a clear, accurate implementation.","*optimistic-updates.md#updating-a-list-of-todos-when-adding-a-new-todo, *optimistic-updates.md#via-the-cache, useMutation.md#examples, optimistic-updates.md#when-to-use-what, optimistic-updates.md#updating-a-single-todo",1.000,,14.658
+m02,multi_section,"After a mutation succeeds, how do I make related queries refetch?","To make related queries refetch after a mutation succeeds, you can use the `onSuccess` callback within the `useMutation` hook along with the `queryClient.invalidateQueries` function [e621ec70f375].
+
+By calling `invalidateQueries` with the specific `queryKey` of the data you want to refresh, TanStack Query will mark those queries as stale and trigger a refetch [e621ec70f375].
+
+### Example
+```tsx
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+
+const queryClient = useQueryClient()
+
+const mutation = useMutation({
+  mutationFn: addTodo,
+  onSuccess: async () => {
+    // Invalidate and refetch queries with the 'todos' key
+    await queryClient.invalidateQueries({ queryKey: ['todos'] })
+  },
+})
+```
+
+### Key points:
+*   **Returning a Promise:** If you return a Promise from `onSuccess` (such as the result of `invalidateQueries`), the mutation will remain in a `isPending` state until the refetch is finished [e621ec70f375].
+*   **Multiple Queries:** You can invalidate multiple queries at once by using `Promise.all` [e621ec70f375].
+*   **Alternative Callbacks:** While `onSuccess` is common, you can wire up invalidations to any of the available mutation callbacks, such as `onSettled` [e621ec70f375, 95cb8725e6c2].","- Call invalidateQueries in the mutation's onSuccess
+- Invalidated queries are marked stale and refetched if in use",yes,2/2,yes,The answer correctly identifies the use of invalidateQueries within onSuccess and explains that it marks queries as stale and triggers a refetch.,"*invalidations-from-mutations.md#invalidations-from-mutations, optimistic-updates.md#via-the-cache, optimistic-updates.md#via-the-ui, mutations.md#mutation-side-effects, updates-from-mutation-responses.md#updates-from-mutation-responses",1.000,,14.493
+m03,multi_section,How do I run a second query only after the first one has returned a user id?,"To run a second query only after the first one has returned a user ID, you can use the `enabled` option in the second query [3fd6c68fb859].
+
+By setting `enabled: !!userId`, the second query will not execute until the `userId` variable is truthy [3fd6c68fb859].
+
+Here is an example of how to implement this:
+
+```tsx
+// Get the user
+const { data: user } = useQuery({
+  queryKey: ['user', email],
+  queryFn: getUserByEmail,
+})
+
+const userId = user?.id
+
+// Then get the user's projects
+const {
+  status,
+  fetchStatus,
+  data: projects,
+} = useQuery({
+  queryKey: ['projects', userId],
+  queryFn: getProjectsByUser,
+  // The query will not execute until the userId exists
+  enabled: !!userId,
+})
+```
+
+When the `userId` is not yet available, the second query will remain in a `pending` status with a `fetchStatus` of `idle` [3fd6c68fb859]. Once the `user` data is available, the query will become `enabled` and transition to a `fetching` state [3fd6c68fb859].",- Use enabled with a condition on the first query's data,yes,1/1,yes,The answer correctly identifies the use of the enabled option to control the execution of a dependent query.,"dependent-queries.md#usequeries-dependent-query, *dependent-queries.md#usequery-dependent-query, disabling-queries.md#lazy-queries, updates-from-mutation-responses.md#updates-from-mutation-responses, useQuery.md#options",0.500,,19.107
+m04,multi_section,Why does my data refetch when I switch browser tabs and how do I turn it off?,"TanStack Query automatically refetches stale data in the background when the window is refocused [e025b7722881, d87124c398c9].
+
+To turn this off, you can set the `refetchOnWindowFocus` option to `false`. You can do this globally or for a specific query:
+
+### Disabling Globally
+You can set this in the `QueryClient` configuration:
+
+```tsx
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+})
+```
+
+### Disabling Per-Query
+You can set this directly within the `useQuery` hook:
+
+```tsx
+useQuery({
+  queryKey: ['todos'],
+  queryFn: fetchTodos,
+  refetchOnWindowFocus: false,
+})
+```
+
+If you find that queries are still refetching when you return to a tab, ensure that **Emulate a focused page** is disabled in your Chrome DevTools Rendering panel, as this setting prevents the `visibilitychange` events that TanStack Query uses for its focus handling [099d6684c2e9].","- Stale queries refetch on window focus by default
+- Disable with refetchOnWindowFocus: false or increase staleTime",yes,2/2,yes,The answer correctly identifies that stale queries refetch on window focus and provides the correct method to disable this behavior.,"query-retries.md#background-retry-behavior, window-focus-refetching.md#troubleshooting, *window-focus-refetching.md#window-focus-refetching, *important-defaults.md#important-defaults, optimistic-updates.md#via-the-cache",0.333,,31.964
+m05,multi_section,My infinite query refetches dozens of pages sequentially. How do I reduce that?,"To reduce the number of pages refetched during an infinite query, you can use the `maxPages` option [5c9a0c533963].
+
+By setting `maxPages` in your `useInfiniteQuery` configuration, you limit the number of pages stored in the query data. When a refetch occurs, only the number of pages specified by `maxPages` will be refetched sequentially [5c9a0c533963].
+
+Example:
+```tsx
+useInfiniteQuery({
+  queryKey: ['projects'],
+  queryFn: fetchProjects,
+  initialPageParam: 0,
+  getNextPageParam: (lastPage, pages) => lastPage.nextCursor,
+  getPreviousPageParam: (firstPage, pages) => firstPage.prevCursor,
+  maxPages: 3, // Only 3 pages will be kept and refetched
+})
+```
+[5c9a0c533963]","- Refetches fetch all pages sequentially
+- Use maxPages to limit the pages kept",yes,2/2,yes,The answer correctly identifies that refetches occur sequentially and explains how to use the maxPages option to limit the number of pages refetched.,"*infinite-queries.md#what-if-i-want-to-limit-the-number-of-pages, *infinite-queries.md#what-happens-when-an-infinite-query-needs-to-be-refetched, infinite-queries.md#example, infinite-queries.md#infinite-queries, infinite-queries.md#manually-removing-a-single-value-from-an-individual-page",1.000,,11.503
+m06,multi_section,"What happens to a mutation when the user is offline, and can it be retried?","If a mutation fails because the device is offline, TanStack Query will retry the mutation in the same order once the device reconnects [1c450219a014].
+
+By default, mutations are not retried on error, but you can enable retries by using the `retry` option in the `useMutation` hook [1c450219a014]:
+
+```tsx
+const mutation = useMutation({
+  mutationFn: addTodo,
+  retry: 3,
+})
+```","- Mutations are not retried by default
+- Offline mutations can be persisted and resumed",NO,1/2,yes,The answer fails to mention that offline mutations can be persisted and resumed.,"*mutations.md#retry, *mutations.md#persisting-offline-mutations, optimistic-updates.md#via-the-cache, invalidations-from-mutations.md#invalidations-from-mutations, mutations.md#consecutive-mutations",1.000,,15.256
+x01,ambiguous,My query isn't updating.,"To help you troubleshoot why your query isn't updating, please provide more details about your implementation. Specifically, it would be helpful to know:
+
+*   Are you attempting to update the data manually (e.g., using `setQueryData`) or are you expecting an automatic update after a mutation?
+*   Are you using standard queries or infinite queries?
+*   Could you share the relevant code snippets for your `useQuery` or `useMutation` hooks?
+
+In the meantime, here are the documented mechanisms for updating data in TanStack Query v5:
+
+*   **Targeted Invalidation:** You can use `queryClient.invalidateQueries({ queryKey: ['your-key'] })`. This marks the query as stale (overriding `staleTime`) and triggers a background refetch if the query is currently being rendered [bb1eb4040bec].
+*   **Manual Updates:** You can use `queryClient.setQueryData` to imperatively update the cache [6e3f470ec233, 65b09e0fec24, 0e6346564ba7].
+*   **Optimistic Updates:** If you are performing a mutation, you can update the cache manually within the `onMutate` callback and roll back the changes in the `onError` callback if the mutation fails [6e3f470ec233].
+
+If you are working with infinite queries, ensure that you maintain the correct data structure (`pages` and `pageParams`) when performing manual updates [65b09e0fec24].","- Asks what is meant: no refetch, stale data, cache, or UI
+- Does not guess one cause",NO,0/2,yes,"The assistant failed to ask the specific clarifying questions regarding whether the issue is related to refetching, stale data, cache, or UI.","overview.md#overview, infinite-queries.md#keep-only-the-first-page, optimistic-updates.md#updating-a-list-of-todos-when-adding-a-new-todo, infinite-queries.md#manually-removing-first-page, query-invalidation.md#query-invalidation",n/a,,12.613
+x02,ambiguous,"It keeps refetching, how do I fix it?","To help you troubleshoot why your queries are refetching, I need more information. Could you please clarify:
+
+1.  **What specific behavior are you observing?** (e.g., is it refetching on window focus, on mount, or periodically?)
+2.  **What does your `useQuery` configuration look like?**
+3.  **Are you using any specific settings** like `refetchInterval`, `refetchOnWindowFocus`, `refetchOnMount`, or `refetchOnReconnect`?
+
+In the meantime, here are the documented mechanisms that trigger background refetches for stale queries:
+
+*   **Automatic Triggers:** By default, stale queries refetch when new instances mount, the window is refocused, or the network reconnects [e025b7722881].
+*   **Polling:** If you have configured `refetchInterval`, the query will trigger refetches periodically regardless of the `staleTime` [e025b7722881].
+*   **Window Focus:** If you are experiencing unexpected refetches when returning to the browser tab, ensure that **""Emulate a focused page""** is disabled in your Chrome DevTools Rendering panel, as this can interfere with how TanStack Query detects visibility changes [099d6684c2e9].
+*   **Disabling Refetches:** You can control these behaviors globally or per-query using options like `refetchOnWindowFocus`, `refetchOnMount`, and `refetchOnReconnect` [e025b7722881, d87124c398c9]. Setting a `staleTime` is also recommended to avoid excessive refetches [e025b7722881].","- Asks which query/trigger (focus, mount, interval) and the current config",yes,1/1,yes,The assistant correctly asks for the necessary configuration and trigger details while providing helpful context.,"optimistic-updates.md#via-the-cache, window-focus-refetching.md#troubleshooting, important-defaults.md#important-defaults, window-focus-refetching.md#window-focus-refetching, disabling-queries.md#disablingpausing-queries",n/a,,12.833
+x03,ambiguous,How do I make it faster?,"To improve the performance of your application using TanStack Query, consider the following approaches based on the documentation:
+
+*   **Avoid Request Waterfalls:** Dependent queries create request waterfalls, which hurt performance by forcing serial execution. If possible, restructure your backend APIs to allow queries to be fetched in parallel [16853894e062].
+*   **Leverage TanStack Query Logic:** Using TanStack Query can help your application feel faster and more responsive to end-users, while potentially saving on bandwidth and increasing memory performance [d5e59da2bff4].
+*   **Optimistic Updates:** You can make your application feel more responsive by performing optimistic updates. If you only need to show the result in one place, updating the UI directly using `variables` is easier and requires less code [c30a68da58d6]. If you need the update reflected in multiple places, you can manipulate the cache directly [c30a68da58d6].
+
+If you are experiencing specific performance issues, please provide more details about your current implementation, such as how you are structuring your queries or where you are observing latency.","- Asks what is slow (initial load, refetches, rendering)",NO,0/1,yes,The assistant provided specific performance recommendations instead of asking what is slow as requested by the expected behavior.,"overview.md#motivation, mutations.md#mutation-side-effects, optimistic-updates.md#via-the-cache, dependent-queries.md#a-note-about-performance, optimistic-updates.md#when-to-use-what",n/a,,27.706
+x04,ambiguous,The mutation doesn't work.,"To help you troubleshoot why your mutation is not working, please provide more details about your implementation. Specifically, it would be helpful to know:
+
+*   **What behavior are you observing?** (e.g., is it throwing an error, not triggering, or failing to update the UI?)
+*   **How are you calling the `mutate` function?** For example, if you are using it inside an `onSubmit` handler in older versions of React, you must wrap it in a function to avoid issues with React event pooling [77bc252b2aa7].
+*   **Are you using offline persistence?** If you are using the `persistQueryClient` plugin, mutations cannot be resumed after a page reload unless you have provided a default mutation function using `queryClient.setMutationDefaults` [fa9f7f92dfe5].
+*   **Are you expecting a retry?** By default, TanStack Query does not retry mutations on error unless you explicitly configure the `retry` option [1c450219a014].
+
+If you can share the code snippet where you define and call the `useMutation` hook, I can better explain the relevant mechanisms.","- Asks for the error, the code, or what is expected",yes,1/1,yes,The assistant correctly asks for the code and details to clarify the issue.,"optimistic-updates.md#via-the-cache, optimistic-updates.md#if-the-mutation-and-the-query-dont-live-in-the-same-component, mutations.md#mutations, mutations.md#retry, mutations.md#persisting-offline-mutations",n/a,,15.755
+x05,ambiguous,How do I handle errors?,"To handle errors in TanStack Query v5, you must ensure your query function either throws an error or returns a rejected Promise [7d0a0491065d]. 
+
+If you are using a utility like `fetch` that does not throw errors for unsuccessful HTTP responses by default, you must manually check the response and throw an error yourself [5542b9d902c1].
+
+### Key behaviors regarding errors:
+*   **Retries:** When a query fails, TanStack Query will automatically retry the request up to 3 times by default [ce1d2d4a68f0]. You can configure this behavior using the `retry` option (e.g., setting it to `false` to disable retries, or providing a number or function for custom logic) [ce1d2d4a68f0].
+*   **Error State:** Any error thrown in the query function is persisted in the `error` state of the query [7d0a0491065d]. During retry attempts, the error information is available in the `failureReason` property until the final attempt fails [ce1d2d4a68f0].
+*   **Resetting State:** If you need to clear the `error` (or `data`) state of a mutation, you can use the `reset` function provided by the mutation object [1d756931af05].","- Asks whether the errors are from queries, mutations or rendering",NO,0/1,yes,The assistant provided information about error handling instead of asking a clarifying question as requested.,"mutations.md#resetting-mutation-state, query-functions.md#handling-and-throwing-errors, query-functions.md#usage-with-fetch-and-other-clients-that-do-not-throw-by-default, query-retries.md#query-retries, optimistic-updates.md#when-to-use-what",n/a,,14.766
+o01,out_of_corpus,How do I set up server-side rendering with hydration in Next.js app router?,This is not in the documentation I was given.,- States this is not in the documentation provided,yes,1/1,yes,The assistant correctly identified that the provided documentation does not contain information about setting up server-side rendering with hydration in the Next.js app router.,"mutations.md#persist-mutations, mutations.md#mutations, overview.md#motivation, infinite-queries.md#example, quick-start.md#quick-start",n/a,no citations,15.767
+o02,out_of_corpus,How do I migrate from React Query v3 to v5?,This is not in the documentation I was given.,- States this is not in the documentation provided,yes,1/1,yes,The assistant correctly abstained from answering because the provided documentation does not contain information about migrating from React Query v3 to v5.,"optimistic-updates.md#optimistic-updates, query-options.md#query-options, window-focus-refetching.md#managing-focus-in-react-native, query-retries.md#retry-delay, query-cancellation.md#using-graphql-request-with-version-lower-than-v400",n/a,no citations,15.682
+o03,out_of_corpus,How do I use RTK Query's createApi instead?,This is not in the documentation I was given. The provided documentation covers TanStack Query v5 and does not contain information regarding RTK Query or `createApi`.,- States this is not in the documentation provided,yes,1/1,yes,The assistant correctly abstained from answering because the information is not in the provided documentation.,"query-options.md#query-options, updates-from-mutation-responses.md#updates-from-mutation-responses, paginated-queries.md#better-paginated-queries-with-placeholderdata, infinite-queries.md#what-if-my-api-doesnt-return-a-cursor, mutations.md#mutations",n/a,no citations,13.338
+o04,out_of_corpus,How do I use the TanStack Query devtools?,This is not in the documentation I was given.,- States this is not in the documentation provided,yes,1/1,yes,The assistant correctly abstained from answering because the information is not in the provided documentation.,"query-keys.md#query-keys, window-focus-refetching.md#troubleshooting, infinite-queries.md#infinite-queries, window-focus-refetching.md#custom-window-focus-event, overview.md#enough-talk-show-me-some-code-already",n/a,no citations,11.471
+o05,out_of_corpus,How do I use TanStack Router loaders together with Query?,This is not in the documentation I was given.,- States this is not in the documentation provided,yes,1/1,yes,The assistant correctly identified that the provided documentation does not contain information about TanStack Router loaders.,"overview.md#motivation, query-cancellation.md#manual-cancellation, useQuery.md#examples, paginated-queries.md#paginated-lagged-queries, overview.md#enough-talk-show-me-some-code-already",n/a,no citations,19.667

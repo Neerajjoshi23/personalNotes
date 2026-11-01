@@ -1,0 +1,12 @@
+{
+  "name": "TanStack Query v5 (React)",
+  "collection": "tanstack_query_v5",
+  "source": {
+    "repo": "TanStack/query",
+    "docs_root": "docs/framework/react",
+    "site_base": "https://tanstack.com/query/v5/docs/framework/react",
+    "version_file": "packages/react-query/package.json",
+    "expected_major": "5",
+    "license_note": "MIT (TanStack/query). Keep attribution and link to source URLs."
+  }
+}

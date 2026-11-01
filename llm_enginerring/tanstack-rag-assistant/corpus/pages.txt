@@ -1,0 +1,29 @@
+# Pages to index, relative to docs/framework/react/ in TanStack/query.
+# One per line. Lines starting with # are ignored.
+
+overview.md
+quick-start.md
+
+guides/important-defaults.md
+guides/queries.md
+guides/query-keys.md
+guides/query-functions.md
+guides/query-options.md
+guides/caching.md
+guides/query-invalidation.md
+guides/dependent-queries.md
+guides/disabling-queries.md
+guides/paginated-queries.md
+guides/infinite-queries.md
+guides/query-cancellation.md
+guides/query-retries.md
+guides/window-focus-refetching.md
+guides/placeholder-query-data.md
+
+guides/mutations.md
+guides/optimistic-updates.md
+guides/invalidations-from-mutations.md
+guides/updates-from-mutation-responses.md
+
+reference/functions/useQuery.md
+reference/functions/useMutation.md

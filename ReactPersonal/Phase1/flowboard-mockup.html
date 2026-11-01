@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Flowboard — Mockup</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-900 p-6">
+
+  <!-- TOP BAR -->
+  <div class="flex items-center justify-between mb-5">
+    <h1 class="text-xl font-bold">Flowboard</h1>
+    <button class="bg-gray-900 text-white text-sm px-3 py-1.5 rounded-md">+ Add Task</button>
+  </div>
+
+  <!-- FILTER BAR -->
+  <div class="flex items-center gap-3 mb-5">
+    <input type="text" placeholder="Search tasks..." class="border rounded-md px-3 py-1.5 text-sm w-56" />
+    <select class="border rounded-md px-2 py-1.5 text-sm">
+      <option>All priorities</option>
+      <option>High</option>
+      <option>Medium</option>
+      <option>Low</option>
+    </select>
+  </div>
+
+  <!-- BOARD -->
+  <div class="grid grid-cols-3 gap-4">
+
+    <!-- COLUMN: To Do -->
+    <div class="bg-gray-100 rounded-lg p-3">
+      <div class="flex justify-between items-center mb-3 text-sm font-semibold text-gray-600">
+        <span>To Do</span>
+        <span class="bg-gray-200 rounded-full px-2 text-xs">3</span>
+      </div>
+
+      <div class="bg-white rounded-md shadow-sm p-3 mb-3">
+        <div class="flex justify-between items-start">
+          <div class="font-medium text-sm">Write onboarding doc</div>
+          <span class="text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded-full">High</span>
+        </div>
+        <div class="text-xs text-gray-500 mt-1">Draft steps for new hires</div>
+        <div class="flex gap-3 mt-2 text-xs text-gray-400">
+          <button>Edit</button>
+          <button>Delete</button>
+          <select class="border rounded px-1 text-xs">
+            <option>Move to →</option>
+            <option>In Progress</option>
+            <option>Done</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-md shadow-sm p-3 mb-3">
+        <div class="flex justify-between items-start">
+          <div class="font-medium text-sm">Fix login redirect bug</div>
+          <span class="text-xs bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded-full">Med</span>
+        </div>
+        <div class="text-xs text-gray-500 mt-1">Happens only on Safari</div>
+        <div class="flex gap-3 mt-2 text-xs text-gray-400">
+          <button>Edit</button>
+          <button>Delete</button>
+          <select class="border rounded px-1 text-xs">
+            <option>Move to →</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-md shadow-sm p-3">
+        <div class="flex justify-between items-start">
+          <div class="font-medium text-sm">Plan Q3 roadmap</div>
+          <span class="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full">Low</span>
+        </div>
+        <div class="text-xs text-gray-500 mt-1">Rough draft only</div>
+        <div class="flex gap-3 mt-2 text-xs text-gray-400">
+          <button>Edit</button>
+          <button>Delete</button>
+          <select class="border rounded px-1 text-xs">
+            <option>Move to →</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- COLUMN: In Progress -->
+    <div class="bg-gray-100 rounded-lg p-3">
+      <div class="flex justify-between items-center mb-3 text-sm font-semibold text-gray-600">
+        <span>In Progress</span>
+        <span class="bg-gray-200 rounded-full px-2 text-xs">1</span>
+      </div>
+
+      <div class="bg-white rounded-md shadow-sm p-3">
+        <div class="flex justify-between items-start">
+          <div class="font-medium text-sm">Refactor auth middleware</div>
+          <span class="text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded-full">High</span>
+        </div>
+        <div class="text-xs text-gray-500 mt-1">Compliance-driven rewrite</div>
+        <div class="flex gap-3 mt-2 text-xs text-gray-400">
+          <button>Edit</button>
+          <button>Delete</button>
+          <select class="border rounded px-1 text-xs">
+            <option>Move to →</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- COLUMN: Done -->
+    <div class="bg-gray-100 rounded-lg p-3">
+      <div class="flex justify-between items-center mb-3 text-sm font-semibold text-gray-600">
+        <span>Done</span>
+        <span class="bg-gray-200 rounded-full px-2 text-xs">1</span>
+      </div>
+
+      <div class="bg-white rounded-md shadow-sm p-3 opacity-60">
+        <div class="flex justify-between items-start">
+          <div class="font-medium text-sm line-through">Set up project repo</div>
+          <span class="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full">Low</span>
+        </div>
+        <div class="text-xs text-gray-500 mt-1">Initial scaffolding</div>
+        <div class="flex gap-3 mt-2 text-xs text-gray-400">
+          <button>Edit</button>
+          <button>Delete</button>
+          <select class="border rounded px-1 text-xs">
+            <option>Move to →</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- UNDO TOAST (dummy, always visible here just to show what it looks like) -->
+  <div class="fixed bottom-5 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-sm px-4 py-2 rounded-md flex items-center gap-4">
+    Task deleted
+    <button class="underline">Undo</button>
+  </div>
+
+</body>
+</html>

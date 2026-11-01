@@ -1,0 +1,72 @@
+1. Scaffold the project
+
+
+npm create vite@latest my-react-practice -- --template react
+(You'll be prompted to confirm package name/framework if you drop the flags — the --template react skips that.)
+
+2. Move into the folder and install deps
+
+
+cd my-react-practice
+npm install
+3. Run the dev server
+
+
+npm run dev
+This starts a local server (usually http://localhost:5173) with hot reload.
+
+4. Where to practice
+
+src/App.jsx — main component, good for trying JSX/state/props experiments.
+src/main.jsx — entry point, rarely needs edits for basic practice.
+Create new files under src/ (e.g. src/Counter.jsx) for each concept you want to isolate — one component per gotcha/topic is a good habit for revising phase 1 concepts (rendering, state, events, keys, etc).
+5. Optional cleanup for a clean slate
+Delete the boilerplate content in App.jsx/App.css and start from a blank component so default Vite demo code doesn't distract you.
+
+Once it's running, tell me which topic from progressPhase1.md you want to drill (e.g. rendering lists, event handlers, controlled inputs) and I can give you a small dummy exercise to build in it.
+
+6. Add shadcn/ui (prebuilt components, editable source)
+
+
+npm install tailwindcss @tailwindcss/vite
+
+Add the Tailwind plugin to vite.config.js:
+
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
+import path from "path"
+
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
+  },
+})
+
+Import Tailwind in src/index.css:
+
+@import "tailwindcss";
+
+Create jsconfig.json at project root:
+
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}
+
+Run the shadcn init:
+
+npx shadcn@latest init
+
+Add components as needed (source lands in src/components/ui/):
+
+npx shadcn@latest add button
+npx shadcn@latest add dialog
+npx shadcn@latest add tabs

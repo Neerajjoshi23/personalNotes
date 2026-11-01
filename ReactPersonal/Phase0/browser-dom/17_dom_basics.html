@@ -1,0 +1,194 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>0.17 DOM basics</title>
+    <style>
+      .active {
+        color: green;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <!--
+  ============================================================================
+  0.17  DOM BASICS  (javascript.info/searching-elements-dom, /modifying-document)
+  ============================================================================
+  Open DevTools console and read the logs.
+
+  WHAT YOU NEED TO LEARN FROM THIS FILE
+    1. querySelector / querySelectorAll vs getElementById / getElementsBy*
+    2. STATIC NodeList vs LIVE HTMLCollection
+    3. matches() and closest()
+    4. Creating nodes: createElement, createTextNode
+    5. Inserting: append, prepend, before, after, replaceWith, insertAdjacentHTML
+    6. textContent vs innerHTML (XSS!)
+    7. A node can only be in ONE place: inserting moves it; cloneNode copies it
+    8. DocumentFragment for batch inserts
+    9. dataset and classList
+  ============================================================================
+  -->
+
+    <div id="app">
+      <ul id="list">
+        <li class="item">One</li>
+        <li class="item">Two</li>
+        <li class="item">Three</li>
+      </ul>
+    </div>
+
+    <script>
+      const log = (...args) => console.log(...args);
+
+      // ------------------------------------------------------------------
+      // EXAMPLE 1: searching
+      // ------------------------------------------------------------------
+      const byId = document.getElementById("list"); // single element or null
+      const first = document.querySelector(".item"); // FIRST match or null
+      const all = document.querySelectorAll(".item"); // static NodeList
+
+      log(
+        "EX1: byId tag =",
+        byId.tagName,
+        "| first text =",
+        first.textContent,
+        "| count =",
+        all.length,
+      );
+
+      // querySelector accepts any CSS selector and is the default choice today.
+      // getElementById is slightly faster and fine when you have an id.
+      // Methods exist on any element, not only document: byId.querySelector("li")
+
+      // ------------------------------------------------------------------
+      // EXAMPLE 2: static vs live collections (classic gotcha)
+      // ------------------------------------------------------------------
+      const staticList = document.querySelectorAll("li"); // snapshot: never updates
+      const liveList = document.getElementsByTagName("li"); // live HTMLCollection: always updates
+      li_local = document.createElement("li"); // create a new <li> element before appending
+      li_local.textContent = "Four";
+      byId.append(li_local); // add a 4th <li>
+
+      log("EX2: static length =", staticList.length); // 3
+      log("EX2: live length   =", liveList.length); // 4
+
+      // GOTCHA: looping a LIVE collection while adding/removing nodes inside the loop
+      // can loop forever or skip items:
+      //   for (const li of liveList) { ul.append(document.createElement("li")); }  // infinite!
+      // Fix: Array.from(liveList) or use querySelectorAll (static).
+      // Also: HTMLCollection has no forEach/map. Use Array.from(...).
+
+      // ------------------------------------------------------------------
+      // EXAMPLE 3: matches / closest
+      // ------------------------------------------------------------------
+      log("EX3: matches =", first.matches(".item")); // true (tests the element itself)
+      log("EX3: closest =", first.closest("#app").id); // walks UP, includes itself, returns ancestor or null
+      log("EX3: closest miss =", first.closest("table")); // null: always null-check!
+
+      // ------------------------------------------------------------------
+      // EXAMPLE 4: create + insert
+      // ------------------------------------------------------------------
+      const li = document.createElement("li"); // not in the DOM yet
+      li.className = "item";
+      li.textContent = "Created";
+
+      byId.append(li); // end of byId (inside)
+      byId.prepend("start text"); // start of byId (strings become text nodes)
+      first.before("[before first]"); // just outside, before
+      first.after(document.createElement("hr")); // just outside, after
+      // first.replaceWith(otherNode);           // replaces in place
+      // first.remove();                         // removes from DOM
+
+      // append/prepend/before/after take MANY args, and strings become TEXT (safe), not HTML.
+
+      // insertAdjacentHTML parses a string as HTML at a position:
+      //   "beforebegin" <ul> "afterbegin" ...children... "beforeend" </ul> "afterend"
+      byId.insertAdjacentHTML(
+        "beforeend",
+        "<li class='item'>From HTML string</li>",
+      );
+
+      // ------------------------------------------------------------------
+      // EXAMPLE 5: textContent vs innerHTML  (security + perf)
+      // ------------------------------------------------------------------
+      const userInput = "<img src=x onerror=\"console.log('XSS ran!')\">";
+
+      const safe = document.createElement("div");
+      safe.textContent = userInput; // rendered as TEXT: harmless
+      log("EX5: safe =", safe.innerHTML);
+
+      const unsafe = document.createElement("div");
+      unsafe.innerHTML = userInput; // parsed as HTML: the onerror handler runs!
+      document.body.append(unsafe);
+
+      // RULE: never put untrusted data into innerHTML. React escapes by default, and that's why
+      // dangerouslySetInnerHTML is named like that.
+      // Another trap: innerHTML += "..." re-parses everything and destroys existing
+      // children's event listeners and state.
+
+      // ------------------------------------------------------------------
+      // EXAMPLE 6: a node lives in ONE place. Insert = move. cloneNode = copy.
+      // ------------------------------------------------------------------
+      const moved = document.createElement("p");
+      moved.textContent = "I exist once";
+
+      document.body.append(moved);
+      byId.append(moved); // MOVED into the list, no longer in the body
+
+      const copy = moved.cloneNode(true); // true = deep (children too); false = shallow
+      document.body.append(copy);
+      // GOTCHA: cloneNode copies attributes and children, but NOT listeners added with addEventListener.
+      // (inline onclick attributes are copied)
+
+      // ------------------------------------------------------------------
+      // EXAMPLE 7: DocumentFragment, batch insert
+      // ------------------------------------------------------------------
+      const fragment = document.createDocumentFragment();
+
+      for (let i = 1; i <= 3; i++) {
+        const item = document.createElement("li");
+        item.textContent = `Fragment ${i}`;
+        fragment.append(item);
+      }
+
+      byId.append(fragment); // one insertion; fragment itself vanishes, its children move in
+      // Benefit: one reflow instead of N. Modern code often builds a string or uses
+      // append(...nodes) instead, but this is the tested concept.
+
+      // ------------------------------------------------------------------
+      // EXAMPLE 8: dataset and classList
+      // ------------------------------------------------------------------
+      first.dataset.userId = "42"; // writes data-user-id="42" (camelCase <-> kebab-case)
+      log(
+        "EX8: dataset =",
+        first.dataset.userId,
+        "| attr =",
+        first.getAttribute("data-user-id"),
+      );
+
+      first.classList.add("active");
+      first.classList.toggle("active"); // now removed
+      first.classList.toggle("active", true); // force on
+      log("EX8: has active =", first.classList.contains("active"));
+      // Never manipulate className strings by hand: classList is the safe API.
+
+      /*
+    ========================================================================
+    INTERVIEW TAKEAWAYS
+    ========================================================================
+    - querySelectorAll vs getElementsByClassName?
+        Static NodeList snapshot vs LIVE HTMLCollection that updates with the DOM.
+    - textContent vs innerHTML?
+        textContent treats everything as text (safe, fast); innerHTML parses HTML (XSS risk).
+    - How do you move vs copy an element?
+        append/insert moves it; cloneNode(true) copies it (without listeners).
+    - How do you efficiently insert many nodes?
+        Build in a DocumentFragment (or one string/append(...nodes)) and insert once.
+    - What does closest() do?
+        Walks up from the element (itself included) until the selector matches, otherwise null.
+    ========================================================================
+    */
+    </script>
+  </body>
+</html>

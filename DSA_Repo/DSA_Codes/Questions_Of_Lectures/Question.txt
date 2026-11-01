@@ -1,0 +1,175 @@
+Reverse An Integer(https://leetcode.com/problems/reverse-integer/description/)
+Complement of Base 10 integer(https://leetcode.com/problems/complement-of-base-10-integer/description/)
+
+1d Array 
+SwapAlternatives(file)
+FindUniqueElement(https://www.codingninjas.com/codestudio/problems/find-unique_625159?source=youtube&campaign=love_babbar_codestudio1&utm_source=youtube&utm_medium=affiliate&utm_campaign=love_babbar_codestudio1)
+UniqueOccurenceOfEachElement(https://leetcode.com/problems/unique-number-of-occurrences/)
+FindDuplicate(https://www.codingninjas.com/codestudio/problems/duplicate-in-array_893397?source=youtube&campaign=love_babbar_codestudio1&utm_source=youtube&utm_medium=affiliate&utm_campaign=love_babbar_codestudio1&leftPanelTab=1)
+IntersectionOfTwoArray(https://www.codingninjas.com/codestudio/problems/intersection-of-2-arrays_1082149?source=youtube&campaign=love_babbar_codestudio1&utm_source=youtube&utm_medium=affiliate&utm_campaign=love_babbar_codestudio1&leftPanelTab=1)
+PairSum(https://www.codingninjas.com/codestudio/problems/pair-sum_697295?source=youtube&campaign=love_babbar_codestudio1&utm_source=youtube&utm_medium=affiliate&utm_campaign=love_babbar_codestudio1&leftPanelTab=1)
+TripletSum(https://www.codingninjas.com/codestudio/problems/triplets-with-given-sum_893028?source=youtube&campaign=LoveBabbar_Codestudiovideo1&utm_source=youtube&utm_medium=affiliate&utm_campaign=LoveBabbar_Codestudiovideo1&leftPanelTab=1)
+FindAllDuplicateInArray(https://leetcode.com/problems/find-all-duplicates-in-an-array/description/)
+Sort_0_1(file)
+sort_0_1_2(https://practice.geeksforgeeks.org/problems/sort-an-array-of-0s-1s-and-2s4231/1)
+
+BinarySearch
+FirstAndLastOcuur(https://www.codingninjas.com/codestudio/problems/first-and-last-position-of-an-element-in-sorted-array_1082549?source=youtube&campaign=love_babbar_codestudio2&utm_source=youtube&utm_medium=affiliate&utm_campaign=love_babbar_codestudio2)
+PeakElementInMountainArray(https://leetcode.com/problems/peak-index-in-a-mountain-array/description/)
+sqrt(file)
+BookAllocationProblem(https://www.codingninjas.com/codestudio/problems/ayush-and-ninja-test_1097574?source=youtube&campaign=love_babbar_codestudio2&utm_source=youtube&utm_medium=affiliate&utm_campaign=love_babbar_codestudio2)
+AggressiveCowProblem(https://www.codingninjas.com/codestudio/problems/aggressive-cows_1082559?source=youtube&campaign=love_babbar_codestudio2&utm_source=youtube&utm_medium=affiliate&utm_campaign=love_babbar_codestudio2)
+ReverseString(https://leetcode.com/problems/reverse-string/)
+
+String
+Check Palindrome:https://bit.ly/3E55FvF 
+Valid Palindrome https://leetcode.com/problems/valid-palindrome/
+ReverseWordInstring https://leetcode.com/problems/reverse-words-in-a-string-ii/
+Remove all occurrences of substring: https://bit.ly/3sfP71Q 
+Maximum occurring character https://practice.geeksforgeeks.org/problems/maximum-occuring-character-1587115620/1
+Remove adjacent Duplicates: https://leetcode.com/problems/remove-all-occurrences-of-a-substring/
+Permutation in Strings:https://leetcode.com/problems/permutation-in-string/
+String Compression:https://leetcode.com/problems/string-compression/description/
+
+2D Matrix
+Wave Print: https://bit.ly/329Le3K
+Spiral Print: https://leetcode.com/problems/spiral-matrix/
+Rotate a Matrix by 90 degrees:https://leetcode.com/problems/rotate-image/
+Search in a 2D Matrix I LeetCode:https://leetcode.com/problems/search-a-2d-matrix/submissions/963013461/
+Search in a 2D Matrix II LeetCode: https://leetcode.com/problems/search-a-2d-matrix-ii/ 
+
+Recursion
+Fibonnacci Series:https://leetcode.com/problems/fibonacci-number/
+Climb Stairs: https://bit.ly/32VA96H
+Subsets:https://leetcode.com/problems/subsets/
+Subsequences: https://bit.ly/33hi3MB
+Phone Keypad Question:https://leetcode.com/problems/letter-combinations-of-a-phone-number/submissions/689068712/
+Permutations Questions https://leetcode.com/problems/permutations/submissions/657939262/
+Rat in a Maze Problem https://practice.geeksforgeeks.org/problems/rat-in-a-maze-problem/1
+
+//Linked List
+Reverse a Linked List: https://bit.ly/3H1lKov
+find Middle of a Linked List: https://bit.ly/3tRF3ga
+Reverse DLL https://practice.geeksforgeeks.org/problems/reverse-a-doubly-linked-list/1?utm_source=gfg&utm_medium=article&utm_campaign=bottom_sticky_on_article
+Reverse a Linked List in K group: https://bit.ly/3r1rCIP
+Circular Linked List or not: https://bit.ly/3qY0KcF
+Detect & Remove Loop in Linked List: https://bit.ly/3rSdTDo
+Remove Duplicates from Sorted Linked List: https://bit.ly/3rjMQC5 
+Remove Duplicates from Un-Sorted Linked List: https://bit.ly/3uaGRRU 
+- Sort 0s, 1s and 2s : https://bit.ly/3s3fAOu
+- Merge 2 sorted Linked List : https://bit.ly/3rfFdfV
+check palindrome https://practice.geeksforgeeks.org/problems/check-if-linked-list-is-pallindrome/1
+- Add 2 Numbers rep. by Linked List https://practice.geeksforgeeks.org/problems/add-two-numbers-represented-by-linked-lists/1
+- Merge Sort Linked List:  https://bit.ly/3GsXWsz
+- Flatten a Linked List: https://bit.ly/3GoASv6
+Clone Linked List with Random Pointers:https://practice.geeksforgeeks.org/problems/clone-a-linked-list-with-next-and-random-pointer/1
+
+//stack and queue
+Delete Middle Element in Stack:https://bit.ly/3ovTIu2
+Valid Parenthesis:https://bit.ly/34kxPaq
+InsertAtBottom in Stack:https://bit.ly/34qqmGL
+Reverse a Stack using recursion:https://bit.ly/3HCBnD4
+Sort a Stack using recursion:https://bit.ly/3snpr1B
+Redundant Brackets:https://practice.geeksforgeeks.org/problems/e015cb4d3f354b035d9665e7c8a54a7aefb1901b/1
+Minimum bracket Reversal:https://bit.ly/3GAYRr5
+Celebrity Problem : https://practice.geeksforgeeks.org/problems/the-celebrity-problem/1
+ Max Rectangle in Binary Matrix with all 1's:https://practice.geeksforgeeks.org/problems/max-rectangle/1
+ N Stacks in an Array: https://bit.ly/3BexNwv
+ GET min in O(1) and O(1_) :https://www.codingninjas.com/codestudio/problems/design-a-stack-that-supports-getmin-in-o-1-time-and-o-1-extra-space_842465?topList=love-babbar-dsa-sheet-problems%3Fsource%3Dyoutube&campaign=Codestudio_Lovebabbar&utm_source=youtube&utm_medium=affiliate&utm_campaign=Codestudio_Lovebabbar
+ Next Smaller Element : https://bit.ly/34GjYL4
+- Largest Rectangular Area in Histogram:https://leetcode.com/problems/largest...
+Queue Reversal:https://practice.geeksforgeeks.org/problems/queue-reversal/1
+First negative integer in every window of size K:https://practice.geeksforgeeks.org/problems/first-negative-integer-in-every-window-of-size-k3345/1
+Reverse first K element of Queue: https://practice.geeksforgeeks.org/problems/reverse-first-k-elements-of-queue/1
+First Non-Repeating character in stream:https://practice.geeksforgeeks.org/problems/first-non-repeating-character-in-a-stream1216/1
+Circular tour: https://practice.geeksforgeeks.org/problems/circular-tour-1587115620/1
+K Queue in Single Array:https://www.geeksforgeeks.org/efficiently-implement-k-queues-single-array/
+Sum of min & max elements of all subarray of size K: https://www.geeksforgeeks.org/sum-minimum-maximum-elements-subarrays-size-k/
+InterLeave :https://www.geeksforgeeks.org/efficiently-implement-k-queues-single-array/
+
+//binary tree + BST
+Height of Tree:https://practice.geeksforgeeks.org/problems/height-of-binary-tree/1
+Diameter of Tree: https://practice.geeksforgeeks.org/problems/diameter-of-binary-tree/1
+Balanced Tree or Not:https://practice.geeksforgeeks.org/problems/check-for-balanced-tree/1
+Tree Identical or Not:https://practice.geeksforgeeks.org/problems/determine-if-two-trees-are-identical/1
+Sum Tree or Not:https://practice.geeksforgeeks.org/problems/sum-tree/1
+ZigZag Traversal: https://practice.geeksforgeeks.org/problems/zigzag-tree-traversal/1
+Boundary Traversal:https://practice.geeksforgeeks.org/problems/boundary-traversal-of-binary-tree/1
+Vertical Order https://practice.geeksforgeeks.org/problems/print-a-binary-tree-in-vertical-order/1
+Top View:https://practice.geeksforgeeks.org/problems/top-view-of-binary-tree/1
+Bottom View:https://practice.geeksforgeeks.org/problems/bottom-view-of-binary-tree/1
+Right View:https://practice.geeksforgeeks.org/problems/right-view-of-binary-tree/1
+Left View:https://practice.geeksforgeeks.org/problems/left-view-of-binary-tree/1
+Diagonal Traversal:https://practice.geeksforgeeks.org/problems/diagonal-traversal-of-binary-tree/1
+ Sum of Longest BloodLine:https://practice.geeksforgeeks.org/problems/sum-of-the-longest-bloodline-of-a-tree/1
+- LCA of Binary Tree:https://practice.geeksforgeeks.org/problems/lowest-common-ancestor-in-a-binary-tree/1
+- K Sum paths:https://practice.geeksforgeeks.org/problems/k-sum-paths/1
+- Kth Ancestor:https://practice.geeksforgeeks.org/problems/kth-ancestor-in-a-tree/1
+- Max Sum of Non-Adjacent Nodes: https://practice.geeksforgeeks.org/problems/maximum-sum-of-non-adjacent-nodes/1
+Construct a BT from Inorder/PreOrder traversal: https://practice.geeksforgeeks.org/problems/construct-tree-1/1
+- Construct a BT from PreOrder/PostOrder traversal:https://practice.geeksforgeeks.org/problems/tree-from-postorder-and-inorder/1
+Morris Traversal: https://www.geeksforgeeks.org/inorder-tree-traversal-without-recursion-and-without-stack/
+Flatten a Tree to LL:https://practice.geeksforgeeks.org/problems/flatten-binary-tree-to-linked-list/1
+Validate BST:https://practice.geeksforgeeks.org/problems/check-for-bst/1?utm_source=gfg&utm_medium=article&utm_campaign=bottom_sticky_on_article
+Inorder Predecessor/Successor:https://www.geeksforgeeks.org/inorder-predecessor-successor-given-key-bst/
+Kth Smallest/Largest in BST:https://practice.geeksforgeeks.org/problems/kth-largest-element-in-bst/1?utm_source=gfg&utm_medium=article&utm_campaign=bottom_sticky_on_article
+LCA in BST:https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/description/
+Normal BST to Balanced BST:https://www.codingninjas.com/codestudio/problems/normal-bst-to-balanced-bst_920472?leftPanelTab=0
+BST from Preorder:https://www.codingninjas.com/codestudio/problems/preorder-traversal-to-bst_893111?leftPanelTab=0
+Flatten BST to Sorted LL:https://www.codingninjas.com/codestudio/problems/flatten-bst-to-a-sorted-list_1169459?leftPanelTab=0
+Two Sum in BST: https://www.codingninjas.com/codestudio/problems/two-sum-in-a-bst_1062631?leftPanelTab=0
+Merge Two Bst :https://www.codingninjas.com/codestudio/problems/h_920474?leftPanelTab=0&utm_source=youtube&utm_medium=affiliate&utm_campaign=Lovebabbar
+Largest BST Subtree: https://www.codingninjas.com/codestudio/problems/largest-bst-subtree_893103?leftPanelTab=0&utm_source=youtube&utm_medium=affiliate&utm_campaign=Lovebabbar
+
+Heap
+ Kth Smallest element: https://practice.geeksforgeeks.org/problems/kth-smallest-element5635/1
+- Merge 2 Heaps:https://practice.geeksforgeeks.org/problems/merge-two-binary-max-heap0144/1
+- Is Tree a Heap: https://practice.geeksforgeeks.org/problems/is-binary-tree-heap/1
+- Min Cost of "n" ropes:https://practice.geeksforgeeks.org/problems/minimum-cost-of-ropes-1587115620/1
+- Convert BST into HEAP:https://www.geeksforgeeks.org/convert-bst-min-heap/
+- Median in a Stream:https://www.codingninjas.com/codestudio/problems/median-in-a-stream_975268?leftPanelTab=1&utm_source=youtube&utm_medium=affiliate&utm_campaign=Lovebabbar
+- Smallest Range in K sorted List:hhttps://www.codingninjas.com/codestudio/problems/smallest-range-from-k-sorted-list_1069356?leftPanelTab=1&utm_source=youtube&utm_medium=affiliate&utm_campaign=Lovebabbar
+- Re-Organise Strings: https://practice.geeksforgeeks.org/problems/rearrange-characters4649/1?utm_source=gfg&utm_medium=article&utm_campaign=bottom_sticky_on_article
+Kth Largest Sum Subarray: https://www.codingninjas.com/codestudio/problems/k-th-largest-sum-contiguous-subarray_920398?leftPanelTab=0&utm_source=youtube&utm_medium=affiliate&utm_campaign=Lovebabbar
+Merge K sorted Arrays:https://www.codingninjas.com/codestudio/problems/merge-k-sorted-arrays_975379?leftPanelTab=0&utm_source=youtube&utm_medium=affiliate&utm_campaign=Lovebabbar
+Merge K sorted Linked List: https://www.codingninjas.com/codestudio/problems/merge-k-sorted-lists_992772?leftPanelTab=0&utm_source=youtube&utm_medium=affiliate&utm_campaign=Lovebabbar
+
+GRAPH(SIR + SHEET)
+No of provinces : https://leetcode.com/problems/number-of-provinces/submissions/856137283/
+No of islands :https://leetcode.com/problems/number-of-islands/description/
+flood fill : https://leetcode.com/problems/flood-fill/description/
+Rotten Oranges: https://leetcode.com/problems/rotting-oranges/
+Surrounding Regions: https://leetcode.com/problems/surrounded-regions/
+Nearest Cell :https://leetcode.com/problems/01-matrix/
+No of Enclaves:https://leetcode.com/problems/number-of-enclaves/
+No of distinct islands :https://practice.geeksforgeeks.org/problems/number-of-distinct-islands/1
+Bipartite Graph: https://leetcode.com/problems/is-graph-bipartite/description/
+WordLadder1: https://leetcode.com/problems/word-ladder/
+WordLadder2: https://leetcode.com/problems/word-ladder-ii/
+CourseScheduling 1:https://leetcode.com/problems/course-schedule-ii/description/
+CourseScheduling2 :https://leetcode.com/problems/course-schedule/
+Alien Dictionary:https://practice.geeksforgeeks.org/problems/alien-dictionary/1
+Find eventual safe state: https://leetcode.com/problems/find-eventual-safe-states/
+Shortest in binary grid:https://leetcode.com/problems/shortest-path-in-binary-matrix/
+Network Delay :https://leetcode.com/problems/network-delay-time/
+Path with minimum effort :https://leetcode.com/problems/path-with-minimum-effort/
+Chepaest Path Sum:https://leetcode.com/problems/path-with-minimum-effort/
+Minimum Multiplication :https://practice.geeksforgeeks.org/problems/minimum-multiplications-to-reach-end/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=minimum-multiplications-to-reach-end
+No of ways to arrive at destination:https://leetcode.com/problems/number-of-ways-to-arrive-at-destination/
+City With smallestNumber: https://practice.geeksforgeeks.org/problems/city-with-the-smallest-number-of-neighbors-at-a-threshold-distance/0?category%5B%5D=Shortest%20Path&category%5B%5D=Shortest%20Path&page=1&query=category%5B%5DShortest%20Pathpage1category%5B%5DShortest%20Path
+
+
+SlidingWindow
+
+1) https://practice.geeksforgeeks.org/problems/max-sum-subarray-of-size-k5313/1
+2) https://practice.geeksforgeeks.org/problems/first-negative-integer-in-every-window-of-size-k3345/1
+3) https://practice.geeksforgeeks.org/problems/count-occurences-of-anagrams5839/1
+4) https://practice.geeksforgeeks.org/problems/longest-k-unique-characters-substring0853/1
+5) https://leetcode.com/problems/longest-substring-without-repeating-characters/submissions/
+6) https://practice.geeksforgeeks.org/problems/longest-sub-array-with-sum-k0809/1?utm_source=gfg&utm_medium=article&utm_campaign=bottom_sticky_on_article
+7) https://leetcode.com/problems/minimum-window-substring/description/
+8) Sum of min & max elements of all subarray of size K: https://www.geeksforgeeks.org/sum-minimum-maximum-elements-subarrays-size-k/
+
+
+Segment Tree
+https://docs.google.com/document/d/1sndIZ6lwH6jXT0SqXmNZYLPjbeRK6dGvBfybLWeItbc/edit#heading=h.eyhi824bfdgg

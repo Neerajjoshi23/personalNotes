@@ -1,0 +1,11 @@
+{
+  "repo": "TanStack/query",
+  "ref_requested": "main",
+  "commit_sha": "dee1679bf42cad475a5c5810524475b2ffd6903d",
+  "library_version": "5.104.1",
+  "docs_major_version": "5",
+  "retrieved_at": "2026-10-11T12:22:35+00:00",
+  "license": "MIT (TanStack/query). Keep attribution and link to source URLs.",
+  "pages_requested": 23,
+  "pages_ok": 23
+}

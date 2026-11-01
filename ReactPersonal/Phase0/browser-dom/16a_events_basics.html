@@ -1,0 +1,196 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>0.16a Events basics</title>
+  </head>
+  <body>
+    <!--
+  ============================================================================
+  0.16a  EVENTS BASICS  (javascript.info/introduction-browser-events)
+  ============================================================================
+  Open this file in the browser, open DevTools console, click the buttons.
+  The code is the example, the comments are the lesson.
+
+  WHAT YOU NEED TO LEARN FROM THIS FILE
+    1. Three ways to attach a handler (HTML attribute, DOM property, addEventListener)
+    2. Why the DOM property way can only hold ONE handler
+    3. addEventListener options: once, capture, passive
+    4. removeEventListener needs the SAME function reference
+    5. The event object: type, target, currentTarget, clientX/Y
+    6. this inside a handler === event.currentTarget (not for arrow functions!)
+    7. handleEvent: an object can be a handler
+    8. DOMContentLoaded vs load
+  ============================================================================
+  -->
+
+    <button id="btn1">1. onclick property (overwrite)</button>
+    <button id="btn2">2. addEventListener (stack)</button>
+    <button id="btn3">3. once option</button>
+    <button id="btn4">4. remove listener</button>
+    <button id="btn5">5. event object</button>
+    <button id="btn6">6. this vs arrow</button>
+    <button id="btn7">7. handleEvent object</button>
+
+    <script>
+      const log = (...args) => console.log(...args);
+
+      // ------------------------------------------------------------------
+      // EXAMPLE 1: DOM property = ONE slot. Second assignment overwrites.
+      // ------------------------------------------------------------------
+      // HTML attribute (onclick="...") also ends up as the same property,
+      // so it competes with this slot. Avoid it: it mixes JS into markup.
+      const btn1 = document.getElementById("btn1");
+
+      btn1.onclick = function () {
+        log("EX1: first handler");
+      };
+
+      btn1.onclick = function () {
+        // The first handler is GONE. Only this one runs.
+        log("EX1: second handler (first one was overwritten)");
+      };
+
+      // To remove: btn1.onclick = null
+
+      // ------------------------------------------------------------------
+      // EXAMPLE 2: addEventListener = STACKS handlers, run in add order.
+      // ------------------------------------------------------------------
+      const btn2 = document.getElementById("btn2");
+
+      btn2.addEventListener("click", () => log("EX2: handler A"));
+      btn2.addEventListener("click", () => log("EX2: handler B"));
+      // Click once -> A then B. This is why libraries always use addEventListener.
+      // Some events (DOMContentLoaded, transitionend) ONLY work with it.
+
+      // ------------------------------------------------------------------
+      // EXAMPLE 3: options object — once / capture / passive
+      // ------------------------------------------------------------------
+      const btn3 = document.getElementById("btn3");
+
+      btn3.addEventListener(
+        "click",
+        () => log("EX3: runs only the FIRST click, then auto-removed"),
+        { once: true },
+      );
+
+      // capture: true  -> listen during the capturing phase (see 16b)
+      // passive: true  -> promise to NEVER call preventDefault (see 16c);
+      //                   lets the browser scroll without waiting for your JS.
+      // The third arg used to be a boolean "capture". true === { capture: true }.
+
+      // ------------------------------------------------------------------
+      // EXAMPLE 4: removeEventListener needs the EXACT same function reference
+      // ------------------------------------------------------------------
+      const btn4 = document.getElementById("btn4");
+
+      function onClick4() {
+        log("EX4: named handler, removable");
+      }
+
+      btn4.addEventListener("click", onClick4);
+
+      btn4.addEventListener(
+        "click",
+        () => {
+          // Removes onClick4 after the first click: same reference, so it works.
+          btn4.removeEventListener("click", onClick4);
+
+          // GOTCHA: this does NOTHING. A fresh arrow is a different function object,
+          // so the browser can't find the listener to remove. No error either.
+          btn4.removeEventListener("click", () => log("EX4: never removed"));
+          log("EX4: onClick4 removed, click again: it won't log");
+        },
+        { once: true },
+      );
+
+      // Also: capture flag must match between add and remove.
+
+      // ------------------------------------------------------------------
+      // EXAMPLE 5: the event object
+      // ------------------------------------------------------------------
+      const btn5 = document.getElementById("btn5");
+
+      btn5.addEventListener("click", (event) => {
+        log("EX5: type          =", event.type); // "click"
+        log("EX5: target        =", event.target.id); // element that was actually clicked
+        log("EX5: currentTarget =", event.currentTarget.id); // element the listener is attached to
+        log("EX5: coords        =", event.clientX, event.clientY); // mouse specific
+        // target vs currentTarget only differ when the click came from a CHILD
+        // (that's the whole basis of bubbling + delegation, see 16b / 16c).
+      });
+
+      // ------------------------------------------------------------------
+      // EXAMPLE 6: `this` in a handler
+      // ------------------------------------------------------------------
+      const btn6 = document.getElementById("btn6");
+
+      btn6.addEventListener("click", function () {
+        // Regular function: `this` is the element (same as event.currentTarget).
+        log("EX6: regular fn this.id =", this.id);
+      });
+
+      btn6.addEventListener("click", () => {
+        // Arrow function: NO own `this`, so it's the outer `this` (window here).
+        // Use event.currentTarget if you write arrows.
+        log("EX6: arrow this === window ?", this === window);
+      });
+
+      // ------------------------------------------------------------------
+      // EXAMPLE 7: handleEvent — an OBJECT as a handler
+      // ------------------------------------------------------------------
+      const btn7 = document.getElementById("btn7");
+
+      class Menu {
+        handleEvent(event) {
+          // Browser calls obj.handleEvent(event) with `this` = the object.
+          // One object can route many event types and keeps its state.
+          const method =
+            "on" + event.type[0].toUpperCase() + event.type.slice(1);
+          this[method]?.(event);
+        }
+
+        onMousedown() {
+          log("EX7: mouse button pressed");
+        }
+
+        onMouseup() {
+          log("EX7: mouse button released");
+        }
+      }
+
+      const menu = new Menu();
+      btn7.addEventListener("mousedown", menu);
+      btn7.addEventListener("mouseup", menu);
+      // `this` is a Menu instance, no .bind(this) needed. Neat for class-based widgets.
+
+      // ------------------------------------------------------------------
+      // EXAMPLE 8: DOMContentLoaded vs load
+      // ------------------------------------------------------------------
+      document.addEventListener("DOMContentLoaded", () => {
+        // HTML parsed + DOM built. Images/CSS may NOT be loaded yet.
+        log("EX8: DOMContentLoaded (DOM ready)");
+      });
+
+      window.addEventListener("load", () => {
+        // Everything (images, stylesheets, iframes) is done.
+        log("EX8: load (all resources done)");
+      });
+      // Scripts at the END of <body> (like here) or with `defer` don't need either.
+
+      /*
+    ========================================================================
+    INTERVIEW TAKEAWAYS
+    ========================================================================
+    - onclick vs addEventListener?  Property holds one handler; addEventListener stacks.
+    - How do you remove a listener?  Pass the same function reference (and same capture flag).
+    - this vs event.currentTarget vs event.target?
+        regular fn: this === currentTarget (element with the listener).
+        target is the deepest element clicked.
+    - What does { once: true } do?   Auto-removes after the first call.
+    - What does { passive: true } do? Promises no preventDefault, enables smooth scrolling.
+    ========================================================================
+    */
+    </script>
+  </body>
+</html>
