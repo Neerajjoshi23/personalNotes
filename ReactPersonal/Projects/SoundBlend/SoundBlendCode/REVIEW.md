@@ -4,8 +4,11 @@ Format: what was built, then **Doubts / Notes** where I flag things to ask about
 Autocomplete is built (fetch, schema, query, dropdown). Keyboard navigation is not.
 
 ## 1. Routing – `App.tsx`
+- `AuthProvider` wraps `RouterProvider` (inside `QueryClientProvider`), so auth state is mounted once.
 - `AppLayout` (sidebar on `lg`+, top bar below) is a layout route; children render in its `<Outlet/>`:
-  `/` `HomePage`, `/Search` `SearchPage`, `/Search/:kind/:id` `DetailPage` (artist or album tracks), `/Blend` `BlendPage`, `*` `NotFoundPage`.
+  - Public: `/` `HomePage`, `/signin` `SignInPage`, `/signup` `SignUpPage`, `*` `NotFoundPage`.
+  - Protected (pathless route with `ProtectedRoute`): `/Search` `SearchPage`, `/Search/:kind/:id` `DetailPage` (artist or album tracks), `/Blend` `BlendPage`.
+- Pages are loaded with `React.lazy`. `wrapInSuspense` adds the `Suspense` fallback; `wrapWithBoundary` puts an `ErrorBoundary` **outside** `Suspense`, so a failed chunk load shows the error fallback.
 - Nav links use `<Link>` (a typed URL reloads the page and wipes non-persisted state).
 
 ## 2. `SearchPage/Pages/SearchPage.tsx`
@@ -181,7 +184,24 @@ Autocomplete is built (fetch, schema, query, dropdown). Keyboard navigation is n
   send no CORS headers, so `crossOrigin="anonymous"` fails. Limits: no EQ/effects, small sync drift, `volume` ignored on iOS Safari.
 - Deleting a playing track needs no explicit pause: the row unmounts, the `<audio>` leaves the DOM and the browser pauses it.
 
-## 7. Open items
-- Keyboard navigation + ARIA for the autocomplete dropdown.
-- `viewMode` in the URL (optional).
-- `JAMENDO_API.md` holds the endpoint/params reference.
+## 7. Auth (Supabase) and error handling
+
+### 7.1 Supabase client – `superbaseclient.ts`
+- One shared `createClient(VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY)`. Only the anon key is used in the browser; the session is persisted in `localStorage` and tokens refresh automatically.
+
+### 7.2 `Auth/`
+- `Context/AuthContext.ts`: context with `user`, `session`, `loading`.
+- `Provider/AuthProvider.tsx`: reads `getSession()` once, then subscribes to `onAuthStateChange` (unsubscribed on cleanup). `loading` stays true until the first session is known, so a refresh does not flash the login page. `useAuth()` throws outside the provider.
+- `Components/ProtectedRoute.tsx`: loader while `loading`; no session -> `<Navigate to="/signin" replace state={{ from: location }} />`; else `<Outlet />`. The guard is a route wrapper, **not** a navigate call in `AppLayout`'s render (that was a side effect in render and redirected on every refresh).
+- `Pages/SignInPage.tsx` / `Pages/SignUpPage.tsx`: React Hook Form. Rules: valid email, password >= 6 chars, sign-up also needs a matching confirmation. Supabase errors are shown via `setError("root", ...)`. Sign-up shows a "check your email" screen when no session comes back (email confirmation on). `authStyles.ts` holds the shared Tailwind classes.
+- Return-to flow: the guard stores `from` (the full location) in router state (kept in the history entry, not in the URL). `getFromPath` turns it into `pathname + search + hash` (default `/`). After login or sign-up the page sees the session and renders `<Navigate to={from} replace />`. The Sign In / Sign Up links pass `state={location.state}`, so `from` survives switching pages. `replace` keeps the login page out of Back history.
+- Email confirmation opens a new tab where router state is lost, so sign-up passes `emailRedirectTo: origin + from`. After confirming, the user lands on the page they wanted, already signed in. The redirect URL must be in Supabase's allowed Redirect URLs (`http://localhost:5173/**`).
+- All auth text, validation messages and the password minimum come from `t()` (`auth.*` keys in `SearchPage/constants/messages.ts`).
+- `AppLayout` shows a Sign Out button (sidebar and top bar) only when there is a session. `HomePage` shows Sign In / Sign Up only when logged out. The homepage stays public.
+
+### 7.3 Error boundary – `components/ErrorBoundary.tsx`
+- Class component with `getDerivedStateFromError` (shows the fallback), `componentDidCatch` (logs error + component stack) and a "Try again" button that resets its state.
+- Catches render/lifecycle errors in its subtree (including failed lazy chunks). It does not catch event handlers or async code.
+
+## 8. Open items
+- Unit tests (Vitest + React Testing Library, mocked Supabase client) for the auth context, `ProtectedRoute`, the forms and `ErrorBoundary`.

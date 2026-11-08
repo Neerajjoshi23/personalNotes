@@ -570,3 +570,29 @@ function App() {
 - useTransition wraps a setter; useDeferredValue wraps a value, and the deferred child needs memo.
 - Neither reduces network calls; keep debouncing/cancellation for requests.
 - Mind async limits: after-await updates need re-wrapping, and ordering isn't guaranteed (use useActionState).
+
+---
+
+### 4.11 React 19
+
+**Read:** React 19 blog, [useActionState](https://react.dev/reference/react/useActionState), [useOptimistic](https://react.dev/reference/react/useOptimistic). Full detail in [react-19.md](./react-19.md).
+
+- **Async transitions (Actions):** `startTransition(async () => {...})` works; `isPending` stays true until it finishes. State updates after an `await` lose the transition context, so re-wrap them in another `startTransition`.
+- **`<form action={fn}>`:** the function gets `FormData`, React does `preventDefault`, runs it in a transition, and resets uncontrolled inputs afterward (this also clears fields on a returned validation error; use `defaultValue` from state to keep them).
+- **`useActionState(reducerAction, initialState)`** returns `[state, dispatchAction, isPending]`.
+  - `reducerAction(previousState, payload)`: previous state first; payload is `FormData` in a form; can be async.
+  - `state` = last returned value; `isPending` = an action is running.
+  - Outside a form, call `dispatchAction` inside `startTransition`.
+  - Calls are **queued and run one by one** (4 clicks = 4 sequential requests), so results arrive in order. Pair with `useOptimistic` for speed.
+  - If it throws, queued actions are cancelled and the error boundary shows; return expected errors as state instead.
+- **`useOptimistic(value, reducer?)`** returns `[optimisticState, setOptimistic]`.
+  - Shows the expected value instantly while an Action runs; call the setter inside an Action (form actions count).
+  - It only lasts while the Action runs, then shows the real `value`. If the call fails, `value` is unchanged, so the UI rolls back by itself.
+  - The reducer form re-applies optimistic items on top of fresh data.
+- **`ref` as a prop:** no `forwardRef` needed; ref callbacks can return cleanup.
+- **`use()`:** `use(Context)` can be conditional (rare); `use(promise)` suspends and is the more useful half.
+- **`useFormStatus()`** (react-dom): a child inside the form reads `pending`, `data`, `method`, `action`.
+- **Extras:** `<title>`/`<meta>` hoisted to head, stylesheet `precedence`, async scripts, resource preload APIs, `<Context>` as provider, `requestFormReset`, `onCaughtError`/`onUncaughtError`, `prerender` static APIs, hydration diffs.
+- **Blog examples are simplified:** they call setters after `await` without re-wrapping; follow the useTransition doc. `use(promise)` doesn't support a promise created in render.
+- **What's really new:** in client-only apps it is less boilerplate (no manual pending/reset/preventDefault/rollback). The big win is Server Actions with progressive enhancement.
+- **Interview angle:** "`useActionState` argument order?" → `(prevState, formData)`. "Why slow with many clicks?" → sequential queue; use `useOptimistic`.

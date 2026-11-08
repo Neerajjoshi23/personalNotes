@@ -60,3 +60,8 @@ dependencies = [
     "pyjwt>=2.15.1",
     "argon2-cffi>=25.1.0",
 ]
+
+[tool.uv.workspace]
+members = [
+    "week9-fastapi/notemind",
+]

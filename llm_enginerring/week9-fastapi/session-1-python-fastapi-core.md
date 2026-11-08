@@ -714,6 +714,50 @@ One more case: the client sends `{"title": null}`. Our rule: `null` means "no ch
 
 </details>
 
+<details>
+<summary><b>6) Deep Dive: Parameter Resolution, HTTP Status Compliance, and PATCH Mechanics</b></summary>
+
+### 1. How Parameter Resolution Works (AST Inspection)
+FastAPI doesn't parse route arguments dynamically on every request. Instead, it uses Python's `inspect` module at startup to analyze your function signature's abstract syntax tree (AST). It maps variables to request data using a strict type-hint rule:
+* **Path Parameters:** If a variable name matches a placeholder in the URL path (e.g., `{note_id}`), it is extracted from the path. If type coercion fails (e.g., passing `abc` for a `UUID` parameter), FastAPI blocks the request with a `422 Unprocessable Entity` instantly, skipping your function logic and database layer entirely.
+* **Body Parameters:** If a parameter is type-hinted as a Pydantic Model (inheriting from `BaseModel`), FastAPI automatically maps it to the incoming JSON request body payload.
+* **Query Parameters:** If a parameter is a primitive scalar type (`int`, `str`, `bool`, `float`) and its name does *not* appear in the URL path, FastAPI treats it as a query string parameter (e.g., `?limit=20`). Missing query parameters safely fall back to their assigned Python defaults (like `None` or `20`).
+* **Explicit Overrides:** To force a primitive type to be read from the JSON body instead of a query string, you must use the explicit `Body` marker (e.g., `comment: str = Body(...)`).
+
+### 2. Semantic HTTP Status Codes & RFC Compliance
+Declaring the status code within the route decorator ensures predictable, robust API behavior:
+* **`201 Created`:** Used for successful `POST` requests. Best practices dictate attaching a `Location` header containing the direct URL of the newly created resource (e.g., `/api/v1/notes/{id}`) so clients don't have to guess the resource path.
+* **`204 No Content`:** Used for successful `DELETE` operations. According to HTTP RFC specifications, a `204` response **must not contain a body**. FastAPI enforces this compliance by automatically stripping down the return value to 0 bytes before transmitting it to Uvicorn.
+* **`422 Unprocessable Entity`:** Triggered automatically by FastAPI when incoming path, query, or body parameters fail validation checks.
+
+### 3. Control Flow Short-Circuiting via `HTTPException`
+Standard Python architectures often rely on returning complex state tuples or dictionaries (e.g., `{"error": "not_found"}`), forcing parent functions to constantly evaluate execution state. 
+
+FastAPI utilizes Python's native exception propagation stack. Raising an `HTTPException` immediately halts control flow inside your function, winds back execution safely, and hands the error payload over to Starlette's exception middleware layer to build a clean JSON error response.
+
+### 4. Defensive Pagination (Input Guardrails)
+Allowing clients to request unrestricted page sizes (e.g., `?limit=1000000`) introduces an immediate Memory Denial of Service (DoS) risk, causing the server process to exhaust its RAM allocation. 
+
+Using Python's `Annotated` syntax combined with FastAPI's `Query` validation helper establishes strict data constraints:
+```python
+limit: Annotated[int, Query(ge=1, le=50)] = 20
+```
+* **`ge=1`:** Enforces a minimum boundary (**g**reater than or **e**qual to 1).
+* **`le=50`:** Establishes a maximum security guardrail (**l**ess than or **e**qual to 50).
+
+### 5. The State Dilemma of `PATCH` vs `PUT`
+While a `PUT` request completely overwrites a resource, a `PATCH` request must update **only** the specific attributes the client sent. This creates an architectural contradiction in Python:
+* **Scenario A (Omitted Field):** The client sends `{"title": "New"}`. They want to keep the existing body text.
+* **Scenario B (Explicit Null):** The client sends `{"body": null}`. They explicitly want to erase the existing body text.
+
+Because standard Pydantic models initialize missing attributes to their default value (`None`), both scenarios look identical to Python (`body.body` evaluates to `None` in both cases). 
+
+Pydantic solves this by tracking the state inception of the raw HTTP JSON payload. Calling `body.model_dump(exclude_unset=True)` strips away every attribute the client did not physically type:
+* In Scenario A, it outputs `{"title": "New"}`. The key `"body"` is completely absent from the dictionary, ensuring your service loop leaves the database state untouched.
+* In Scenario B, it outputs `{"body": None}`. The key `"body"` is present, allowing your code to selectively apply `setattr()` and explicitly clear the field.
+
+</details>
+
 ### Build it
 
 ```python

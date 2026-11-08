@@ -1,7 +1,9 @@
 import { NavLink, Outlet } from "react-router-dom";
-import { AudioLines, Home, Layers, Search } from "lucide-react";
+import { AudioLines, Home, Layers, LogOut, Search } from "lucide-react";
 import { useTracks } from "../Store/useTracks";
 import { t } from "../SearchPage/constants/messages";
+import { useAuth } from "../Auth/Provider/AuthProvider";
+import { supabase } from "../superbaseclient";
 
 const linkClass = ({ isActive }: { isActive: boolean }) =>
   `flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
@@ -12,6 +14,17 @@ const linkClass = ({ isActive }: { isActive: boolean }) =>
 
 export default function AppLayout() {
   const count = useTracks((s) => s.tracks.length);
+  const { session } = useAuth();
+
+  const signOutButton = session && (
+    <button
+      onClick={() => supabase.auth.signOut()}
+      className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-zinc-400 transition-colors hover:bg-white/5 hover:text-zinc-100"
+    >
+      <LogOut size={18} />
+      {t("auth.signOut")}
+    </button>
+  );
 
   const nav = (
     <>
@@ -51,13 +64,19 @@ export default function AppLayout() {
       <aside className="hidden w-60 flex-shrink-0 flex-col gap-6 border-r border-white/5 p-4 lg:flex">
         <div className="px-1 pt-1">{logo}</div>
         <nav className="flex flex-col gap-1">{nav}</nav>
-        <p className="mt-auto px-3 text-xs text-zinc-600">{t("app.credit")}</p>
+        <div className="mt-auto flex flex-col gap-2">
+          {signOutButton}
+          <p className="px-3 text-xs text-zinc-600">{t("app.credit")}</p>
+        </div>
       </aside>
 
       <div className="flex min-w-0 flex-1 flex-col">
         <header className="flex h-14 flex-shrink-0 items-center justify-between border-b border-white/5 px-4 lg:hidden">
           {logo}
-          <nav className="flex items-center gap-1">{nav}</nav>
+          <nav className="flex items-center gap-1">
+            {nav}
+            {signOutButton}
+          </nav>
         </header>
         <main className="min-h-0 flex-1">
           <Outlet />

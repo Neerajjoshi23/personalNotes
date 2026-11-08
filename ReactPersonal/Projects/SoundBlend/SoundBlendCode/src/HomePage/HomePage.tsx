@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Layers, Search, SlidersHorizontal } from "lucide-react";
 import { MAX_TRACK } from "../Store/useTracks";
 import { t } from "../SearchPage/constants/messages";
+import { useAuth } from "../Auth/Provider/AuthProvider";
 
 const features = [
   { icon: Search, title: "home.f1.title", body: "home.f1.body" },
@@ -10,6 +11,7 @@ const features = [
 ] as const;
 
 export default function HomePage() {
+  const { session, loading } = useAuth();
   return (
     <div className="flex h-full flex-col items-center justify-center overflow-y-auto px-6 py-10">
       <div className="flex max-w-2xl flex-col items-center gap-5 text-center">
@@ -35,6 +37,22 @@ export default function HomePage() {
           >
             {t("home.blend")}
           </Link>
+          {!loading && !session && (
+            <>
+              <Link
+                to="/signin"
+                className="rounded-lg border border-white/10 px-5 py-2.5 text-sm font-semibold text-zinc-200 transition hover:bg-white/5"
+              >
+                {t("auth.signIn")}
+              </Link>
+              <Link
+                to="/signup"
+                className="rounded-lg border border-white/10 px-5 py-2.5 text-sm font-semibold text-zinc-200 transition hover:bg-white/5"
+              >
+                {t("auth.signUp")}
+              </Link>
+            </>
+          )}
         </div>
       </div>
 
