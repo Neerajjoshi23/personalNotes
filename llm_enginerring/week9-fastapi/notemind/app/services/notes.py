@@ -4,13 +4,21 @@ from dataclasses import dataclass, field
 from datetime import UTC, datetime
 from uuid import UUID, uuid4
 
+from app.errors import NotFound, TooManyRequests
+from app.schemas import NoteCreate
+
 
 def now() -> datetime:
     return datetime.now(UTC)   # always timezone-aware UTC; convert to local time only in the UI
 
-class NoteLimitReached(Exception):
-    """Raised by the service. The router decides which HTTP status that means."""
+class NoteLimitReached(TooManyRequests):
+    def __init__(self, detail: str = "note limit reached, delete a note first") -> None:
+        super().__init__(detail)
 
+
+class NoteNotFound(NotFound):
+    def __init__(self, detail: str = "note not found") -> None:
+        super().__init__(detail)
 @dataclass
 class Note:
     """Our internal note. 
@@ -76,14 +84,17 @@ class NoteService:
         self.repo = repo
         self.max_notes = max_notes
 
-    def create(self, data: Note) -> Note:
+    def create(self, data: NoteCreate) -> Note:
        time.sleep(0.1)  # simulate a slow database
        node = self.repo.add_if_below(Note(title=data.title, body=data.body, tags=data.tags, pinned=data.pinned), self.max_notes)
        if node is None:
            raise NoteLimitReached(f"Cannot create more than {self.max_notes} notes")
        return node
     def get(self,id:UUID)-> Note|None:
-        return self.repo.get(id)
+        note = self.repo.get(id)
+        if note is None:
+            raise NoteNotFound()
+        return note
 
     def count(self)->int:
         return self.repo.count()
@@ -91,11 +102,12 @@ class NoteService:
         return self.repo.list(limit, offset, tag, pinned, sort)
 
     def delete(self, note_id: UUID) -> bool:
-        return self.repo.delete(note_id)
+        deleted = self.repo.delete(note_id)
+        if not deleted:
+            raise NoteNotFound()
+        return deleted
     def update(self,note_id:UUID,changes:dict):
         note = self.get(note_id)
-        if note is None:
-            return None
         for key, value in changes.items():
             if hasattr(note, key):
                 setattr(note, key, value)

@@ -2,6 +2,7 @@ import logging
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 
+from app.errors import install_error_handlers
 from fastapi import FastAPI
 
 from app.deps import get_settings
@@ -29,6 +30,7 @@ def create_app() -> FastAPI:
     @app.get("/health")
     def health() -> dict[str,str]:
         return {"status":"ok"}
+    install_error_handlers(app)
     return app
     
 app=create_app()
