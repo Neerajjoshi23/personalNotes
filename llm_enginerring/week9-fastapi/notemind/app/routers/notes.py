@@ -32,15 +32,15 @@ def get_note(service: NoteServiceDep,note_id:UUID) -> NoteOut | None:
     if note is None:
         raise HTTPException(status_code=404 , detail="Not found")
     return NoteOut.model_validate(note)
-
 @router.get("")
 def list_notes(
     service: NoteServiceDep,
     limit: Annotated[int, Query(ge=1, le=50)] = 20,
     offset: Annotated[int, Query(ge=0)] = 0,
     tag: Annotated[str | None, Query(max_length=30)] = None,
+    pinned: Annotated[bool | None, Query()] = None,
 ) -> Page[NoteOut]:
-    notes = service.list(limit, offset, tag.lower() if tag else None)
+    notes = service.list(limit, offset, tag.lower() if tag else None, pinned)
     return Page[NoteOut](items=[NoteOut.model_validate(n) for n in notes], limit=limit, offset=offset)
 
 @router.patch("/{note_id}")

@@ -1435,63 +1435,171 @@ Notice the slow work moved **outside** the lock. Holding a lock while waiting ma
 ## Interview questions
 
 <details>
-<summary><b>1) What happens between an HTTP request arriving and your FastAPI function running?</b></summary>
+<summary><b>1) Interview Question: What happens between an HTTP request arriving and your FastAPI function running?</b></summary>
 
-uvicorn accepts the connection and parses the HTTP request on an asyncio event loop, then calls the app through the ASGI interface. The request passes through the middleware stack, the router matches method and path, FastAPI resolves dependencies and validates path, query and body with Pydantic (invalid → 422 without calling your code), then calls the handler: `async def` on the event loop, `def` in a threadpool. The return value is validated against the response model, serialized to JSON, and sent back out through the middleware.
+1. **Ingress & ASGI Parsing**: 
+   * **Uvicorn** accepts the TCP connection and parses the raw HTTP bytes on the single-threaded `asyncio` event loop.
+   * It transforms the request metadata into a standardized Python dictionary known as the **ASGI scope**, alongside `receive` and `send` async channels.
 
+2. **The Middleware Stack Stack**:
+   * The request traverses sequentially through the application's registered **ASGI Middleware Stack** (intercepting concerns like CORS, tracking headers, or global error catching).
+
+3. **Routing & Parameter Extraction**:
+   * The **APIRouter** evaluates the HTTP method and URL string path to locate a matching registered route.
+   * FastAPI uses an execution plan constructed at server boot-up via Python's `inspect` AST module to parse parameters:
+     * **Path Parameters**: Extracted from URL placeholders matching the definition signature.
+     * **JSON Body**: Payloads mapped directly to arguments type-hinted with Pydantic `BaseModel` schemas.
+     * **Query Parameters**: Standard scalar types not included in the URL template path.
+
+4. **Validation Guardrail**:
+   * Pydantic processes type coercion and input verification constraints. 
+   * If validation fails (e.g., a missing required field or bad type), the request **short-circuits instantly**, throwing a `422 Unprocessable Entity` response out through the middleware before your handler code ever runs.
+
+5. **Dependency Tree Resolution**:
+   * FastAPI evaluates the **Dependency Graph** from the bottom up. 
+   * Sub-dependencies are executed, cached via **per-request caching** if requested multiple times within the same request lifecycle context, and injected cleanly into the function parameters.
+
+6. **Handler Invocation & Egress**:
+   * The route handler is triggered. If defined as `async def`, it executes directly on the event loop. If defined as plain `def`, it is offloaded to the background `anyio` **worker threadpool**.
+   * The return value is filtered against the `response_model`, transformed into JSON bytes, sent backwards back through the middleware stack, and transmitted over the wire via Uvicorn.
 </details>
 
 <details>
-<summary><b>2) <code>def</code> vs <code>async def</code>: which do you use and what goes wrong?</b></summary>
+<summary><b>1) Interview Question: What happens between an HTTP request arriving and your FastAPI function running?</b></summary>
 
-`async def` runs on the single event loop, so one blocking call (`time.sleep`, `requests`, a sync DB driver) freezes every request in the process, including health checks. `def` runs in a threadpool: safe for blocking I/O but capped by the pool size. Use `async def` only when every slow call inside is awaited; otherwise `def`, or `run_in_threadpool` for one blocking step. CPU-heavy work belongs in a separate process.
+1. **Ingress & ASGI Parsing**: 
+   * **Uvicorn** accepts the TCP connection and parses the raw HTTP bytes on the single-threaded `asyncio` event loop.
+   * It transforms the request metadata into a standardized Python dictionary known as the **ASGI scope**, alongside `receive` and `send` async channels.
 
+2. **The Middleware Stack Stack**:
+   * The request traverses sequentially through the application's registered **ASGI Middleware Stack** (intercepting concerns like CORS, tracking headers, or global error catching).
+
+3. **Routing & Parameter Extraction**:
+   * The **APIRouter** evaluates the HTTP method and URL string path to locate a matching registered route.
+   * FastAPI uses an execution plan constructed at server boot-up via Python's `inspect` AST module to parse parameters:
+     * **Path Parameters**: Extracted from URL placeholders matching the definition signature.
+     * **JSON Body**: Payloads mapped directly to arguments type-hinted with Pydantic `BaseModel` schemas.
+     * **Query Parameters**: Standard scalar types not included in the URL template path.
+
+4. **Validation Guardrail**:
+   * Pydantic processes type coercion and input verification constraints. 
+   * If validation fails (e.g., a missing required field or bad type), the request **short-circuits instantly**, throwing a `422 Unprocessable Entity` response out through the middleware before your handler code ever runs.
+
+5. **Dependency Tree Resolution**:
+   * FastAPI evaluates the **Dependency Graph** from the bottom up. 
+   * Sub-dependencies are executed, cached via **per-request caching** if requested multiple times within the same request lifecycle context, and injected cleanly into the function parameters.
+
+6. **Handler Invocation & Egress**:
+   * The route handler is triggered. If defined as `async def`, it executes directly on the event loop. If defined as plain `def`, it is offloaded to the background `anyio` **worker threadpool**.
+   * The return value is filtered against the `response_model`, transformed into JSON bytes, sent backwards back through the middleware stack, and transmitted over the wire via Uvicorn.
 </details>
+
 
 <details>
-<summary><b>3) Why separate input and output models?</b></summary>
+<summary><b>3) Interview Question: Why separate input and output models?</b></summary>
 
-Input models contain only what a client may set, so it can't set server-owned fields like id, owner or timestamps (mass assignment), and `extra="forbid"` rejects unknown fields loudly. Output models list only what a client may see, so internal fields can't leak. And the API contract can change independently of how data is stored.
+1. **Input Shielding & Perimeter Defense**:
+   * Input models (e.g., `NoteCreate`, `NoteUpdate`) establish a strict **contract** for what data a client is explicitly permitted to send. 
+   * By setting configurations like `extra="forbid"`, any unknown or malicious fields sent by the client are violently rejected right at the border.
+   * This validation happens inside the framework parsing layer—if the incoming format is corrupt or incorrect, FastAPI immediately halts execution and returns a `422 Unprocessable Entity`, completely preventing unauthorized payloads from reaching your core service or repository code.
 
+2. **Preventing Mass Assignment Vulnerabilities**:
+   * Separating schemas completely isolates application entity structures from incoming payloads. 
+   * Without this barrier, maps like `note.__dict__.update(request_dict)` allow clients to trick the database layer into updating system-managed attributes—such as `id`, `owner_id`, or security flags (`is_admin`). Dedicated input schemas make this vector impossible.
+
+3. **Data Leak Prevention & Clean Egress**:
+   * Output models (e.g., `NoteOut`) serve as an outbound **privacy filter**. Only the specific attributes explicitly declared in the output schema are serialized into the returning JSON body payload.
+   * Internal data states, operational tracking nodes, foreign relational structures, or sensitive system flags remain securely boxed inside the server environment and can **never leak to the network**, even by accident.
+   * This ensures that your public API interface can scale independently of your underlying database schema changes.
 </details>
+
 
 <details>
-<summary><b>4) What does <code>Depends</code> give you over importing a global?</b></summary>
+<summary><b>4) Interview Question: What does Depends give you over importing a global?</b></summary>
 
-Things get built per request (for example a DB session), are cached within that request, and are visible in the function signature. Cleanup works through `yield`. Docs are generated for auth and params. Most importantly, tests can swap any dependency with `app.dependency_overrides` without touching app code.
+1. **Inversion of Control (IoC) & Lifecycle Hooking**:
+   * Instead of a route handler manually initializing or importing its own global resources, `Depends` implements **Inversion of Control**. The function declares *what* it needs, and the framework resolves it at request time.
+   * This allows the framework to handle sophisticated per-request lifecycles seamlessly—such as opening a database connection pool, passing it to the handler, and cleanly executing a teardown block (via `yield`) to close the connection after the HTTP response is sent.
 
+2. **Automated Testing & Mocking Infrastructure**:
+   * Hardcoding global objects (like a global database driver or a live LLM API client) introduces high coupling, making automated regression testing incredibly painful.
+   * Because `Depends` treats functions as modular puzzle pieces, your test runner can use `app.dependency_overrides[get_service] = FakeService` to dynamically hot-swap production modules for mocks or in-memory fakes. This happens globally at the framework level, requiring **zero code changes** inside your core business logic or routes.
+
+3. **Optimized Directed Acyclic Graph (DAG) Resolution & Caching**:
+   * FastAPI evaluates the dependency signatures at application startup to compile a **Directed Acyclic Graph (DAG)**. 
+   * When a request arrives, the engine resolves this tree from the bottom up (leaves to root) in an optimal execution sequence.
+   * **Per-Request Caching**: If multiple separate dependencies down the line require the exact same sub-dependency (e.g., both an authentication guardrail and a logging hook require the same `get_settings` or `get_db` instance), FastAPI executes the provider function **exactly once**. It caches the resulting memory reference for the remainder of that specific request cycle, preventing duplicate query overhead or file reads.
 </details>
+
 
 <details>
-<summary><b>5) How do you handle configuration and secrets?</b></summary>
+<summary><b>5) Interview Question: How do you handle configuration and secrets?</b></summary>
 
-Environment variables, with a `.env` file only for local development and never committed (`.env.example` documents the variables). A typed settings class validates everything at startup, so bad config fails fast. Secrets use `SecretStr`, so they print masked; the real value is read only where it's used.
+1. **Environmental Decoupling (12-Factor App)**:
+   * Application configuration is completely separated from source code execution paths and managed through **Environment Variables**. 
+   * A template file (`.env.example`) is committed to git to establish expected keys, while the actual `.env` file containing local credentials is strictly blocked by `.gitignore`.
+   * This isolates environments perfectly: the code is compiled once into a single image, and behavior shifts (Dev, Test, Prod) are driven entirely by altering the injected system variables.
 
+2. **Fail-Fast Startup Guardrails**:
+   * Instead of lazily evaluating settings when a route executes, `pydantic-settings` instantiates a typed `Settings` data schema **at the exact millisecond of server boot-up**.
+   * Pydantic applies structural data type checks, field presence validations, and constraint analysis (e.g., matching literal bounds like `env: Literal["dev", "prod"]`).
+   * If a value is missing, corrupted, or structurally invalid, the process immediately raises a validation trace and **refuses to boot**. This guarantees that configuration errors are caught instantly during CI/CD deployments rather than exploding as transient errors under production load at 2 a.m.
+
+3. **Log-Leak Defenses via `SecretStr`**:
+   * Critical secrets (such as database credentials or third-party API keys) are encapsulated using Pydantic’s **`SecretStr`** wrapper.
+   * `SecretStr` intercepts default serialization methods (`__str__`, `__repr__`, `.model_dump()`), automatically replacing sensitive content strings with masked text markers (`'**********'`).
+   * This provides deep security mitigation against accidental log-poisoning—preventing sensitive application keys from leaking into stdout traces, log aggregate search engines, or application monitoring dashboards while keeping the real string securely retrievable via `.get_secret_value()` at the execution destination.
 </details>
+
 
 <details>
-<summary><b>6) Two requests both passed a "max 5" check. Why, and how do you fix it?</b></summary>
+<summary><b>6) Interview Question: Two requests both passed a "max 5" check. Why, and how do you fix it?</b></summary>
 
-Check-then-act isn't atomic: two threads both check before either one writes. In one process, put the check and the write under one lock (and do slow work outside the lock). Across several processes or servers, an in-memory lock doesn't help because each process has its own: the shared state and the atomicity must live in the database (a transaction with a row lock, a conditional write, or a unique constraint) or in Redis with an atomic operation.
+1. **The Concurrency Breakdown (Check-Then-Act / TOCTOU)**:
+   * This bug manifests because the evaluation of the current state and the mutation of that state are non-atomic. This is known as a **Time-of-Check to Time-of-Use (TOCTOU)** race condition.
+   * If two background threads process concurrent requests simultaneously, **Thread A** reads the system metric (e.g., `Count = 4`), validates that it is below the ceiling, and transitions into downstream logic (like slow body parsing, payment authorization, or object creation). 
+   * Before Thread A can persist its update to increment the state, **Thread B** hits the exact same check. Because the system state hasn't been physically committed yet, Thread B reads the identical starting value (`Count = 4`), passes validation, and proceeds to write. 
+   * Both operations successfully execute their writes, causing the critical resource limit to be broken (e.g., `Count = 6`).
 
+2. **In-Process Mitigation (Single Server Instance)**:
+   * Inside a single Python process, the sequence must be serialized using a **Mutual Exclusion (Mutex) Lock** via `threading.Lock()`.
+   * Wrapping both the validation check and the insertion step within a singular `with lock:` block ensures **Atomicity**. The first thread to acquire the lock key holds the gate shut; all concurrent worker threads are forced to halt and wait in line until the transaction completes and the lock is explicitly released.
+
+3. **Production Distributed Architecture Mitigation**:
+   * A local `threading.Lock` only protects memory inside its own OS process container [A7-Scaling-Basics.md]. In horizontal production layouts featuring multiple server instances, worker processes, or load-balanced containers, an in-memory lock is useless. The state must be guarded at a centralized layer:
+     * **Pessimistic Database Locking**: Using `SELECT ... FOR UPDATE` to block other transaction read/write channels on that specific configuration row until the matching transaction commits.
+     * **Optimistic Database Constraints**: Executing a conditional atomic update or conditional insert predicate string where the validation logic is validated inside the write operation itself (`INSERT ... WHERE (SELECT COUNT(*) FROM notes) < 5`).
+     * **Distributed Memory Lock Managers (DLM)**: Utilizing an external caching layer like Redis with atomic operations (e.g., `INCR`, `SETNX`, or Redlock algorithms) to act as the global single source of truth across all system processes.
 </details>
+
 
 <details>
-<summary><b>7) What's the difference between PUT and PATCH, and how do you implement PATCH?</b></summary>
+<summary><b>7) Interview Question: What's the difference between PUT and PATCH, and how do you implement PATCH?</b></summary>
 
-PUT replaces the whole resource with what you send; PATCH changes only the fields you send. In FastAPI, make every field in the update model optional and apply `model_dump(exclude_unset=True)`, so fields the client didn't send stay unchanged. Decide and document what an explicit `null` means.
+1. **Semantic Blueprint Differences (Full vs. Partial)**:
+   * **`PUT` (Full Overwrite)**: Semantically defined as a complete resource replacement. The client sends an entire representation of the entity. If fields are omitted from the payload, the server completely overwrites the existing row data, forcing missing columns to revert to their default definitions or null states.
+   * **`PATCH` (Partial Modification)**: Semantically defined as a targeted modification. The client transmits *only* the specific attributes they intend to update. The rest of the entity's attributes must preserve their current values untouched in persistent storage.
 
+2. **The Serialization Dilemma in Python**:
+   * Standard Pydantic model schemas initialize missing properties to their default values (e.g., `None`). 
+   * This makes an omitted field (keep existing data) look exactly the same as an explicit JSON `null` payload (delete/clear existing data) inside the application runtime code.
+
+3. **FastAPI Implementation Safeguards**:
+   * To build defensive `PATCH` architectures, you execute **`body.model_dump(exclude_unset=True)`**. 
+   * This prompts Pydantic to inspect the raw incoming JSON payload context and generate a dictionary containing **only the fields the client physically typed** in their request.
+   * The resulting delta dictionary can then be passed to a clean service loop that maps keys to attributes using `setattr(stored_object, key, value)` inside a safe transactional boundary.
 </details>
+
 
 ## Done when
 
-- [ ] `uv run fastapi dev app/main.py` serves `/docs`, and I can draw the request journey from memory.
-- [ ] Create, list (with `tag` filter), get, patch and delete all work, with 201 + `Location`, 204 and 404.
-- [ ] Empty titles, unknown fields, a bad UUID and `limit=500` are all rejected with 422, and I can read the `loc`.
-- [ ] Invalid config stops startup with a clear message.
-- [ ] I ran the three `/demo` experiments and can explain the results table.
-- [ ] I reproduced the race (more than 5 notes) and fixed it, and I can explain why the fix breaks with 2 workers.
-- [ ] I answered interview questions 1, 2 and 6 aloud without looking.
+- [x] `uv run fastapi dev app/main.py` serves `/docs`, and I can draw the request journey from memory.
+- [x] Create, list (with `tag` filter), get, patch and delete all work, with 201 + `Location`, 204 and 404.
+- [x] Empty titles, unknown fields, a bad UUID and `limit=500` are all rejected with 422, and I can read the `loc`.
+- [x] Invalid config stops startup with a clear message.
+- [x] I ran the three `/demo` experiments and can explain the results table.
+- [x] I reproduced the race (more than 5 notes) and fixed it, and I can explain why the fix breaks with 2 workers.
+- [x] I answered interview questions 1, 2 and 6 aloud without looking.
 - [ ] I logged today's learnings in `progress.md` under "Week 9".
 
 ## Reading

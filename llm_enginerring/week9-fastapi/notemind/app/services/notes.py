@@ -31,7 +31,12 @@ class InMemoryNoteRepo:
     def __init__(self):
         self._notes:dict[UUID,Note]={}
         self._lock=threading.Lock()
-
+    def add_if_below(self,newNote:Note, limit:int):
+        with self._lock:
+            if len(self._notes)>=limit:
+                return None
+            self._notes[newNote.id] = newNote
+        return newNote
     def add(self,newNote:Note):
         with self._lock:
             self._notes[newNote.id]=newNote
@@ -42,15 +47,16 @@ class InMemoryNoteRepo:
     def count(self) -> int:
         with self._lock:
             return len(self._notes)
-    def list(self, limit: int, offset: int, tag: str | None) -> list[Note]:
+    def list(self, limit: int, offset: int, tag: str | None , pinned: bool | None) -> list[Note]:
         with self._lock:
             notes = list(self._notes.values())   # copy, so sorting below is safe
         if tag:
             notes = [n for n in notes if tag in n.tags]
+        if pinned is not None:
+            notes = [n for n in notes if n.pinned == pinned]
         # pinned first, then newest first
         notes.sort(key=lambda n: (not n.pinned, -n.updated_at.timestamp()))
         return notes[offset : offset + limit]
-
     def delete(self,note_id:UUID):
         with self._lock:
             status=self._notes.pop(note_id,None)
@@ -68,22 +74,19 @@ class NoteService:
         self.max_notes = max_notes
 
     def create(self, data: Note) -> Note:
-        if self.repo.count() >= self.max_notes:
-            raise NoteLimitReached()
-
-        # Deliberate slow window to demonstrate multithreaded race conditions in Section 10
-        time.sleep(0.2)
-
-        new_note = Note(title=data.title, body=data.body, tags=data.tags, pinned=data.pinned)
-        return self.repo.add(new_note)
+       time.sleep(0.1)  # simulate a slow database
+       node = self.repo.add_if_below(Note(title=data.title, body=data.body, tags=data.tags, pinned=data.pinned), self.max_notes)
+       if node is None:
+           raise NoteLimitReached(f"Cannot create more than {self.max_notes} notes")
+       return node
     def get(self,id:UUID)-> Note|None:
         return self.repo.get(id)
 
     def count(self)->int:
         return self.repo.count()
-    def list(self, limit: int, offset: int, tag: str | None) -> list[Note]:
-        return self.repo.list(limit, offset, tag)
-    
+    def list(self, limit: int, offset: int, tag: str | None, pinned: bool | None) -> list[Note]:
+        return self.repo.list(limit, offset, tag, pinned)
+
     def delete(self, note_id: UUID) -> bool:
         return self.repo.delete(note_id)
     def update(self,note_id:UUID,changes:dict):
