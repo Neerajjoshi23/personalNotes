@@ -1,4 +1,5 @@
 # file: app/deps.py
+import time
 from functools import lru_cache
 from typing import Annotated
 
@@ -10,7 +11,11 @@ from app.services.notes import InMemoryNoteRepo, NoteService
 
 @lru_cache
 def get_settings() -> Settings:
+    start = time.perf_counter() 
     # Created once. If config values are invalid, this raises immediately at startup.
+    time.sleep(0.1)  # simulate a slow database
+    end = time.perf_counter()   
+    print(f"get_settings() took {end - start:.3f} seconds")
     return Settings()
 
 
@@ -19,6 +24,11 @@ _repo = InMemoryNoteRepo()
 
 
 def get_repo() -> InMemoryNoteRepo:
+    start = time.perf_counter()
+    # Created once. If config values are invalid, this raises immediately at startup.
+    time.sleep(0.1)  # simulate a slow database
+    end = time.perf_counter()   
+    print(f"get_repo() took {end - start:.3f} seconds")
     return _repo
 
 
