@@ -61,6 +61,19 @@ async def run_tests():
         r_verify = await client.get(f"/api/v1/notes/{note_id}")
         print(f"Status: {r_verify.status_code} (Expect 404 Not Found)")
         print(f"Body: {r_verify.text}\n")
+        
+                # 🔥 TEST: 8a. GET List with valid sort parameter
+        print("8a. Testing GET /api/v1/notes?sort=created")
+        r_sort_valid = await client.get("/api/v1/notes", params={"sort": "created"})
+        print(f"Status: {r_sort_valid.status_code} (Expect 200 OK)")
+        print(f"Body: {r_sort_valid.text}\n")
+
+        # 🛡️ TEST: 8b. GET List with invalid sort parameter (Perimeter Check)
+        print("8b. Testing GET /api/v1/notes?sort=title")
+        r_sort_invalid = await client.get("/api/v1/notes", params={"sort": "title"})
+        print(f"Status: {r_sort_invalid.status_code} (Expect 422 Unprocessable Entity)")
+        print(f"Body: {r_sort_invalid.text}\n")
+
 
 if __name__ == "__main__":
     asyncio.run(run_tests())

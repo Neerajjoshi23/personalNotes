@@ -1,5 +1,5 @@
 # file: app/routers/notes.py
-from typing import Annotated
+from typing import Annotated, Literal
 from uuid import UUID
 
 from fastapi import APIRouter, HTTPException, Query, Response, status
@@ -39,8 +39,9 @@ def list_notes(
     offset: Annotated[int, Query(ge=0)] = 0,
     tag: Annotated[str | None, Query(max_length=30)] = None,
     pinned: Annotated[bool | None, Query()] = None,
+    sort: Annotated[Literal["created", "updated"] | None, Query()] = None,
 ) -> Page[NoteOut]:
-    notes = service.list(limit, offset, tag.lower() if tag else None, pinned)
+    notes = service.list(limit, offset, tag.lower() if tag else None, pinned, sort)
     return Page[NoteOut](items=[NoteOut.model_validate(n) for n in notes], limit=limit, offset=offset)
 
 @router.patch("/{note_id}")

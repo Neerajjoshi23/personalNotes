@@ -47,7 +47,7 @@ class InMemoryNoteRepo:
     def count(self) -> int:
         with self._lock:
             return len(self._notes)
-    def list(self, limit: int, offset: int, tag: str | None , pinned: bool | None) -> list[Note]:
+    def list(self, limit: int, offset: int, tag: str | None , pinned: bool | None,sort : str | None) -> list[Note]:
         with self._lock:
             notes = list(self._notes.values())   # copy, so sorting below is safe
         if tag:
@@ -55,7 +55,10 @@ class InMemoryNoteRepo:
         if pinned is not None:
             notes = [n for n in notes if n.pinned == pinned]
         # pinned first, then newest first
-        notes.sort(key=lambda n: (not n.pinned, -n.updated_at.timestamp()))
+        if sort is None or sort == "updated":
+            notes.sort(key=lambda n: (not n.pinned, -n.updated_at.timestamp()))
+        else :
+           notes.sort(key=lambda n: (not n.pinned, -n.created_at.timestamp()))
         return notes[offset : offset + limit]
     def delete(self,note_id:UUID):
         with self._lock:
@@ -84,8 +87,8 @@ class NoteService:
 
     def count(self)->int:
         return self.repo.count()
-    def list(self, limit: int, offset: int, tag: str | None, pinned: bool | None) -> list[Note]:
-        return self.repo.list(limit, offset, tag, pinned)
+    def list(self, limit: int, offset: int, tag: str | None, pinned: bool | None, sort: str | None) -> list[Note]:
+        return self.repo.list(limit, offset, tag, pinned, sort)
 
     def delete(self, note_id: UUID) -> bool:
         return self.repo.delete(note_id)
