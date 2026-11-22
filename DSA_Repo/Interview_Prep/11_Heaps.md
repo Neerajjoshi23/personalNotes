@@ -1,6 +1,7 @@
 # Chapter 11 — Heaps
 
-> **Revision target:** 0.5 day  
+> **Revision target:** 10 required questions at 1 hour/day; split hard questions across sessions.
+> **Practice:** [Start the 10 questions](#practice-problems) | [Mixed extra practice](EXTRA_PRACTICE.md)
 > **Goal:** After reading this file, you need nothing else for this topic — no code files, no YouTube, no tutorials.
 
 ---
@@ -723,31 +724,18 @@ priority_queue<int, vector<int>, greater<int>> minH;
 
 ## Practice Problems
 
-> Track your progress — check off each problem when solved.
-> Striver A2Z Sheet: https://takeuforward.org/dsa/strivers-a2z-sheet-learn-dsa-a-to-z
 
-- [ ] Implement Min Heap — https://www.geeksforgeeks.org/problems/operations-on-binary-min-heap/1
-- [ ] Check if an array represents a min heap — https://www.geeksforgeeks.org/problems/does-array-represent-heap4345/1
-- [ ] Convert Min Heap to Max Heap — https://www.geeksforgeeks.org/problems/convert-min-heap-to-max-heap-1612571105/1
-- [ ] K-th Largest element in an array — https://leetcode.com/problems/kth-largest-element-in-an-array/
-- [ ] Kth Smallest element in an array — https://www.geeksforgeeks.org/problems/kth-smallest-element5635/1
-- [ ] Sort K sorted array — https://www.geeksforgeeks.org/problems/nearly-sorted-1587115620/1
-- [ ] Merge K sorted Lists — https://leetcode.com/problems/merge-k-sorted-lists/
-- [ ] Replace Elements by Their Rank — https://www.geeksforgeeks.org/problems/replace-elements-by-their-rank-in-an-array/1
-- [ ] Task Scheduler — https://leetcode.com/problems/task-scheduler/
-- [ ] Hand of Straights — https://leetcode.com/problems/hand-of-straights/
-- [ ] Design Twitter — https://leetcode.com/problems/design-twitter/
-- [ ] Minimum Cost to Connect Sticks — https://leetcode.com/problems/minimum-cost-to-connect-sticks/
-- [ ] Kth largest element in a stream — https://leetcode.com/problems/kth-largest-element-in-a-stream/
-- [ ] Maximum Sum Combination — https://www.geeksforgeeks.org/problems/maximum-sum-combination/1
-- [ ] Find Median from Data Stream — https://leetcode.com/problems/find-median-from-data-stream/
-- [ ] Top K Frequent Elements — https://leetcode.com/problems/top-k-frequent-elements/
-- [ ] Merge 2 Heaps — https://www.geeksforgeeks.org/problems/merge-two-binary-max-heap0144/1
-- [ ] Is Tree a Heap — https://www.geeksforgeeks.org/problems/is-binary-tree-heap/1
-- [ ] Min Cost of N ropes — https://www.geeksforgeeks.org/problems/minimum-cost-of-ropes-1587115620/1
-- [ ] Median in a Stream — https://www.geeksforgeeks.org/problems/find-median-in-a-stream-1587115620/1
-- [ ] Smallest Range Covering Elements from K Lists — https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists/
-- [ ] Reorganize String — https://leetcode.com/problems/reorganize-string/
-- [ ] Kth Largest Sum Subarray — https://www.geeksforgeeks.org/problems/k-th-largest-sum-contiguous-subarray/1
-- [ ] Merge K sorted Arrays — https://www.geeksforgeeks.org/problems/merge-k-sorted-arrays4305/1
+> **Required: 10 questions.** Do these in order, then move to the next topic. Check each box after an independent solve or a successful retry.
+> The remaining questions are in [Extra Practice](EXTRA_PRACTICE.md); they are optional and mixed without topic labels.
+
+- [ ] [LC 347 - Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/)
+- [ ] [LC 703 - Kth Largest Element in a Stream](https://leetcode.com/problems/kth-largest-element-in-a-stream/)
+- [ ] [LC 23 - Merge k Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists/)
+- [ ] [LC 295 - Find Median from Data Stream](https://leetcode.com/problems/find-median-from-data-stream/)
+- [ ] [LC 621 - Task Scheduler](https://leetcode.com/problems/task-scheduler/)
+- [ ] [LC 846 - Hand of Straights](https://leetcode.com/problems/hand-of-straights/)
+- [ ] [LC 355 - Design Twitter](https://leetcode.com/problems/design-twitter/)
+- [ ] [LC 632 - Smallest Range Covering Elements from K Lists](https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists/)
+- [ ] [LC 767 - Reorganize String](https://leetcode.com/problems/reorganize-string/)
+- [ ] [LC 973 - K Closest Points to Origin](https://leetcode.com/problems/k-closest-points-to-origin/)
 

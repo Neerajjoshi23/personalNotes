@@ -1,6 +1,7 @@
 # Chapter 09 — Stack & Queue
 
-> **Revision target:** 1 day  
+> **Revision target:** 10 required questions at 1 hour/day; split hard questions across sessions.
+> **Practice:** [Start the 10 questions](#practice-problems) | [Mixed extra practice](EXTRA_PRACTICE.md)
 > **Goal:** After reading this file, you need nothing else for this topic — no code files, no YouTube, no tutorials.
 
 ---
@@ -1274,51 +1275,18 @@ Celebrity        → Stack for elimination, verify the survivor
 
 ## Practice Problems
 
-> Track your progress — check off each problem when solved.
-> Striver A2Z Sheet: https://takeuforward.org/dsa/strivers-a2z-sheet-learn-dsa-a-to-z
 
-- [ ] Implement Stack using Arrays — https://www.geeksforgeeks.org/problems/implement-stack-using-array/1
-- [ ] Implement Queue using Arrays — https://www.geeksforgeeks.org/problems/implement-queue-using-array/1
-- [ ] Implement Stack using Queue — https://leetcode.com/problems/implement-stack-using-queues/
-- [ ] Implement Queue using Stack — https://leetcode.com/problems/implement-queue-using-stacks/
-- [ ] Implement Stack using Linked List — https://www.geeksforgeeks.org/problems/implement-stack-using-linked-list/1
-- [ ] Implement Queue using Linked List — https://www.geeksforgeeks.org/problems/implement-queue-using-linked-list/1
-- [ ] Balanced Parentheses — https://leetcode.com/problems/valid-parentheses/
-- [ ] Implement Min Stack — https://leetcode.com/problems/min-stack/
-- [ ] Infix to Postfix Conversion — https://www.geeksforgeeks.org/problems/infix-to-postfix/1
-- [ ] Prefix to Infix Conversion — https://www.geeksforgeeks.org/problems/prefix-to-infix-conversion/1
-- [ ] Prefix to Postfix Conversion — https://www.geeksforgeeks.org/problems/prefix-to-postfix-conversion/1
-- [ ] Postfix to Prefix Conversion — https://www.geeksforgeeks.org/problems/postfix-to-prefix-conversion/1
-- [ ] Postfix to Infix Conversion — https://www.geeksforgeeks.org/problems/postfix-to-infix-conversion/1
-- [ ] Infix to Prefix Conversion — https://www.geeksforgeeks.org/problems/infix-to-prefix-conversion/1
-- [ ] Next Greater Element — https://leetcode.com/problems/next-greater-element-i/
-- [ ] Next Greater Element - 2 — https://leetcode.com/problems/next-greater-element-ii/
-- [ ] Next Smaller Element — https://www.geeksforgeeks.org/problems/next-smaller-element/1
-- [ ] Number of Greater Elements to the Right — https://www.geeksforgeeks.org/problems/number-of-nges-to-the-right/1
-- [ ] Trapping Rainwater — https://leetcode.com/problems/trapping-rain-water/
-- [ ] Sum of Subarray Minimums — https://leetcode.com/problems/sum-of-subarray-minimums/
-- [ ] Asteroid Collision — https://leetcode.com/problems/asteroid-collision/
-- [ ] Sum of Subarray Ranges — https://leetcode.com/problems/sum-of-subarray-ranges/
-- [ ] Remove K Digits — https://leetcode.com/problems/remove-k-digits/
-- [ ] Largest rectangle in a histogram — https://leetcode.com/problems/largest-rectangle-in-histogram/
-- [ ] Maximum Rectangles (Maximal Rectangle) — https://leetcode.com/problems/maximal-rectangle/
-- [ ] Sliding Window Maximum — https://leetcode.com/problems/sliding-window-maximum/
-- [ ] Stock span problem — https://leetcode.com/problems/online-stock-span/
-- [ ] Celebrity Problem — https://www.geeksforgeeks.org/problems/the-celebrity-problem/1
-- [ ] LRU Cache — https://leetcode.com/problems/lru-cache/
-- [ ] LFU Cache — https://leetcode.com/problems/lfu-cache/
-- [ ] Delete Middle Element in Stack — https://www.geeksforgeeks.org/problems/delete-middle-element-of-a-stack/1
-- [ ] Insert at Bottom of Stack — https://www.geeksforgeeks.org/problems/insert-an-element-at-the-bottom-of-a-stack/1
-- [ ] Reverse a Stack using recursion — https://www.geeksforgeeks.org/problems/reverse-a-stack/1
-- [ ] Sort a Stack using recursion — https://www.geeksforgeeks.org/problems/sort-a-stack/1
-- [ ] Redundant Brackets — https://www.geeksforgeeks.org/problems/e015cb4d3f354b035d9665e7c8a54a7aefb1901b/1
-- [ ] Minimum bracket Reversals — https://www.geeksforgeeks.org/problems/minimum-bracket-reversals/1
-- [ ] N Stacks in an Array — https://www.geeksforgeeks.org/problems/n-stacks-in-an-array/1
-- [ ] Queue Reversal — https://www.geeksforgeeks.org/problems/queue-reversal/1
-- [ ] First Negative Integer in Every Window of Size K — https://www.geeksforgeeks.org/problems/first-negative-integer-in-every-window-of-size-k3345/1
-- [ ] Reverse First K Elements of Queue — https://www.geeksforgeeks.org/problems/reverse-first-k-elements-of-queue/1
-- [ ] First Non-Repeating Character in Stream — https://www.geeksforgeeks.org/problems/first-non-repeating-character-in-a-stream1216/1
-- [ ] Circular Tour — https://www.geeksforgeeks.org/problems/circular-tour-1587115620/1
-- [ ] Interleave First and Second Half of Queue — https://www.geeksforgeeks.org/problems/interleave-the-first-half-of-the-queue-with-second-half/1
-- [ ] Sum of min & max of all subarrays of size K — https://www.geeksforgeeks.org/problems/sum-of-minimum-and-maximum-elements-of-all-subarrays-of-size-k/1
+> **Required: 10 questions.** Do these in order, then move to the next topic. Check each box after an independent solve or a successful retry.
+> The remaining questions are in [Extra Practice](EXTRA_PRACTICE.md); they are optional and mixed without topic labels.
+
+- [ ] [LC 225 - Implement Stack using Queues](https://leetcode.com/problems/implement-stack-using-queues/)
+- [ ] [LC 232 - Implement Queue using Stacks](https://leetcode.com/problems/implement-queue-using-stacks/)
+- [ ] [LC 20 - Valid Parentheses](https://leetcode.com/problems/valid-parentheses/)
+- [ ] [LC 155 - Min Stack](https://leetcode.com/problems/min-stack/)
+- [ ] [LC 496 - Next Greater Element I](https://leetcode.com/problems/next-greater-element-i/)
+- [ ] [LC 503 - Next Greater Element II](https://leetcode.com/problems/next-greater-element-ii/)
+- [ ] [LC 739 - Daily Temperatures](https://leetcode.com/problems/daily-temperatures/)
+- [ ] [LC 907 - Sum of Subarray Minimums](https://leetcode.com/problems/sum-of-subarray-minimums/)
+- [ ] [LC 84 - Largest Rectangle in Histogram](https://leetcode.com/problems/largest-rectangle-in-histogram/)
+- [ ] [LC 85 - Maximal Rectangle](https://leetcode.com/problems/maximal-rectangle/)
 

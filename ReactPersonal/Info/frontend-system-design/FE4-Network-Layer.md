@@ -358,9 +358,146 @@ Keep pages 1–3 visible, show an inline retry at the bottom, avoid a full-page 
 
 ## My notes (write from memory after reading)
 
-- 
-- 
-- 
+## My notes (FE4 · Network Layer)
+
+<details>
+<summary><strong>1. API Design & Pagination (REST, GraphQL, BFF & Cursors)</strong></summary>
+
+* **Typed Network Layer:** Never call raw `fetch` directly inside components. Centralize auth, `AbortController` cancellation, retry policies, request deduplication, error normalization (`ApiError`), and observability in one client layer.
+* **REST vs. GraphQL vs. BFF:**
+  * **REST:** Best default when endpoints map cleanly to screens and HTTP/CDN caching matters.
+  * **GraphQL:** Strong when complex clients need flexible nested shapes across many surfaces and the org supports schema governance/query cost limits.
+  * **BFF (Backend for Frontend):** Shapes multiple internal microservices into one screen-ready payload so the browser doesn't orchestrate 5 round trips before first paint.
+* **Cursor vs. Offset Pagination:**
+  * Always use **opaque cursors** (`?cursor=abc&limit=20`) for live feeds/chats where inserts or deletes shift rows while scrolling (offset pagination causes duplicate or skipped items).
+  * Cap retained pages in infinite scroll (`maxPages: 5`) to prevent mobile memory bloat. Use page numbers only for static data tables requiring arbitrary page jumps or exports.
+
+```tsx
+function useFeed() {
+  return useInfiniteQuery({
+    queryKey: ['feed', 'home'],
+    queryFn: ({ pageParam, signal }) =>
+      api.feed({ cursor: pageParam, limit: 20, signal }),
+    initialPageParam: undefined as string | undefined,
+    getNextPageParam: (lastPage) => lastPage.nextCursor,
+    maxPages: 5,
+  });
+}
+```
+</details>
+
+<details>
+<summary><strong>2. Request Dedup, Smart Retries & Cancellation</strong></summary>
+
+* **Request Deduplication:** Share one in-flight `Promise` in a `Map<string, Promise>` when multiple components request the same query key simultaneously. Safe **only** for idempotent reads (`GET`), never mutations without an idempotency key.
+* **Smart Retries (Exponential Backoff + Jitter):**
+  * **Auto-retry:** Transient failures (network drops, timeouts, `429` respecting `Retry-After`, `503`). Add random jitter (`0.5 + Math.random()`) so reconnecting clients don't create a thundering herd.
+  * **Never auto-retry:** `400` validation errors, `401/403` auth errors, or `POST` mutations (like payments) without an `Idempotency-Key` header.
+* **Cancellation (`AbortController`):** Abort superseded requests on rapid inputs (like autocomplete) and ignore `AbortError` in `catch` so stale slow responses never overwrite fresher UI results.
+
+```ts
+useEffect(() => {
+  if (!q) return;
+  const controller = new AbortController();
+
+  api.search({ q, signal: controller.signal })
+    .then(setResults)
+    .catch((err) => {
+      if (err.name !== 'AbortError') setError(err);
+    });
+
+  return () => controller.abort();
+}, [q]);
+```
+</details>
+
+<details>
+<summary><strong>3. Prefetching & Scoped Error Handling UX</strong></summary>
+
+* **High-Intent Prefetching:** Prefetch on desktop link hover/focus, near-viewport scroll sentinels, or next carousel image. Avoid prefetching large media on slow connections or prefetching every link blindly.
+* **Scoped Error Recovery (No Global Toast Spam):**
+  * *Initial page load fails:* Full-page error state with Retry.
+  * *Page 4 of feed fails:* Keep Pages 1–3 visible and show an inline Retry button at the bottom.
+  * *Single image fails:* Fallback placeholder + `alt` text.
+  * *WebSocket drops:* Subtle `"Reconnecting..."` banner while queueing outbound sends.
+</details>
+
+<details>
+<summary><strong>4. Realtime on the Client: SSE vs. WebSockets (Comparison & Code)</strong></summary>
+
+Both protocols start over encrypted **HTTPS** in production. **SSE** stays on standard `https://` (`text/event-stream`), while **WebSockets** upgrade via HTTP `101 Switching Protocols` into a persistent `wss://` two-way tunnel.
+
+| Dimension | SSE (`Server-Sent Events`) | WebSockets (`wss://`) |
+| :--- | :--- | :--- |
+| **Direction** | **One-way (Server → Client)**. Client sends data via normal HTTP `POST`. | **Bidirectional / Full-duplex (Client ↔ Server)** over one persistent connection. |
+| **Auto-Reconnect** | **Built into `EventSource`** (automatically sends `Last-Event-ID`). | **Manual** (requires custom backoff, jitter, ping/pong heartbeats, and gap-fill). |
+| **Auth & Headers** | Native `EventSource` uses cookies (`GET` only); use `fetch()` stream for `POST` + Bearer tokens. | `new WebSocket(url)` cannot set custom headers; use `HttpOnly` cookies or a short-lived `POST /ws-ticket`. |
+| **Best Use Cases** | **LLM / AI token streaming**, live notifications, stock tickers, `"12 new posts"` feed invalidation banners. | **Chat apps**, **DrawBoard / Figma** (CRDT updates + live cursors), multiplayer games. |
+
+#### Code Example A: SSE / LLM Streaming with `fetch` + `ReadableStream` + `AbortController`
+*(Preferred over `EventSource` when sending a `POST` prompt, `Authorization` header, or wiring a "Stop generating" button).*
+
+```ts
+async function streamPrompt(
+  prompt: string,
+  signal: AbortSignal,
+  onToken: (chunk: string) => void
+) {
+  const res = await fetch('/api/ai/stream', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+    body: JSON.stringify({ prompt }),
+    signal,
+  });
+
+  const reader = res.body!.getReader();
+  const decoder = new TextDecoder();
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    onToken(decoder.decode(value, { stream: true }));
+  }
+}
+```
+
+#### Code Example B: WebSocket Envelope, Reconnect Gap-Fill & Optimistic `clientId` Upsert
+* **7 WebSocket Client Concerns:** (1) Auth readiness before connect, (2) Connection state machine (`connecting` / `connected` / `reconnecting` / `offline`), (3) Ping/pong heartbeats to catch silent zombie drops, (4) Exponential backoff + jitter, (5) `lastSeq` gap-filling on reconnect (`GET /events?afterSeq=lastSeq`) while buffering live incoming events, (6) Deduplication via `seenEventIds` and `clientId`, and (7) Closing on `pagehide` / reopening on `pageshow` (`event.persisted`) so open sockets don't break browser `bfcache`.
+
+```ts
+type EventEnvelope<T> = {
+  id: string;        // Server event ID (for deduplication)
+  clientId?: string; // Client-generated UUID (matches optimistic bubble)
+  seq: number;       // Monotonic per-room sequence number (for ordering & gap fill)
+  type: string;
+  payload: T;
+};
+
+// Shared handler for BOTH HTTPS POST 200 OK and WebSocket broadcast (prevents duplicates)
+function upsertMessage(state: RoomState, incoming: Message) {
+  // 1. Loser of the race: already confirmed by the faster pipe -> ignore
+  if (state.messagesById[incoming.id]) return;
+
+  // 2. Winner of the race: swap temporary clientId -> real server id
+  if (incoming.clientId && state.messagesById[incoming.clientId]) {
+    delete state.messagesById[incoming.clientId];
+    state.messagesById[incoming.id] = { ...incoming, status: 'sent' };
+    state.orderedMessageIds = state.orderedMessageIds.map((id) =>
+      id === incoming.clientId ? incoming.id : id
+    );
+    return;
+  }
+
+  // 3. New message from another user or another tab
+  state.messagesById[incoming.id] = { ...incoming, status: 'sent' };
+  state.orderedMessageIds.push(incoming.id);
+}
+```
+</details>
+
+**One thing I'd have got wrong before reading this:**
+- Relying on `invalidateQueries` on HTTP `POST` success while a WebSocket is open (causing a brief duplicate-message flicker) instead of matching both responses by `clientId` in one shared `upsertMessage` reducer, and leaving WebSockets open across navigation (which breaks browser `bfcache`).
+
 
 **One thing I'd have got wrong before reading this:**
 

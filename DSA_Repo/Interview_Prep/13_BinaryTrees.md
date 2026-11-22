@@ -1,6 +1,7 @@
 # Chapter 13 — Binary Trees
 
-> **Revision target:** 1 day  
+> **Revision target:** 10 required questions at 1 hour/day; split hard questions across sessions.
+> **Practice:** [Start the 10 questions](#practice-problems) | [Mixed extra practice](EXTRA_PRACTICE.md)
 > **Goal:** After reading this file, you need nothing else for this topic — no code files, no YouTube, no tutorials.
 
 ---
@@ -1175,44 +1176,18 @@ while(curr) {
 
 ## Practice Problems
 
-> Track your progress — check off each problem when solved.
-> Striver A2Z Sheet: https://takeuforward.org/dsa/strivers-a2z-sheet-learn-dsa-a-to-z
 
-- [ ] Preorder Traversal — https://leetcode.com/problems/binary-tree-preorder-traversal/
-- [ ] Inorder Traversal — https://leetcode.com/problems/binary-tree-inorder-traversal/
-- [ ] Postorder Traversal — https://leetcode.com/problems/binary-tree-postorder-traversal/
-- [ ] Level Order Traversal — https://leetcode.com/problems/binary-tree-level-order-traversal/
-- [ ] Iterative Preorder Traversal — https://leetcode.com/problems/binary-tree-preorder-traversal/
-- [ ] Iterative Inorder Traversal — https://leetcode.com/problems/binary-tree-inorder-traversal/
-- [ ] Post-order Traversal using 2 stacks — https://leetcode.com/problems/binary-tree-postorder-traversal/
-- [ ] Maximum Depth in BT — https://leetcode.com/problems/maximum-depth-of-binary-tree/
-- [ ] Check for balanced binary tree — https://leetcode.com/problems/balanced-binary-tree/
-- [ ] Diameter of Binary Tree — https://leetcode.com/problems/diameter-of-binary-tree/
-- [ ] Maximum path sum — https://leetcode.com/problems/binary-tree-maximum-path-sum/
-- [ ] Check if two trees are identical or not — https://leetcode.com/problems/same-tree/
-- [ ] Zig Zag Traversal — https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/
-- [ ] Boundary Traversal — https://leetcode.com/problems/boundary-of-binary-tree/
-- [ ] Vertical Order Traversal — https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/
-- [ ] Top View of BT — https://www.geeksforgeeks.org/problems/top-view-of-binary-tree/1
-- [ ] Bottom View of BT — https://www.geeksforgeeks.org/problems/bottom-view-of-binary-tree/1
-- [ ] Right/Left View of Binary Tree — https://leetcode.com/problems/binary-tree-right-side-view/
-- [ ] Symmetric Binary Tree — https://leetcode.com/problems/symmetric-tree/
-- [ ] Print root to leaf path in BT — https://www.geeksforgeeks.org/problems/root-to-leaf-paths/1
-- [ ] LCA in BT — https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
-- [ ] Maximum Width of BT — https://leetcode.com/problems/maximum-width-of-binary-tree/
-- [ ] Children Sum Property in Binary Tree — https://www.geeksforgeeks.org/problems/children-sum-parent/1
-- [ ] Print all nodes at a distance of K in BT — https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/
-- [ ] Minimum time to burn BT from a given Node — https://www.geeksforgeeks.org/problems/burning-tree/1
-- [ ] Count total nodes in a complete BT — https://leetcode.com/problems/count-complete-tree-nodes/
-- [ ] Construct a BT from Preorder and Inorder — https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
-- [ ] Construct a BT from Postorder and Inorder — https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/
-- [ ] Serialize and De-serialize BT — https://leetcode.com/problems/serialize-and-deserialize-binary-tree/
-- [ ] Morris Inorder Traversal — https://leetcode.com/problems/binary-tree-inorder-traversal/
-- [ ] Flatten Binary Tree to Linked List — https://leetcode.com/problems/flatten-binary-tree-to-linked-list/
-- [ ] Sum Tree or Not — https://www.geeksforgeeks.org/problems/sum-tree/1
-- [ ] Diagonal Traversal — https://www.geeksforgeeks.org/problems/diagonal-traversal-of-binary-tree/1
-- [ ] Sum of Longest BloodLine — https://www.geeksforgeeks.org/problems/sum-of-the-longest-bloodline-of-a-tree/1
-- [ ] K Sum paths — https://www.geeksforgeeks.org/problems/k-sum-paths/1
-- [ ] Kth Ancestor — https://www.geeksforgeeks.org/problems/kth-ancestor-in-a-tree/1
-- [ ] Max Sum of Non-Adjacent Nodes (House Robber on Tree) — https://www.geeksforgeeks.org/problems/maximum-sum-of-non-adjacent-nodes/1
+> **Required: 10 questions.** Do these in order, then move to the next topic. Check each box after an independent solve or a successful retry.
+> The remaining questions are in [Extra Practice](EXTRA_PRACTICE.md); they are optional and mixed without topic labels.
+
+- [ ] [LC 144 - Binary Tree Preorder Traversal](https://leetcode.com/problems/binary-tree-preorder-traversal/)
+- [ ] [LC 94 - Binary Tree Inorder Traversal](https://leetcode.com/problems/binary-tree-inorder-traversal/)
+- [ ] [LC 145 - Binary Tree Postorder Traversal](https://leetcode.com/problems/binary-tree-postorder-traversal/)
+- [ ] [LC 102 - Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/)
+- [ ] [LC 104 - Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/)
+- [ ] [LC 543 - Diameter of Binary Tree](https://leetcode.com/problems/diameter-of-binary-tree/)
+- [ ] [LC 110 - Balanced Binary Tree](https://leetcode.com/problems/balanced-binary-tree/)
+- [ ] [LC 236 - Lowest Common Ancestor of a Binary Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/)
+- [ ] [LC 105 - Construct Binary Tree from Preorder and Inorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/)
+- [ ] [LC 124 - Binary Tree Maximum Path Sum](https://leetcode.com/problems/binary-tree-maximum-path-sum/)
 

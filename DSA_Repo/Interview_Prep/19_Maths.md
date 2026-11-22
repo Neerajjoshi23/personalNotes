@@ -1,6 +1,7 @@
 # Chapter 19 — Maths for DSA (Number Theory & Combinatorics)
 
-> **Revision target:** 1 day
+> **Revision target:** 10 required questions at 1 hour/day; split hard questions across sessions.
+> **Practice:** [Start the 10 questions](#14-practice-problems) | [Mixed extra practice](EXTRA_PRACTICE.md)
 > **Goal:** After reading this file, you need nothing else for this topic — no code files, no YouTube, no tutorials.
 
 ---
@@ -359,19 +360,20 @@ long long good = (long long)a * b;   // correct — cast forces 64-bit multiplic
 
 ## 14. Practice Problems
 
-> Track your progress — check off each problem when solved.
 
-- [ ] Count Primes (Sieve of Eratosthenes) — https://leetcode.com/problems/count-primes/
-- [ ] Print Prime Factors of a Number — https://www.geeksforgeeks.org/problems/prime-factors5052/1
-- [ ] All Divisors of a Number — https://www.geeksforgeeks.org/problems/all-divisors-of-a-number/1
-- [ ] GCD / HCF of two numbers — https://www.geeksforgeeks.org/problems/gcd-of-two-numbers3459/1
-- [ ] Pow(x, n) — https://leetcode.com/problems/powx-n/
-- [ ] Super Pow — https://leetcode.com/problems/super-pow/
-- [ ] Pascal's Triangle — https://leetcode.com/problems/pascals-triangle/
-- [ ] Pascal's Triangle II (single row, O(r) space) — https://leetcode.com/problems/pascals-triangle-ii/
-- [ ] Nth Root of a Number (binary search + power, cross-reference [04_BinarySearch](04_BinarySearch.md)) — https://www.geeksforgeeks.org/problems/find-nth-root-of-m5843/1
-- [ ] Sum of All Divisors From 1 to N — https://leetcode.com/problems/sum-of-divisors-of-integers-in-a-range/
-- [ ] Perfect Number Check — https://leetcode.com/problems/perfect-number/
+> **Required: 10 questions.** Do these in order, then move to the next topic. Check each box after an independent solve or a successful retry.
+> The remaining questions are in [Extra Practice](EXTRA_PRACTICE.md); they are optional and mixed without topic labels.
+
+- [ ] [GFG - GCD of Two Numbers](https://www.geeksforgeeks.org/problems/gcd-of-two-numbers3459/1)
+- [ ] [GFG - Prime Factors](https://www.geeksforgeeks.org/problems/prime-factors5052/1)
+- [ ] [LC 204 - Count Primes](https://leetcode.com/problems/count-primes/)
+- [ ] [LC 50 - Pow(x, n)](https://leetcode.com/problems/powx-n/)
+- [ ] [LC 372 - Super Pow](https://leetcode.com/problems/super-pow/)
+- [ ] [LC 118 - Pascal's Triangle](https://leetcode.com/problems/pascals-triangle/)
+- [ ] [LC 119 - Pascal's Triangle II](https://leetcode.com/problems/pascals-triangle-ii/)
+- [ ] [LC 507 - Perfect Number](https://leetcode.com/problems/perfect-number/)
+- [ ] [LC 172 - Factorial Trailing Zeroes](https://leetcode.com/problems/factorial-trailing-zeroes/)
+- [ ] [LC 1492 - The kth Factor of n](https://leetcode.com/problems/the-kth-factor-of-n/)
 
 ---
 

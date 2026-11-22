@@ -1,6 +1,7 @@
 # Chapter 05 — Strings
 
-> **Revision target:** 0.5 day  
+> **Revision target:** 10 required questions at 1 hour/day; split hard questions across sessions.
+> **Practice:** [Start the 10 questions](#practice-problems) | [Mixed extra practice](EXTRA_PRACTICE.md)
 > **Goal:** After reading this file, you need nothing else for this topic — no code files, no YouTube, no tutorials.
 
 ---
@@ -1113,36 +1114,18 @@ for(int i = 0; i < n; i++) {
 
 ## Practice Problems
 
-> Track your progress — check off each problem when solved.
-> Striver A2Z Sheet: https://takeuforward.org/dsa/strivers-a2z-sheet-learn-dsa-a-to-z
 
-- [ ] Remove Outermost Parentheses — https://leetcode.com/problems/remove-outermost-parentheses/
-- [ ] Reverse words in a given string / Palindrome Check — https://leetcode.com/problems/reverse-words-in-a-string/
-- [ ] Largest Odd Number in a String — https://leetcode.com/problems/largest-odd-number-in-string/
-- [ ] Longest Common Prefix — https://leetcode.com/problems/longest-common-prefix/
-- [ ] Isomorphic String — https://leetcode.com/problems/isomorphic-strings/
-- [ ] Rotate String — https://leetcode.com/problems/rotate-string/
-- [ ] Check if two strings are anagram of each other — https://leetcode.com/problems/valid-anagram/
-- [ ] Sort Characters by Frequency — https://leetcode.com/problems/sort-characters-by-frequency/
-- [ ] Maximum Nesting Depth of the Parentheses — https://leetcode.com/problems/maximum-nesting-depth-of-the-parentheses/
-- [ ] Roman to Integer — https://leetcode.com/problems/roman-to-integer/
-- [ ] String to Integer (atoi) — https://leetcode.com/problems/string-to-integer-atoi/
-- [ ] Count Number of Substrings
-- [ ] Longest Palindromic Substring — https://leetcode.com/problems/longest-palindromic-substring/
-- [ ] Sum of Beauty of All Substrings — https://leetcode.com/problems/sum-of-beauty-of-all-substrings/
-- [ ] Reverse every word in a string — https://leetcode.com/problems/reverse-words-in-a-string/
-- [ ] Minimum number of bracket reversals to make an expression balanced — https://leetcode.com/problems/minimum-add-to-make-parentheses-valid/
-- [ ] Count and say — https://leetcode.com/problems/count-and-say/
-- [ ] Hashing In Strings | Theory
-- [ ] Rabin Karp Algorithm — https://leetcode.com/problems/repeated-string-match/discuss/416144/Rabin-Karp-algorithm-C%2B%2B-implementation
-- [ ] Z function
-- [ ] KMP Algorithm or LPS array — https://leetcode.com/problems/implement-strstr/
-- [ ] Shortest Palindrome
-- [ ] Longest happy prefix — https://leetcode.com/problems/longest-happy-prefix/
-- [ ] Count Palindromic Subsequences — https://leetcode.com/problems/palindromic-substrings/
-- [ ] Valid Palindrome — https://leetcode.com/problems/valid-palindrome/
-- [ ] Reverse Words in a String — https://leetcode.com/problems/reverse-words-in-a-string-ii/
-- [ ] Remove All Occurrences of a Substring — https://leetcode.com/problems/remove-all-occurrences-of-a-substring/
-- [ ] Maximum Occurring Character — https://www.geeksforgeeks.org/problems/maximum-occuring-character-1587115620/1
-- [ ] Permutation in String — https://leetcode.com/problems/permutation-in-string/
+> **Required: 10 questions.** Do these in order, then move to the next topic. Check each box after an independent solve or a successful retry.
+> The remaining questions are in [Extra Practice](EXTRA_PRACTICE.md); they are optional and mixed without topic labels.
+
+- [ ] [LC 151 - Reverse Words in a String](https://leetcode.com/problems/reverse-words-in-a-string/)
+- [ ] [LC 14 - Longest Common Prefix](https://leetcode.com/problems/longest-common-prefix/)
+- [ ] [LC 205 - Isomorphic Strings](https://leetcode.com/problems/isomorphic-strings/)
+- [ ] [LC 796 - Rotate String](https://leetcode.com/problems/rotate-string/)
+- [ ] [LC 451 - Sort Characters By Frequency](https://leetcode.com/problems/sort-characters-by-frequency/)
+- [ ] [LC 8 - String to Integer (atoi)](https://leetcode.com/problems/string-to-integer-atoi/)
+- [ ] [LC 5 - Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/)
+- [ ] [LC 28 - Find the Index of the First Occurrence in a String](https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/)
+- [ ] [LC 1910 - Remove All Occurrences of a Substring](https://leetcode.com/problems/remove-all-occurrences-of-a-substring/)
+- [ ] [LC 443 - String Compression](https://leetcode.com/problems/string-compression/)
 

@@ -1,6 +1,7 @@
 # Chapter 04 — Binary Search
 
-> **Revision target:** 0.5 day  
+> **Revision target:** 10 required questions at 1 hour/day; split hard questions across sessions.
+> **Practice:** [Start the 10 questions](#practice-problems) | [Mixed extra practice](EXTRA_PRACTICE.md)
 > **Goal:** After reading this file, you need nothing else for this topic — no code files, no YouTube, no tutorials.
 
 ---
@@ -1012,40 +1013,18 @@ bool canPlace(vector<int>& stalls, int c, int minDist) {
 
 ## Practice Problems
 
-> Track your progress — check off each problem when solved.
-> Striver A2Z Sheet: https://takeuforward.org/dsa/strivers-a2z-sheet-learn-dsa-a-to-z
 
-- [ ] Binary Search — https://leetcode.com/problems/binary-search/
-- [ ] Lower Bound — https://www.geeksforgeeks.org/problems/floor-in-a-sorted-array-1587115620/1
-- [ ] Upper Bound — https://www.geeksforgeeks.org/problems/ceil-the-floor2802/1
-- [ ] Search Insert Position — https://leetcode.com/problems/search-insert-position/
-- [ ] Floor and Ceil in Sorted Array — https://www.geeksforgeeks.org/problems/ceil-the-floor2802/1
-- [ ] First and Last Occurrence — https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/
-- [ ] Count Occurrences in a Sorted Array — https://www.geeksforgeeks.org/problems/number-of-occurrence2259/1
-- [ ] Search in Rotated Sorted Array I — https://leetcode.com/problems/search-in-rotated-sorted-array/
-- [ ] Search in Rotated Sorted Array II — https://leetcode.com/problems/search-in-rotated-sorted-array-ii/
-- [ ] Find Minimum in Rotated Sorted Array — https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
-- [ ] Find how many times array is rotated — https://www.geeksforgeeks.org/problems/rotation4723/1
-- [ ] Single Element in a Sorted Array — https://leetcode.com/problems/single-element-in-a-sorted-array/
-- [ ] Find Peak Element — https://leetcode.com/problems/find-peak-element/
-- [ ] Find Square Root of a Number — https://www.geeksforgeeks.org/problems/square-root/1
-- [ ] Find Nth Root of a Number — https://www.geeksforgeeks.org/problems/find-nth-root-of-m5843/1
-- [ ] Koko Eating Bananas — https://leetcode.com/problems/koko-eating-bananas/
-- [ ] Minimum Days to Make M Bouquets — https://leetcode.com/problems/minimum-number-of-days-to-make-m-bouquets/
-- [ ] Find the Smallest Divisor — https://leetcode.com/problems/find-the-smallest-divisor-given-a-threshold/
-- [ ] Capacity to Ship Packages Within D Days — https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/
-- [ ] Kth Missing Positive Number — https://leetcode.com/problems/kth-missing-positive-number/
-- [ ] Aggressive Cows — https://www.geeksforgeeks.org/problems/aggressive-cows/1
-- [ ] Book Allocation Problem — https://www.geeksforgeeks.org/problems/allocate-minimum-number-of-pages0937/1
-- [ ] Split Array Largest Sum — https://leetcode.com/problems/split-array-largest-sum/
-- [ ] Painter's Partition — https://www.geeksforgeeks.org/problems/the-painter-s-partition-problem1535/1
-- [ ] Minimize Max Distance to Gas Station — https://leetcode.com/problems/minimize-max-distance-to-gas-station/
-- [ ] Median of Two Sorted Arrays — https://leetcode.com/problems/median-of-two-sorted-arrays/
-- [ ] Kth Element of Two Sorted Arrays — https://www.geeksforgeeks.org/problems/k-th-element-of-two-sorted-array1317/1
-- [ ] Find Row with Maximum 1s — https://www.geeksforgeeks.org/problems/row-with-max-1s0023/1
-- [ ] Search in a 2D Matrix — https://leetcode.com/problems/search-a-2d-matrix/
-- [ ] Search in 2D Matrix II — https://leetcode.com/problems/search-a-2d-matrix-ii/
-- [ ] Find Peak Element II — https://leetcode.com/problems/find-a-peak-element-ii/
-- [ ] Matrix Median — https://www.geeksforgeeks.org/problems/median-in-a-row-wise-sorted-matrix1527/1
-- [ ] Peak Index in a Mountain Array — https://leetcode.com/problems/peak-index-in-a-mountain-array/
+> **Required: 10 questions.** Do these in order, then move to the next topic. Check each box after an independent solve or a successful retry.
+> The remaining questions are in [Extra Practice](EXTRA_PRACTICE.md); they are optional and mixed without topic labels.
+
+- [ ] [LC 704 - Binary Search](https://leetcode.com/problems/binary-search/)
+- [ ] [LC 34 - Find First and Last Position of Element in Sorted Array](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/)
+- [ ] [LC 33 - Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/)
+- [ ] [LC 153 - Find Minimum in Rotated Sorted Array](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/)
+- [ ] [LC 540 - Single Element in a Sorted Array](https://leetcode.com/problems/single-element-in-a-sorted-array/)
+- [ ] [LC 162 - Find Peak Element](https://leetcode.com/problems/find-peak-element/)
+- [ ] [LC 875 - Koko Eating Bananas](https://leetcode.com/problems/koko-eating-bananas/)
+- [ ] [LC 1011 - Capacity To Ship Packages Within D Days](https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/)
+- [ ] [LC 410 - Split Array Largest Sum](https://leetcode.com/problems/split-array-largest-sum/)
+- [ ] [LC 1552 - Magnetic Force Between Two Balls](https://leetcode.com/problems/magnetic-force-between-two-balls/)
 

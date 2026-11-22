@@ -1,6 +1,7 @@
 # Chapter 01 — C++ Basics & STL
 
-> **Revision target:** 0.5 day  
+> **Revision target:** 10 required questions at 1 hour/day; split hard questions across sessions.
+> **Practice:** [Start the 10 questions](#practice-problems) | [Mixed extra practice](EXTRA_PRACTICE.md)
 > **Goal:** After reading this file, you need nothing else for this topic — no code files, no YouTube, no tutorials.
 
 ---
@@ -1880,19 +1881,18 @@ vector<vector<int>> dp(n+1, vector<int>(m+1, 0));
 
 ## Practice Problems
 
-> Track your progress — check off each problem when solved.
-> Striver A2Z Sheet: https://takeuforward.org/dsa/strivers-a2z-sheet-learn-dsa-a-to-z
 
-- [ ] Reverse Integer — https://leetcode.com/problems/reverse-integer/
-- [ ] Palindrome Number — https://leetcode.com/problems/palindrome-number/
-- [ ] GCD of Two Numbers — https://www.geeksforgeeks.org/problems/gcd-of-two-numbers3459/1
-- [ ] Armstrong Number — https://leetcode.com/problems/armstrong-number/
-- [ ] All Divisors of a Number — https://www.geeksforgeeks.org/problems/all-divisors-of-a-number/1
-- [ ] Check for Prime — https://www.geeksforgeeks.org/problems/prime-number2314/1
-- [ ] Reverse an Array — https://leetcode.com/problems/reverse-string/
-- [ ] Valid Palindrome — https://leetcode.com/problems/valid-palindrome/
-- [ ] Fibonacci Number — https://leetcode.com/problems/fibonacci-number/
-- [ ] Top K Frequent Elements (Hashing) — https://leetcode.com/problems/top-k-frequent-elements/
-- [ ] Sort Array by Frequency — https://leetcode.com/problems/sort-array-by-increasing-frequency/
-- [ ] Find All Anagrams in a String (STL warmup) — https://leetcode.com/problems/find-all-anagrams-in-a-string/
+> **Required: 10 questions.** Do these in order, then move to the next topic. Check each box after an independent solve or a successful retry.
+> The remaining questions are in [Extra Practice](EXTRA_PRACTICE.md); they are optional and mixed without topic labels.
+
+- [ ] [LC 7 - Reverse Integer](https://leetcode.com/problems/reverse-integer/)
+- [ ] [LC 9 - Palindrome Number](https://leetcode.com/problems/palindrome-number/)
+- [ ] [LC 125 - Valid Palindrome](https://leetcode.com/problems/valid-palindrome/)
+- [ ] [LC 509 - Fibonacci Number](https://leetcode.com/problems/fibonacci-number/)
+- [ ] [LC 1636 - Sort Array by Increasing Frequency](https://leetcode.com/problems/sort-array-by-increasing-frequency/)
+- [ ] [LC 1207 - Unique Number of Occurrences](https://leetcode.com/problems/unique-number-of-occurrences/)
+- [ ] [LC 1 - Two Sum](https://leetcode.com/problems/two-sum/)
+- [ ] [LC 242 - Valid Anagram](https://leetcode.com/problems/valid-anagram/)
+- [ ] [LC 349 - Intersection of Two Arrays](https://leetcode.com/problems/intersection-of-two-arrays/)
+- [ ] [LC 49 - Group Anagrams](https://leetcode.com/problems/group-anagrams/)
 

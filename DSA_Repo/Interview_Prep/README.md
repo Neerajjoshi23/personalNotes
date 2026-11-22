@@ -1,7 +1,17 @@
 # DSA Interview Prep — Revision Guide
 
 > **Goal:** Structured topic-by-topic revision after a gap. Each topic has concept notes, links to existing code, and warm-up problems.
-> **Strategy:** You've solved 1500+ LC problems. This is about warming up fast, not relearning. Aim for 1–2 days per topic.
+> **Strategy:** Your public profile showed 838 distinct LC problems solved and 1,565 accepted submissions on 18 November 2026. Revise 10 selected questions per topic instead of restarting every question.
+
+## How to use this revision guide
+
+**Each of the 19 topic files has exactly 10 required questions, also listed under that topic below: 190 questions in total.** Follow their order; once those 10 are done, move on rather than completing an entire sheet.
+
+At **1 hour/day**, spend about 10 minutes recalling earlier mistakes, 40 minutes attempting today's question, and 10 minutes testing and recording what went wrong. Two short questions may fit in an hour; a hard question can take two sessions. After the first five questions in a topic, use a session to revisit mistakes, then complete the next five. Do not force a ten-question topic into one day.
+
+Use the notes only when recall fails. Keep the chapter checklist as the source of truth for completion; the README repeats the same selection for navigation. Segments/advanced range-query questions can wait until the interview-first topics are revised.
+
+**[Extra Practice - mixed question bank](EXTRA_PRACTICE.md)** contains the remaining questions and your 241 previously accepted Codeforces problems, without topic groupings, tags, or approach hints. Pick from it whenever you want an extra or blind practice problem; it is not additional daily homework. The LC solved history is not fully public, so an extra question is not necessarily new to you.
 
 ---
 
@@ -46,27 +56,27 @@
 
 ## Progress Tracker
 
-| # | Topic | Status | Est. Time |
-|---|-------|--------|-----------|
-| 01 | [C++ Basics & STL](#01-c-basics--stl) | ⬜ Not Started | 0.5 day |
-| 02 | [Sorting Algorithms](#02-sorting-algorithms) | ⬜ Not Started | 0.5 day |
-| 03 | [Arrays](#03-arrays) | ⬜ Not Started | 1 day |
-| 04 | [Binary Search](#04-binary-search) | ⬜ Not Started | 1 day |
-| 05 | [Strings](#05-strings) | ⬜ Not Started | 1 day |
-| 06 | [Linked List](#06-linked-list) | ⬜ Not Started | 1 day |
-| 07 | [Recursion & Backtracking](#07-recursion--backtracking) | ⬜ Not Started | 1 day |
-| 08 | [Bit Manipulation](#08-bit-manipulation) | ⬜ Not Started | 0.5 day |
-| 09 | [Stack & Queue](#09-stack--queue) | ⬜ Not Started | 1 day |
-| 10 | [Sliding Window & Two Pointer](#10-sliding-window--two-pointer) | ⬜ Not Started | 1 day |
-| 11 | [Heaps](#11-heaps) | ⬜ Not Started | 1 day |
-| 12 | [Greedy](#12-greedy) | ⬜ Not Started | 0.5 day |
-| 13 | [Binary Trees](#13-binary-trees) | ⬜ Not Started | 1.5 days |
-| 14 | [Binary Search Trees](#14-binary-search-trees) | ⬜ Not Started | 1 day |
-| 15 | [Graphs](#15-graphs) | ⬜ Not Started | 2 days |
-| 16 | [Dynamic Programming](#16-dynamic-programming) | ⬜ Not Started | 2 days |
-| 17 | [Tries](#17-tries) | ⬜ Not Started | 0.5 day |
-| 18 | [Segment Tree & Advanced](#18-segment-tree--advanced) | ⬜ Not Started | 1 day |
-| 19 | [Maths for DSA](#19-maths-for-dsa) | ⬜ Not Started | 1 day |
+| # | Topic file | Required | Status |
+|---|---|---|---|
+| 01 | [C++ Basics & STL](01_Cpp_STL.md#practice-problems) | 10 | ⬜ Not Started |
+| 02 | [Sorting Algorithms](02_Sorting.md#practice-problems) | 10 | ⬜ Not Started |
+| 03 | [Arrays](03_Arrays.md#practice-problems) | 10 | ⬜ Not Started |
+| 04 | [Binary Search](04_BinarySearch.md#practice-problems) | 10 | ⬜ Not Started |
+| 05 | [Strings](05_Strings.md#practice-problems) | 10 | ⬜ Not Started |
+| 06 | [Linked List](06_LinkedList.md#practice-problems) | 10 | ⬜ Not Started |
+| 07 | [Recursion & Backtracking](07_Recursion_Backtracking.md#practice-problems) | 10 | ⬜ Not Started |
+| 08 | [Bit Manipulation](08_BitManipulation.md#practice-problems) | 10 | ⬜ Not Started |
+| 09 | [Stack & Queue](09_Stack_Queue.md#practice-problems) | 10 | ⬜ Not Started |
+| 10 | [Sliding Window & Two Pointer](10_SlidingWindow_TwoPointer.md#practice-problems) | 10 | ⬜ Not Started |
+| 11 | [Heaps](11_Heaps.md#practice-problems) | 10 | ⬜ Not Started |
+| 12 | [Greedy](12_Greedy.md#practice-problems) | 10 | ⬜ Not Started |
+| 13 | [Binary Trees](13_BinaryTrees.md#practice-problems) | 10 | ⬜ Not Started |
+| 14 | [Binary Search Trees](14_BST.md#practice-problems) | 10 | ⬜ Not Started |
+| 15 | [Graphs](15_Graphs.md#practice-problems) | 10 | ⬜ Not Started |
+| 16 | [Dynamic Programming](16_DP.md#practice-problems) | 10 | ⬜ Not Started |
+| 17 | [Tries](17_Tries.md#practice-problems) | 10 | ⬜ Not Started |
+| 18 | [Segment Tree & Advanced](18_SegmentTree_Advanced.md#practice-problems) | 10 | ⬜ Not Started |
+| 19 | [Maths for DSA](19_Maths.md#14-practice-problems) | 10 | ⬜ Not Started |
 
 > Update status to: ⬜ Not Started → 🔄 In Progress → ✅ Done
 
@@ -96,10 +106,20 @@ sort(v.begin(), v.end(), [](auto& a, auto& b){ return a.second < b.second; });
 auto it = lower_bound(v.begin(), v.end(), target);
 ```
 
-**Warm-up Problems:**
-- [Sort Array by Frequency](https://leetcode.com/problems/sort-array-by-increasing-frequency/)
-- [Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/)
-- [Find All Anagrams](https://leetcode.com/problems/find-all-anagrams-in-a-string/)
+**Required: these 10 questions, in order.** [Open chapter checklist](01_Cpp_STL.md#practice-problems)
+
+- [ ] [LC 7 - Reverse Integer](https://leetcode.com/problems/reverse-integer/)
+- [ ] [LC 9 - Palindrome Number](https://leetcode.com/problems/palindrome-number/)
+- [ ] [LC 125 - Valid Palindrome](https://leetcode.com/problems/valid-palindrome/)
+- [ ] [LC 509 - Fibonacci Number](https://leetcode.com/problems/fibonacci-number/)
+- [ ] [LC 1636 - Sort Array by Increasing Frequency](https://leetcode.com/problems/sort-array-by-increasing-frequency/)
+- [ ] [LC 1207 - Unique Number of Occurrences](https://leetcode.com/problems/unique-number-of-occurrences/)
+- [ ] [LC 1 - Two Sum](https://leetcode.com/problems/two-sum/)
+- [ ] [LC 242 - Valid Anagram](https://leetcode.com/problems/valid-anagram/)
+- [ ] [LC 349 - Intersection of Two Arrays](https://leetcode.com/problems/intersection-of-two-arrays/)
+- [ ] [LC 49 - Group Anagrams](https://leetcode.com/problems/group-anagrams/)
+
+Remaining questions: [Extra Practice](EXTRA_PRACTICE.md).
 
 ---
 
@@ -114,10 +134,20 @@ auto it = lower_bound(v.begin(), v.end(), target);
 
 **Things that fade:** The exact partition logic in Quick Sort (Lomuto vs Hoare)
 
-**Warm-up Problems:**
-- [Sort Colors (Dutch National Flag)](https://leetcode.com/problems/sort-colors/)
-- [Merge Intervals](https://leetcode.com/problems/merge-intervals/)
-- [Count Inversions](https://practice.geeksforgeeks.org/problems/inversion-of-array-1587115620/1)
+**Required: these 10 questions, in order.** [Open chapter checklist](02_Sorting.md#practice-problems)
+
+- [ ] [LC 912 - Sort an Array](https://leetcode.com/problems/sort-an-array/)
+- [ ] [LC 75 - Sort Colors](https://leetcode.com/problems/sort-colors/)
+- [ ] [LC 88 - Merge Sorted Array](https://leetcode.com/problems/merge-sorted-array/)
+- [ ] [LC 1122 - Relative Sort Array](https://leetcode.com/problems/relative-sort-array/)
+- [ ] [LC 179 - Largest Number](https://leetcode.com/problems/largest-number/)
+- [ ] [LC 56 - Merge Intervals](https://leetcode.com/problems/merge-intervals/)
+- [ ] [LC 215 - Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array/)
+- [ ] [LC 493 - Reverse Pairs](https://leetcode.com/problems/reverse-pairs/)
+- [ ] [LC 164 - Maximum Gap](https://leetcode.com/problems/maximum-gap/)
+- [ ] [GFG - Count Inversions](https://www.geeksforgeeks.org/problems/inversion-of-array-1587115620/1)
+
+Remaining questions: [Extra Practice](EXTRA_PRACTICE.md).
 
 ---
 
@@ -134,12 +164,20 @@ auto it = lower_bound(v.begin(), v.end(), target);
 
 **Things that fade:** Difference array for range-update queries; in-place rotation trick
 
-**Warm-up Problems:**
-- [Maximum Subarray (Kadane's)](https://leetcode.com/problems/maximum-subarray/)
-- [Rotate Image](https://leetcode.com/problems/rotate-image/)
-- [Spiral Matrix](https://leetcode.com/problems/spiral-matrix/)
-- [Find Duplicate Number](https://leetcode.com/problems/find-the-duplicate-number/)
-- [Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/)
+**Required: these 10 questions, in order.** [Open chapter checklist](03_Arrays.md#practice-problems)
+
+- [ ] [LC 238 - Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/)
+- [ ] [LC 53 - Maximum Subarray](https://leetcode.com/problems/maximum-subarray/)
+- [ ] [LC 121 - Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/)
+- [ ] [LC 560 - Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/)
+- [ ] [LC 128 - Longest Consecutive Sequence](https://leetcode.com/problems/longest-consecutive-sequence/)
+- [ ] [LC 169 - Majority Element](https://leetcode.com/problems/majority-element/)
+- [ ] [LC 189 - Rotate Array](https://leetcode.com/problems/rotate-array/)
+- [ ] [LC 73 - Set Matrix Zeroes](https://leetcode.com/problems/set-matrix-zeroes/)
+- [ ] [LC 48 - Rotate Image](https://leetcode.com/problems/rotate-image/)
+- [ ] [LC 54 - Spiral Matrix](https://leetcode.com/problems/spiral-matrix/)
+
+Remaining questions: [Extra Practice](EXTRA_PRACTICE.md).
 
 ---
 
@@ -165,12 +203,20 @@ while (lo < hi) {
 }
 ```
 
-**Warm-up Problems:**
-- [Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/)
-- [Find First and Last Position](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/)
-- [Book Allocation / Painter's Partition](https://www.codingninjas.com/codestudio/problems/ayush-and-ninja-test_1097574)
-- [Aggressive Cows](https://www.codingninjas.com/codestudio/problems/aggressive-cows_1082559)
-- [Koko Eating Bananas](https://leetcode.com/problems/koko-eating-bananas/)
+**Required: these 10 questions, in order.** [Open chapter checklist](04_BinarySearch.md#practice-problems)
+
+- [ ] [LC 704 - Binary Search](https://leetcode.com/problems/binary-search/)
+- [ ] [LC 34 - Find First and Last Position of Element in Sorted Array](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/)
+- [ ] [LC 33 - Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/)
+- [ ] [LC 153 - Find Minimum in Rotated Sorted Array](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/)
+- [ ] [LC 540 - Single Element in a Sorted Array](https://leetcode.com/problems/single-element-in-a-sorted-array/)
+- [ ] [LC 162 - Find Peak Element](https://leetcode.com/problems/find-peak-element/)
+- [ ] [LC 875 - Koko Eating Bananas](https://leetcode.com/problems/koko-eating-bananas/)
+- [ ] [LC 1011 - Capacity To Ship Packages Within D Days](https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/)
+- [ ] [LC 410 - Split Array Largest Sum](https://leetcode.com/problems/split-array-largest-sum/)
+- [ ] [LC 1552 - Magnetic Force Between Two Balls](https://leetcode.com/problems/magnetic-force-between-two-balls/)
+
+Remaining questions: [Extra Practice](EXTRA_PRACTICE.md).
 
 ---
 
@@ -186,11 +232,20 @@ while (lo < hi) {
 
 **Things that fade:** KMP failure function construction
 
-**Warm-up Problems:**
-- [Valid Palindrome](https://leetcode.com/problems/valid-palindrome/)
-- [Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/)
-- [Permutation in String](https://leetcode.com/problems/permutation-in-string/)
-- [Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/)
+**Required: these 10 questions, in order.** [Open chapter checklist](05_Strings.md#practice-problems)
+
+- [ ] [LC 151 - Reverse Words in a String](https://leetcode.com/problems/reverse-words-in-a-string/)
+- [ ] [LC 14 - Longest Common Prefix](https://leetcode.com/problems/longest-common-prefix/)
+- [ ] [LC 205 - Isomorphic Strings](https://leetcode.com/problems/isomorphic-strings/)
+- [ ] [LC 796 - Rotate String](https://leetcode.com/problems/rotate-string/)
+- [ ] [LC 451 - Sort Characters By Frequency](https://leetcode.com/problems/sort-characters-by-frequency/)
+- [ ] [LC 8 - String to Integer (atoi)](https://leetcode.com/problems/string-to-integer-atoi/)
+- [ ] [LC 5 - Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/)
+- [ ] [LC 28 - Find the Index of the First Occurrence in a String](https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/)
+- [ ] [LC 1910 - Remove All Occurrences of a Substring](https://leetcode.com/problems/remove-all-occurrences-of-a-substring/)
+- [ ] [LC 443 - String Compression](https://leetcode.com/problems/string-compression/)
+
+Remaining questions: [Extra Practice](EXTRA_PRACTICE.md).
 
 ---
 
@@ -207,12 +262,20 @@ while (lo < hi) {
 
 **Things that fade:** Reverse in K groups — the pointer bookkeeping; Clone with random pointer
 
-**Warm-up Problems:**
-- [Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/)
-- [Linked List Cycle II](https://leetcode.com/problems/linked-list-cycle-ii/)
-- [Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/)
-- [Reverse Nodes in k-Group](https://leetcode.com/problems/reverse-nodes-in-k-group/)
-- [LRU Cache](https://leetcode.com/problems/lru-cache/)
+**Required: these 10 questions, in order.** [Open chapter checklist](06_LinkedList.md#practice-problems)
+
+- [ ] [LC 206 - Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/)
+- [ ] [LC 876 - Middle of the Linked List](https://leetcode.com/problems/middle-of-the-linked-list/)
+- [ ] [LC 142 - Linked List Cycle II](https://leetcode.com/problems/linked-list-cycle-ii/)
+- [ ] [LC 234 - Palindrome Linked List](https://leetcode.com/problems/palindrome-linked-list/)
+- [ ] [LC 19 - Remove Nth Node From End of List](https://leetcode.com/problems/remove-nth-node-from-end-of-list/)
+- [ ] [LC 21 - Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/)
+- [ ] [LC 148 - Sort List](https://leetcode.com/problems/sort-list/)
+- [ ] [LC 445 - Add Two Numbers II](https://leetcode.com/problems/add-two-numbers-ii/)
+- [ ] [LC 25 - Reverse Nodes in k-Group](https://leetcode.com/problems/reverse-nodes-in-k-group/)
+- [ ] [LC 138 - Copy List with Random Pointer](https://leetcode.com/problems/copy-list-with-random-pointer/)
+
+Remaining questions: [Extra Practice](EXTRA_PRACTICE.md).
 
 ---
 
@@ -242,12 +305,20 @@ void solve(int idx, vector<int>& current, vector<vector<int>>& result, ...) {
 }
 ```
 
-**Warm-up Problems:**
-- [Subsets II (with duplicates)](https://leetcode.com/problems/subsets-ii/)
-- [Permutations II](https://leetcode.com/problems/permutations-ii/)
-- [Combination Sum](https://leetcode.com/problems/combination-sum/)
-- [N-Queens](https://leetcode.com/problems/n-queens/)
-- [Word Search](https://leetcode.com/problems/word-search/)
+**Required: these 10 questions, in order.** [Open chapter checklist](07_Recursion_Backtracking.md#practice-problems)
+
+- [ ] [LC 78 - Subsets](https://leetcode.com/problems/subsets/)
+- [ ] [LC 90 - Subsets II](https://leetcode.com/problems/subsets-ii/)
+- [ ] [LC 46 - Permutations](https://leetcode.com/problems/permutations/)
+- [ ] [LC 47 - Permutations II](https://leetcode.com/problems/permutations-ii/)
+- [ ] [LC 39 - Combination Sum](https://leetcode.com/problems/combination-sum/)
+- [ ] [LC 40 - Combination Sum II](https://leetcode.com/problems/combination-sum-ii/)
+- [ ] [LC 22 - Generate Parentheses](https://leetcode.com/problems/generate-parentheses/)
+- [ ] [LC 131 - Palindrome Partitioning](https://leetcode.com/problems/palindrome-partitioning/)
+- [ ] [LC 79 - Word Search](https://leetcode.com/problems/word-search/)
+- [ ] [LC 51 - N-Queens](https://leetcode.com/problems/n-queens/)
+
+Remaining questions: [Extra Practice](EXTRA_PRACTICE.md).
 
 ---
 
@@ -272,11 +343,20 @@ int  clearBit(int n, int i) { return n & ~(1 << i); }
 int  toggleBit(int n, int i){ return n ^ (1 << i); }
 ```
 
-**Warm-up Problems:**
-- [Single Number](https://leetcode.com/problems/single-number/)
-- [Number of 1 Bits](https://leetcode.com/problems/number-of-1-bits/)
-- [Counting Bits](https://leetcode.com/problems/counting-bits/)
-- [Single Number III](https://leetcode.com/problems/single-number-iii/)
+**Required: these 10 questions, in order.** [Open chapter checklist](08_BitManipulation.md#practice-problems)
+
+- [ ] [LC 231 - Power of Two](https://leetcode.com/problems/power-of-two/)
+- [ ] [LC 191 - Number of 1 Bits](https://leetcode.com/problems/number-of-1-bits/)
+- [ ] [LC 338 - Counting Bits](https://leetcode.com/problems/counting-bits/)
+- [ ] [LC 136 - Single Number](https://leetcode.com/problems/single-number/)
+- [ ] [LC 137 - Single Number II](https://leetcode.com/problems/single-number-ii/)
+- [ ] [LC 260 - Single Number III](https://leetcode.com/problems/single-number-iii/)
+- [ ] [LC 2220 - Minimum Bit Flips to Convert Number](https://leetcode.com/problems/minimum-bit-flips-to-convert-number/)
+- [ ] [LC 29 - Divide Two Integers](https://leetcode.com/problems/divide-two-integers/)
+- [ ] [LC 201 - Bitwise AND of Numbers Range](https://leetcode.com/problems/bitwise-and-of-numbers-range/)
+- [ ] [LC 268 - Missing Number](https://leetcode.com/problems/missing-number/)
+
+Remaining questions: [Extra Practice](EXTRA_PRACTICE.md).
 
 ---
 
@@ -302,12 +382,20 @@ for (int i = n-1; i >= 0; i--) {
 }
 ```
 
-**Warm-up Problems:**
-- [Daily Temperatures (NGE)](https://leetcode.com/problems/daily-temperatures/)
-- [Largest Rectangle in Histogram](https://leetcode.com/problems/largest-rectangle-in-histogram/)
-- [Min Stack](https://leetcode.com/problems/min-stack/)
-- [Sliding Window Maximum](https://leetcode.com/problems/sliding-window-maximum/)
-- [Celebrity Problem](https://practice.geeksforgeeks.org/problems/the-celebrity-problem/1)
+**Required: these 10 questions, in order.** [Open chapter checklist](09_Stack_Queue.md#practice-problems)
+
+- [ ] [LC 225 - Implement Stack using Queues](https://leetcode.com/problems/implement-stack-using-queues/)
+- [ ] [LC 232 - Implement Queue using Stacks](https://leetcode.com/problems/implement-queue-using-stacks/)
+- [ ] [LC 20 - Valid Parentheses](https://leetcode.com/problems/valid-parentheses/)
+- [ ] [LC 155 - Min Stack](https://leetcode.com/problems/min-stack/)
+- [ ] [LC 496 - Next Greater Element I](https://leetcode.com/problems/next-greater-element-i/)
+- [ ] [LC 503 - Next Greater Element II](https://leetcode.com/problems/next-greater-element-ii/)
+- [ ] [LC 739 - Daily Temperatures](https://leetcode.com/problems/daily-temperatures/)
+- [ ] [LC 907 - Sum of Subarray Minimums](https://leetcode.com/problems/sum-of-subarray-minimums/)
+- [ ] [LC 84 - Largest Rectangle in Histogram](https://leetcode.com/problems/largest-rectangle-in-histogram/)
+- [ ] [LC 85 - Maximal Rectangle](https://leetcode.com/problems/maximal-rectangle/)
+
+Remaining questions: [Extra Practice](EXTRA_PRACTICE.md).
 
 ---
 
@@ -331,11 +419,20 @@ for (int r = 0; r < n; r++) {
 }
 ```
 
-**Warm-up Problems:**
-- [Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
-- [Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/)
-- [3Sum](https://leetcode.com/problems/3sum/)
-- [Container With Most Water](https://leetcode.com/problems/container-with-most-water/)
+**Required: these 10 questions, in order.** [Open chapter checklist](10_SlidingWindow_TwoPointer.md#practice-problems)
+
+- [ ] [LC 3 - Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
+- [ ] [LC 1004 - Max Consecutive Ones III](https://leetcode.com/problems/max-consecutive-ones-iii/)
+- [ ] [LC 904 - Fruit Into Baskets](https://leetcode.com/problems/fruit-into-baskets/)
+- [ ] [LC 424 - Longest Repeating Character Replacement](https://leetcode.com/problems/longest-repeating-character-replacement/)
+- [ ] [LC 930 - Binary Subarrays With Sum](https://leetcode.com/problems/binary-subarrays-with-sum/)
+- [ ] [LC 1248 - Count Number of Nice Subarrays](https://leetcode.com/problems/count-number-of-nice-subarrays/)
+- [ ] [LC 1358 - Number of Substrings Containing All Three Characters](https://leetcode.com/problems/number-of-substrings-containing-all-three-characters/)
+- [ ] [LC 1423 - Maximum Points You Can Obtain from Cards](https://leetcode.com/problems/maximum-points-you-can-obtain-from-cards/)
+- [ ] [LC 992 - Subarrays with K Different Integers](https://leetcode.com/problems/subarrays-with-k-different-integers/)
+- [ ] [LC 76 - Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/)
+
+Remaining questions: [Extra Practice](EXTRA_PRACTICE.md).
 
 ---
 
@@ -352,11 +449,20 @@ for (int r = 0; r < n; r++) {
 
 **Things that fade:** Two-heap approach for running median; merge K sorted lists/arrays with heap
 
-**Warm-up Problems:**
-- [Kth Largest Element](https://leetcode.com/problems/kth-largest-element-in-an-array/)
-- [Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/)
-- [Find Median from Data Stream](https://leetcode.com/problems/find-median-from-data-stream/)
-- [Merge K Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists/)
+**Required: these 10 questions, in order.** [Open chapter checklist](11_Heaps.md#practice-problems)
+
+- [ ] [LC 347 - Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/)
+- [ ] [LC 703 - Kth Largest Element in a Stream](https://leetcode.com/problems/kth-largest-element-in-a-stream/)
+- [ ] [LC 23 - Merge k Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists/)
+- [ ] [LC 295 - Find Median from Data Stream](https://leetcode.com/problems/find-median-from-data-stream/)
+- [ ] [LC 621 - Task Scheduler](https://leetcode.com/problems/task-scheduler/)
+- [ ] [LC 846 - Hand of Straights](https://leetcode.com/problems/hand-of-straights/)
+- [ ] [LC 355 - Design Twitter](https://leetcode.com/problems/design-twitter/)
+- [ ] [LC 632 - Smallest Range Covering Elements from K Lists](https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists/)
+- [ ] [LC 767 - Reorganize String](https://leetcode.com/problems/reorganize-string/)
+- [ ] [LC 973 - K Closest Points to Origin](https://leetcode.com/problems/k-closest-points-to-origin/)
+
+Remaining questions: [Extra Practice](EXTRA_PRACTICE.md).
 
 ---
 
@@ -370,12 +476,20 @@ for (int r = 0; r < n; r++) {
 
 **Things that fade:** Proving greedy choice works — "why greedy and not DP here?"
 
-**Warm-up Problems:**
-- [Jump Game](https://leetcode.com/problems/jump-game/)
-- [Jump Game II](https://leetcode.com/problems/jump-game-ii/)
-- [Interval Scheduling (Non-overlapping Intervals)](https://leetcode.com/problems/non-overlapping-intervals/)
-- [Gas Station](https://leetcode.com/problems/gas-station/)
-- [Candy](https://leetcode.com/problems/candy/)
+**Required: these 10 questions, in order.** [Open chapter checklist](12_Greedy.md#practice-problems)
+
+- [ ] [LC 455 - Assign Cookies](https://leetcode.com/problems/assign-cookies/)
+- [ ] [LC 860 - Lemonade Change](https://leetcode.com/problems/lemonade-change/)
+- [ ] [LC 678 - Valid Parenthesis String](https://leetcode.com/problems/valid-parenthesis-string/)
+- [ ] [LC 55 - Jump Game](https://leetcode.com/problems/jump-game/)
+- [ ] [LC 45 - Jump Game II](https://leetcode.com/problems/jump-game-ii/)
+- [ ] [LC 135 - Candy](https://leetcode.com/problems/candy/)
+- [ ] [LC 57 - Insert Interval](https://leetcode.com/problems/insert-interval/)
+- [ ] [LC 435 - Non-overlapping Intervals](https://leetcode.com/problems/non-overlapping-intervals/)
+- [ ] [LC 134 - Gas Station](https://leetcode.com/problems/gas-station/)
+- [ ] [LC 763 - Partition Labels](https://leetcode.com/problems/partition-labels/)
+
+Remaining questions: [Extra Practice](EXTRA_PRACTICE.md).
 
 ---
 
@@ -394,12 +508,20 @@ for (int r = 0; r < n; r++) {
 
 **Things that fade:** Iterative post-order; building tree from inorder + preorder; Morris traversal
 
-**Warm-up Problems:**
-- [Binary Tree Level Order](https://leetcode.com/problems/binary-tree-level-order-traversal/)
-- [Diameter of Binary Tree](https://leetcode.com/problems/diameter-of-binary-tree/)
-- [Lowest Common Ancestor](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/)
-- [Binary Tree Maximum Path Sum](https://leetcode.com/problems/binary-tree-maximum-path-sum/)
-- [Serialize and Deserialize Binary Tree](https://leetcode.com/problems/serialize-and-deserialize-binary-tree/)
+**Required: these 10 questions, in order.** [Open chapter checklist](13_BinaryTrees.md#practice-problems)
+
+- [ ] [LC 144 - Binary Tree Preorder Traversal](https://leetcode.com/problems/binary-tree-preorder-traversal/)
+- [ ] [LC 94 - Binary Tree Inorder Traversal](https://leetcode.com/problems/binary-tree-inorder-traversal/)
+- [ ] [LC 145 - Binary Tree Postorder Traversal](https://leetcode.com/problems/binary-tree-postorder-traversal/)
+- [ ] [LC 102 - Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/)
+- [ ] [LC 104 - Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/)
+- [ ] [LC 543 - Diameter of Binary Tree](https://leetcode.com/problems/diameter-of-binary-tree/)
+- [ ] [LC 110 - Balanced Binary Tree](https://leetcode.com/problems/balanced-binary-tree/)
+- [ ] [LC 236 - Lowest Common Ancestor of a Binary Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/)
+- [ ] [LC 105 - Construct Binary Tree from Preorder and Inorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/)
+- [ ] [LC 124 - Binary Tree Maximum Path Sum](https://leetcode.com/problems/binary-tree-maximum-path-sum/)
+
+Remaining questions: [Extra Practice](EXTRA_PRACTICE.md).
 
 ---
 
@@ -416,11 +538,20 @@ for (int r = 0; r < n; r++) {
 
 **Things that fade:** The range-based validation (passing `[min, max]` bounds down); inorder predecessor/successor logic
 
-**Warm-up Problems:**
-- [Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/)
-- [Kth Smallest in BST](https://leetcode.com/problems/kth-smallest-element-in-a-bst/)
-- [LCA of BST](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/)
-- [Convert BST to Greater Tree](https://leetcode.com/problems/convert-bst-to-greater-tree/)
+**Required: these 10 questions, in order.** [Open chapter checklist](14_BST.md#practice-problems)
+
+- [ ] [LC 700 - Search in a Binary Search Tree](https://leetcode.com/problems/search-in-a-binary-search-tree/)
+- [ ] [LC 701 - Insert into a Binary Search Tree](https://leetcode.com/problems/insert-into-a-binary-search-tree/)
+- [ ] [LC 450 - Delete Node in a BST](https://leetcode.com/problems/delete-node-in-a-bst/)
+- [ ] [LC 230 - Kth Smallest Element in a BST](https://leetcode.com/problems/kth-smallest-element-in-a-bst/)
+- [ ] [LC 98 - Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/)
+- [ ] [LC 235 - Lowest Common Ancestor of a Binary Search Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/)
+- [ ] [LC 1008 - Construct Binary Search Tree from Preorder Traversal](https://leetcode.com/problems/construct-binary-search-tree-from-preorder-traversal/)
+- [ ] [LC 653 - Two Sum IV - Input is a BST](https://leetcode.com/problems/two-sum-iv-input-is-a-bst/)
+- [ ] [LC 99 - Recover Binary Search Tree](https://leetcode.com/problems/recover-binary-search-tree/)
+- [ ] [LC 1382 - Balance a Binary Search Tree](https://leetcode.com/problems/balance-a-binary-search-tree/)
+
+Remaining questions: [Extra Practice](EXTRA_PRACTICE.md).
 
 ---
 
@@ -441,13 +572,20 @@ for (int r = 0; r < n; r++) {
 
 **Things that fade:** Tarjan's low/disc logic; Kosaraju's 2-pass idea; DSU path compression code
 
-**Warm-up Problems (from your list):**
-- [Number of Islands](https://leetcode.com/problems/number-of-islands/)
-- [Rotting Oranges](https://leetcode.com/problems/rotting-oranges/)
-- [Course Schedule](https://leetcode.com/problems/course-schedule/)
-- [Word Ladder](https://leetcode.com/problems/word-ladder/)
-- [Network Delay Time](https://leetcode.com/problems/network-delay-time/)
-- [Number of Provinces](https://leetcode.com/problems/number-of-provinces/)
+**Required: these 10 questions, in order.** [Open chapter checklist](15_Graphs.md#practice-problems)
+
+- [ ] [LC 200 - Number of Islands](https://leetcode.com/problems/number-of-islands/)
+- [ ] [LC 994 - Rotting Oranges](https://leetcode.com/problems/rotting-oranges/)
+- [ ] [LC 542 - 01 Matrix](https://leetcode.com/problems/01-matrix/)
+- [ ] [LC 785 - Is Graph Bipartite?](https://leetcode.com/problems/is-graph-bipartite/)
+- [ ] [LC 207 - Course Schedule](https://leetcode.com/problems/course-schedule/)
+- [ ] [LC 127 - Word Ladder](https://leetcode.com/problems/word-ladder/)
+- [ ] [LC 743 - Network Delay Time](https://leetcode.com/problems/network-delay-time/)
+- [ ] [LC 787 - Cheapest Flights Within K Stops](https://leetcode.com/problems/cheapest-flights-within-k-stops/)
+- [ ] [LC 721 - Accounts Merge](https://leetcode.com/problems/accounts-merge/)
+- [ ] [LC 1368 - Minimum Cost to Make at Least One Valid Path in a Grid](https://leetcode.com/problems/minimum-cost-to-make-at-least-one-valid-path-in-a-grid/)
+
+Remaining questions: [Extra Practice](EXTRA_PRACTICE.md).
 
 ---
 
@@ -472,13 +610,20 @@ for (int r = 0; r < n; r++) {
 
 **Things that fade:** Tabulation direction (bottom-up fill order); space optimization from 2D → 1D dp array
 
-**Warm-up Problems:**
-- [Climbing Stairs](https://leetcode.com/problems/climbing-stairs/)
-- [0/1 Knapsack](https://practice.geeksforgeeks.org/problems/0-1-knapsack-problem/0)
-- [Longest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence/)
-- [Edit Distance](https://leetcode.com/problems/edit-distance/)
-- [Best Time to Buy and Sell Stock III](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/)
-- [Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence/)
+**Required: these 10 questions, in order.** [Open chapter checklist](16_DP.md#practice-problems)
+
+- [ ] [LC 198 - House Robber](https://leetcode.com/problems/house-robber/)
+- [ ] [LC 64 - Minimum Path Sum](https://leetcode.com/problems/minimum-path-sum/)
+- [ ] [LC 416 - Partition Equal Subset Sum](https://leetcode.com/problems/partition-equal-subset-sum/)
+- [ ] [LC 322 - Coin Change](https://leetcode.com/problems/coin-change/)
+- [ ] [LC 518 - Coin Change II](https://leetcode.com/problems/coin-change-ii/)
+- [ ] [LC 1143 - Longest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence/)
+- [ ] [LC 72 - Edit Distance](https://leetcode.com/problems/edit-distance/)
+- [ ] [LC 300 - Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence/)
+- [ ] [LC 309 - Best Time to Buy and Sell Stock with Cooldown](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/)
+- [ ] [LC 312 - Burst Balloons](https://leetcode.com/problems/burst-balloons/)
+
+Remaining questions: [Extra Practice](EXTRA_PRACTICE.md).
 
 ---
 
@@ -491,10 +636,20 @@ for (int r = 0; r < n; r++) {
 - Count words with given prefix
 - XOR maximum in array (XOR trie)
 
-**Warm-up Problems:**
-- [Implement Trie](https://leetcode.com/problems/implement-trie-prefix-tree/)
-- [Word Search II](https://leetcode.com/problems/word-search-ii/)
-- [Maximum XOR of Two Numbers](https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/)
+**Required: these 10 questions, in order.** [Open chapter checklist](17_Tries.md#practice-problems)
+
+- [ ] [LC 208 - Implement Trie (Prefix Tree)](https://leetcode.com/problems/implement-trie-prefix-tree/)
+- [ ] [LC 211 - Design Add and Search Words Data Structure](https://leetcode.com/problems/design-add-and-search-words-data-structure/)
+- [ ] [LC 648 - Replace Words](https://leetcode.com/problems/replace-words/)
+- [ ] [LC 720 - Longest Word in Dictionary](https://leetcode.com/problems/longest-word-in-dictionary/)
+- [ ] [LC 1268 - Search Suggestions System](https://leetcode.com/problems/search-suggestions-system/)
+- [ ] [LC 2416 - Sum of Prefix Scores of Strings](https://leetcode.com/problems/sum-of-prefix-scores-of-strings/)
+- [ ] [LC 212 - Word Search II](https://leetcode.com/problems/word-search-ii/)
+- [ ] [LC 421 - Maximum XOR of Two Numbers in an Array](https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/)
+- [ ] [LC 1707 - Maximum XOR With an Element From Array](https://leetcode.com/problems/maximum-xor-with-an-element-from-array/)
+- [ ] [GFG - Number of Distinct Substrings](https://www.geeksforgeeks.org/problems/number-of-distinct-substrings-in-a-string/1)
+
+Remaining questions: [Extra Practice](EXTRA_PRACTICE.md).
 
 ---
 
@@ -507,9 +662,20 @@ for (int r = 0; r < n; r++) {
 - Number theory — GCD/LCM, Sieve of Eratosthenes, modular exponentiation, MMI
 - Sparse table for range minimum queries
 
-**Warm-up Problems:**
-- [Range Sum Query (Segment Tree)](https://leetcode.com/problems/range-sum-query-mutable/)
-- [Count of Smaller Numbers After Self](https://leetcode.com/problems/count-of-smaller-numbers-after-self/)
+**Required: these 10 questions, in order.** [Open chapter checklist](18_SegmentTree_Advanced.md#practice-problems)
+
+- [ ] [LC 307 - Range Sum Query - Mutable](https://leetcode.com/problems/range-sum-query-mutable/)
+- [ ] [LC 315 - Count of Smaller Numbers After Self](https://leetcode.com/problems/count-of-smaller-numbers-after-self/)
+- [ ] [LC 327 - Count of Range Sum](https://leetcode.com/problems/count-of-range-sum/)
+- [ ] [LC 1649 - Create Sorted Array through Instructions](https://leetcode.com/problems/create-sorted-array-through-instructions/)
+- [ ] [LC 2407 - Longest Increasing Subsequence II](https://leetcode.com/problems/longest-increasing-subsequence-ii/)
+- [ ] [LC 2736 - Maximum Sum Queries](https://leetcode.com/problems/maximum-sum-queries/)
+- [ ] [CF 339D - Xenia and Bit Operations](https://codeforces.com/problemset/problem/339/D)
+- [ ] [CF 380C - Sereja and Brackets](https://codeforces.com/problemset/problem/380/C)
+- [ ] [CF 52C - Circular RMQ](https://codeforces.com/problemset/problem/52/C)
+- [ ] [CF 459D - Pashmak and Parmida's problem](https://codeforces.com/problemset/problem/459/D)
+
+Remaining questions: [Extra Practice](EXTRA_PRACTICE.md).
 
 ---
 
@@ -529,11 +695,20 @@ for (int r = 0; r < n; r++) {
 
 **Things that fade:** Modular inverse derivation (why `b^(MOD-2)`); negative-mod normalization (`(a - b + MOD) % MOD`); leftover prime factor after trial division
 
-**Warm-up Problems:**
-- [Count Primes](https://leetcode.com/problems/count-primes/)
-- [Pow(x, n)](https://leetcode.com/problems/powx-n/)
-- [Pascal's Triangle](https://leetcode.com/problems/pascals-triangle/)
-- [Super Pow](https://leetcode.com/problems/super-pow/)
+**Required: these 10 questions, in order.** [Open chapter checklist](19_Maths.md#14-practice-problems)
+
+- [ ] [GFG - GCD of Two Numbers](https://www.geeksforgeeks.org/problems/gcd-of-two-numbers3459/1)
+- [ ] [GFG - Prime Factors](https://www.geeksforgeeks.org/problems/prime-factors5052/1)
+- [ ] [LC 204 - Count Primes](https://leetcode.com/problems/count-primes/)
+- [ ] [LC 50 - Pow(x, n)](https://leetcode.com/problems/powx-n/)
+- [ ] [LC 372 - Super Pow](https://leetcode.com/problems/super-pow/)
+- [ ] [LC 118 - Pascal's Triangle](https://leetcode.com/problems/pascals-triangle/)
+- [ ] [LC 119 - Pascal's Triangle II](https://leetcode.com/problems/pascals-triangle-ii/)
+- [ ] [LC 507 - Perfect Number](https://leetcode.com/problems/perfect-number/)
+- [ ] [LC 172 - Factorial Trailing Zeroes](https://leetcode.com/problems/factorial-trailing-zeroes/)
+- [ ] [LC 1492 - The kth Factor of n](https://leetcode.com/problems/the-kth-factor-of-n/)
+
+Remaining questions: [Extra Practice](EXTRA_PRACTICE.md).
 
 ---
 
@@ -555,4 +730,4 @@ for (int r = 0; r < n; r++) {
 
 ---
 
-*Created: May 2026 | Based on Striver's A2Z DSA Sheet*
+*Created: May 2026 | Practice selection revised: November 2026 | Based on Striver's A2Z DSA Sheet*

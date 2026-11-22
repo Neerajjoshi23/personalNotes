@@ -332,13 +332,26 @@ The browser can reserve the correct space before the image loads. This prevents 
 
 ---
 
-## My notes (write from memory after reading)
+<details>
+<summary>FE5 · Performance — Core Web Vitals & Frontend Trade-Off Toolbox</summary>
 
-- 
-- 
-- 
+- **Core Principle:** Never say "make it fast"—name the user metric (**LCP**, **INP**, or **CLS**), identify the bottleneck, and defend the architectural trade-off.
+- **Part 1 — Core Web Vitals & Levers:**
+  - **LCP (`<= 2.5s`, main content visible):** Shrink `TTFB` via CDN + SSR/SSG/ISR on public pages (avoiding CSR's `HTML → JS → API → img` waterfall), inline critical CSS, `preconnect` to key origins, use `AVIF/WebP` + `srcSet`, and put `fetchPriority="high"` (never `loading="lazy"`) on the single above-the-fold LCP asset.
+  - **INP (`<= 200ms`, lifecycle interaction responsiveness):** Ship/hydrate less JS, keep rapidly changing state local, virtualize long lists, and use `useDeferredValue` / `useTransition` (or Web Workers / server filtering) so urgent typing isn't blocked by heavy renders.
+  - **CLS (`<= 0.1`, visual stability):** Always set `width`/`height` or CSS `aspect-ratio` on media/skeletons, reserve ad/embed slots, avoid injecting banners above visible content, and prevent web-font reflow shifts.
+- **Part 2 — Bundle & Code Splitting Boundaries:**
+  - Split **routes** (Admin, Settings, Analytics) and **on-demand trigger widgets** (rich editors, charts, Adobe Connect pods) via `React.lazy` + `Suspense`, and prefetch chunks on hover/focus intent.
+  - **Never split the critical join/hero path**, and avoid over-splitting into dozens of tiny chunks.
+- **Part 3 — List Virtualization (`10k+` rows):**
+  - Mount only visible viewport rows + overscan buffer; explicitly account for **dynamic row heights**, **scroll anchoring on prepend** (chat/feeds), **ARIA row counts/focus**, and **server-side sort/filter** for huge tables.
+- **Part 4 — Images, Fonts & HTTP Cache Headers:**
+  - Hashed static JS/CSS/images: `Cache-Control: public, max-age=31536000, immutable`.
+  - Mutable HTML (`index.html`): `Cache-Control: no-cache` (always revalidate so deploys don't serve stale chunk references).
+- **Part 5 — Lab vs. RUM Observability:**
+  - Use **Lab tools** (Lighthouse, DevTools) for CI budgets and local debugging; use **RUM** (`sendBeacon` on `visibilitychange`, segmented by route/device/network, stripped of PII) to validate real-world p75/p95 impact.
+</details>
 
-**One thing I'd have got wrong before reading this:**
 
 ---
 

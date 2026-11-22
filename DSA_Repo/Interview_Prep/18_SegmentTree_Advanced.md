@@ -1,6 +1,7 @@
 # Chapter 18 — Segment Tree & Advanced Math
 
-> **Revision target:** 1 day  
+> **Revision target:** 10 required questions at 1 hour/day; split hard questions across sessions.
+> **Practice:** [Start the 10 questions](#practice-problems) | [Mixed extra practice](EXTRA_PRACTICE.md)
 > **Goal:** After reading this file, you need nothing else — complete segment tree (build/query/update/lazy), merge sort tree, persistent segment tree, and all number theory. Google Doc reference: [Segment Tree Notes](https://docs.google.com/document/d/1sndIZ6lwH6jXT0SqXmNZYLPjbeRK6dGvBfybLWeItbc/)
 
 ---
@@ -1011,8 +1012,18 @@ ll nCr(int n, int r) {
 
 ## Practice Problems
 
-> Track your progress — check off each problem when solved.
-> Striver A2Z Sheet: https://takeuforward.org/dsa/strivers-a2z-sheet-learn-dsa-a-to-z
 
-- [ ] Edit#Heading=H.Eyhi824Bfdgg — https://docs.google.com/document/d/1sndIZ6lwH6jXT0SqXmNZYLPjbeRK6dGvBfybLWeItbc/edit#heading=h.eyhi824bfdgg
+> **Required: 10 questions.** Do these in order, then move to the next topic. Check each box after an independent solve or a successful retry.
+> The remaining questions are in [Extra Practice](EXTRA_PRACTICE.md); they are optional and mixed without topic labels.
+
+- [ ] [LC 307 - Range Sum Query - Mutable](https://leetcode.com/problems/range-sum-query-mutable/)
+- [ ] [LC 315 - Count of Smaller Numbers After Self](https://leetcode.com/problems/count-of-smaller-numbers-after-self/)
+- [ ] [LC 327 - Count of Range Sum](https://leetcode.com/problems/count-of-range-sum/)
+- [ ] [LC 1649 - Create Sorted Array through Instructions](https://leetcode.com/problems/create-sorted-array-through-instructions/)
+- [ ] [LC 2407 - Longest Increasing Subsequence II](https://leetcode.com/problems/longest-increasing-subsequence-ii/)
+- [ ] [LC 2736 - Maximum Sum Queries](https://leetcode.com/problems/maximum-sum-queries/)
+- [ ] [CF 339D - Xenia and Bit Operations](https://codeforces.com/problemset/problem/339/D)
+- [ ] [CF 380C - Sereja and Brackets](https://codeforces.com/problemset/problem/380/C)
+- [ ] [CF 52C - Circular RMQ](https://codeforces.com/problemset/problem/52/C)
+- [ ] [CF 459D - Pashmak and Parmida's problem](https://codeforces.com/problemset/problem/459/D)
 

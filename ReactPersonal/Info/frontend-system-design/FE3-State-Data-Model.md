@@ -375,13 +375,88 @@ The CRDT document is durable collaborative state that must converge correctly. P
 
 ---
 
-## My notes (write from memory after reading)
+## My notes (FE3 · State and Data Model)
 
-- 
-- 
-- 
+<details>
+<summary><strong>1. The 5 Buckets of State (Who Owns the Truth?)</strong></summary>
+
+Never dump everything into one global store. Split client state by ownership and lifecycle:
+
+| State Kind | Owner | Examples | Tooling |
+| :--- | :--- | :--- | :--- |
+| **Server State** | Backend database (client holds an async cached copy) | Posts, messages, user profiles, emails | **TanStack Query**, Apollo, Relay, RTK Query |
+| **Client / UI State** | Current browser tab/session | Modal open, active whiteboard tool, hover state | `useState` (local) or **Zustand** (cross-region) |
+| **URL State** | Browser address bar (survives refresh & link sharing) | Search query (`?q=`), table sort/filters, page, selected thread ID | React Router / `useSearchParams` |
+| **Form State** | User's unfinished draft before submit | Checkout address, dirty fields, validation errors | **React Hook Form** + Zod |
+| **Derived State** | Computed on the fly from other state | Unread count, filtered rows, cart total | **Selectors / Memoized functions** |
+
+```ts
+// Query keys are part of your data model—sloppy keys make invalidation guesswork
+type QueryKey =
+
+  | ['feed', 'home', { ranking: 'top' | 'latest' }]
+  | ['post', string]
+  | ['chat', string, 'messages']
+  | ['email', 'list', { label: string; q?: string }];
+```
+</details>
+
+<details>
+<summary><strong>2. Normalization vs. Document Cache (TanStack Query Nuance)</strong></summary>
+
+* **Why Normalize:** Nested JSON is convenient for network transport, but dangerous as a client source of truth. If the same user or post repeats across 20 feed items, updating an avatar or optimistic like forces you to hunt down and patch dozens of duplicate copies.
+* **Database Thinking on the Client:** Store each entity once in a lookup table keyed by ID (`usersById`, `postsById`), while views only store ordered arrays of IDs.
+* **Document Cache vs. Normalized Store:**
+  * **Apollo / Relay** normalize automatically by entity ID.
+  * **TanStack Query** is a **document/query cache** (caches full responses per `queryKey` until `staleTime` expires). When using TanStack Query, either centralize `setQueryData` patch helpers across matching query keys or call `invalidateQueries` after mutations.
+
+```ts
+// Normalized client store (each entity exists once by ID)
+type EntityState = {
+  usersById: Record<string, { id: string; name: string; avatarUrl: string }>;
+  postsById: Record<string, { id: string; authorId: string; body: string; liked: boolean }>;
+  feeds: Record<string, { postIds: string[]; nextCursor?: string }>;
+};
+```
+</details>
+
+<details>
+<summary><strong>3. Optimistic Updates, Rollbacks & When NOT to Fake It</strong></summary>
+
+* **Optimistic Update Lifecycle:**
+  1. **Cancel** outgoing refetches for that query so stale fetches don't overwrite the optimistic edit.
+  2. **Snapshot** previous data for rollback.
+  3. **Patch** the cache immediately (and tag new items with a temporary `clientId` + `status: 'sending'`).
+  4. **Send** mutation with an idempotency/correlation key (`clientId`).
+  5. **On Success:** Swap the temporary `clientId` for the real server `id` (and deduplicate if a WebSocket broadcast arrived first).
+  6. **On Error:** **Rollback** to the snapshot and show a retry option.
+* **When to NEVER Use Optimistic UI:** Payments, checkout, seat/inventory reservations, permission changes, or irreversible destructive actions without undo—use loading spinners and **pessimistic** server confirmation instead.
+
+```ts
+type Message = {
+  id: string;
+  clientId?: string;
+  roomId: string;
+  senderId: string;
+  text: string;
+  status: 'sending' | 'sent' | 'failed';
+  serverSeq?: number;
+};
+```
+</details>
+
+<details>
+<summary><strong>4. Derived State & Common Architecture Models (Chat, Table, DrawBoard)</strong></summary>
+
+* **Derived State Rule:** Never store values you can compute from existing state (like `unreadCount`), or they will silently drift out of sync. Use selectors (`emails.filter(e => !e.read).length`)—except when filtering huge datasets (use `useMemo`/Workers) or when client data is paginated (use server-provided aggregates like `totalComments`).
+* **Chat Room Model (Reconnect-Safe):** Store `messagesById` (O(1) lookup/dedup), `orderedMessageIds` (guaranteed timeline order), `lastSeenSeq` (bookmark for `GET /events?afterSeq=...` gap-fill), pending local messages with `clientId`, and `connection` status.
+* **Data Table Model:** Put `sort`, `filters`, and `page` in **URL state** (`useSearchParams`) so they survive navigation/refresh, while keeping hover states and column resize drafts in local UI state.
+* **DrawBoard / Collaborative Canvas:** Separate **durable CRDT document state** (`Y.Doc` shapes/z-order, which must converge) from **ephemeral presence state** (live cursors/selection highlights, which can be lossy) and **local tool UI state** (active pen/zoom in Zustand).
+</details>
 
 **One thing I'd have got wrong before reading this:**
+- Storing derived counts separately in state where they can drift, or treating TanStack Query as an automatic normalized store instead of a `queryKey`-based document cache that needs explicit cache patching or `invalidateQueries` across views.
+
 
 ---
 

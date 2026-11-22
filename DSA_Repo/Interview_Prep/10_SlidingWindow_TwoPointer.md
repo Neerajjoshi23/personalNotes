@@ -1,6 +1,7 @@
 # Chapter 10 — Sliding Window & Two Pointer
 
-> **Revision target:** 0.5 day  
+> **Revision target:** 10 required questions at 1 hour/day; split hard questions across sessions.
+> **Practice:** [Start the 10 questions](#practice-problems) | [Mixed extra practice](EXTRA_PRACTICE.md)
 > **Goal:** After reading this file, you need nothing else for this topic — no code files, no YouTube, no tutorials.
 
 ---
@@ -1062,24 +1063,18 @@ Subarray sum = k with negatives?
 
 ## Practice Problems
 
-> Track your progress — check off each problem when solved.
-> Striver A2Z Sheet: https://takeuforward.org/dsa/strivers-a2z-sheet-learn-dsa-a-to-z
 
-- [ ] Longest Substring Without Repeating Characters — https://leetcode.com/problems/longest-substring-without-repeating-characters/
-- [ ] Max Consecutive Ones III — https://leetcode.com/problems/max-consecutive-ones-iii/
-- [ ] Fruit Into Baskets — https://leetcode.com/problems/fruit-into-baskets/
-- [ ] Longest Repeating Character Replacement — https://leetcode.com/problems/longest-repeating-character-replacement/
-- [ ] Binary Subarrays With Sum — https://leetcode.com/problems/binary-subarrays-with-sum/
-- [ ] Count number of Nice subarrays — https://leetcode.com/problems/count-number-of-nice-subarrays/
-- [ ] Number of Substrings Containing All Three Characters — https://leetcode.com/problems/number-of-substrings-containing-all-three-characters/
-- [ ] Maximum Points You Can Obtain from Cards — https://leetcode.com/problems/maximum-points-you-can-obtain-from-cards/
-- [ ] Longest Substring With At Most K Distinct Characters — https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/
-- [ ] Subarrays with K Different Integers — https://leetcode.com/problems/subarrays-with-k-different-integers/
-- [ ] Minimum Window Substring — https://leetcode.com/problems/minimum-window-substring/
-- [ ] Minimum Window Subsequence — https://leetcode.com/problems/minimum-window-subsequence/
-- [ ] Max Sum Subarray of Size K — https://www.geeksforgeeks.org/problems/max-sum-subarray-of-size-k5313/1
-- [ ] First Negative Integer in Every Window of Size K — https://www.geeksforgeeks.org/problems/first-negative-integer-in-every-window-of-size-k3345/1
-- [ ] Count Occurrences of Anagrams — https://www.geeksforgeeks.org/problems/count-occurences-of-anagrams5839/1
-- [ ] Longest Subarray with Sum K — https://www.geeksforgeeks.org/problems/longest-sub-array-with-sum-k0809/1
-- [ ] Sum of min & max elements of all subarray of size K — https://www.geeksforgeeks.org/problems/sum-of-minimum-and-maximum-elements-of-all-subarrays-of-size-k/1
+> **Required: 10 questions.** Do these in order, then move to the next topic. Check each box after an independent solve or a successful retry.
+> The remaining questions are in [Extra Practice](EXTRA_PRACTICE.md); they are optional and mixed without topic labels.
+
+- [ ] [LC 3 - Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
+- [ ] [LC 1004 - Max Consecutive Ones III](https://leetcode.com/problems/max-consecutive-ones-iii/)
+- [ ] [LC 904 - Fruit Into Baskets](https://leetcode.com/problems/fruit-into-baskets/)
+- [ ] [LC 424 - Longest Repeating Character Replacement](https://leetcode.com/problems/longest-repeating-character-replacement/)
+- [ ] [LC 930 - Binary Subarrays With Sum](https://leetcode.com/problems/binary-subarrays-with-sum/)
+- [ ] [LC 1248 - Count Number of Nice Subarrays](https://leetcode.com/problems/count-number-of-nice-subarrays/)
+- [ ] [LC 1358 - Number of Substrings Containing All Three Characters](https://leetcode.com/problems/number-of-substrings-containing-all-three-characters/)
+- [ ] [LC 1423 - Maximum Points You Can Obtain from Cards](https://leetcode.com/problems/maximum-points-you-can-obtain-from-cards/)
+- [ ] [LC 992 - Subarrays with K Different Integers](https://leetcode.com/problems/subarrays-with-k-different-integers/)
+- [ ] [LC 76 - Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/)
 

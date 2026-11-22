@@ -1,6 +1,7 @@
 # Chapter 14 — Binary Search Trees (BST)
 
-> **Revision target:** 0.5 day  
+> **Revision target:** 10 required questions at 1 hour/day; split hard questions across sessions.
+> **Practice:** [Start the 10 questions](#practice-problems) | [Mixed extra practice](EXTRA_PRACTICE.md)
 > **Goal:** After reading this file, you need nothing else for this topic — no code files, no YouTube, no tutorials.
 
 ---
@@ -913,23 +914,18 @@ Case 3: Two children       → find max(left) or min(right)
 
 ## Practice Problems
 
-> Track your progress — check off each problem when solved.
-> Striver A2Z Sheet: https://takeuforward.org/dsa/strivers-a2z-sheet-learn-dsa-a-to-z
 
-- [ ] Search in a Binary Search Tree — https://leetcode.com/problems/search-in-a-binary-search-tree/
-- [ ] Find Min/Max in BST — https://www.geeksforgeeks.org/problems/minimum-element-in-bst/1
-- [ ] Floor and Ceil in a BST — https://www.geeksforgeeks.org/problems/floor-in-bst/1
-- [ ] Insert a given node in BST — https://leetcode.com/problems/insert-into-a-binary-search-tree/
-- [ ] Delete a node in BST — https://leetcode.com/problems/delete-node-in-a-bst/
-- [ ] Kth Smallest and Largest element in BST — https://leetcode.com/problems/kth-smallest-element-in-a-bst/
-- [ ] Check if a tree is a BST or not — https://leetcode.com/problems/validate-binary-search-tree/
-- [ ] LCA in BST — https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
-- [ ] Construct a BST from a preorder traversal — https://leetcode.com/problems/construct-binary-search-tree-from-preorder-traversal/
-- [ ] Inorder Successor/Predecessor in BST — https://leetcode.com/problems/inorder-successor-in-bst/
-- [ ] Merge 2 BSTs — https://www.geeksforgeeks.org/problems/merge-two-bst-s/1
-- [ ] Two Sum In BST — https://leetcode.com/problems/two-sum-iv-input-is-a-bst/
-- [ ] Correct BST with two nodes swapped — https://leetcode.com/problems/recover-binary-search-tree/
-- [ ] Largest BST in Binary Tree — https://leetcode.com/problems/maximum-sum-bst-in-binary-tree/
-- [ ] Normal BST to Balanced BST — https://www.geeksforgeeks.org/problems/normal-bst-to-balanced-bst/1
-- [ ] Flatten BST to Sorted LL — https://www.geeksforgeeks.org/problems/flatten-bst-to-sorted-list/1
+> **Required: 10 questions.** Do these in order, then move to the next topic. Check each box after an independent solve or a successful retry.
+> The remaining questions are in [Extra Practice](EXTRA_PRACTICE.md); they are optional and mixed without topic labels.
+
+- [ ] [LC 700 - Search in a Binary Search Tree](https://leetcode.com/problems/search-in-a-binary-search-tree/)
+- [ ] [LC 701 - Insert into a Binary Search Tree](https://leetcode.com/problems/insert-into-a-binary-search-tree/)
+- [ ] [LC 450 - Delete Node in a BST](https://leetcode.com/problems/delete-node-in-a-bst/)
+- [ ] [LC 230 - Kth Smallest Element in a BST](https://leetcode.com/problems/kth-smallest-element-in-a-bst/)
+- [ ] [LC 98 - Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/)
+- [ ] [LC 235 - Lowest Common Ancestor of a Binary Search Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/)
+- [ ] [LC 1008 - Construct Binary Search Tree from Preorder Traversal](https://leetcode.com/problems/construct-binary-search-tree-from-preorder-traversal/)
+- [ ] [LC 653 - Two Sum IV - Input is a BST](https://leetcode.com/problems/two-sum-iv-input-is-a-bst/)
+- [ ] [LC 99 - Recover Binary Search Tree](https://leetcode.com/problems/recover-binary-search-tree/)
+- [ ] [LC 1382 - Balance a Binary Search Tree](https://leetcode.com/problems/balance-a-binary-search-tree/)
 

@@ -1,6 +1,7 @@
 # Chapter 02 — Sorting Algorithms
 
-> **Revision target:** 0.5 day  
+> **Revision target:** 10 required questions at 1 hour/day; split hard questions across sessions.
+> **Practice:** [Start the 10 questions](#practice-problems) | [Mixed extra practice](EXTRA_PRACTICE.md)
 > **Goal:** After reading this file, you need nothing else for this topic — no code files, no YouTube, no tutorials.
 
 ---
@@ -983,14 +984,18 @@ long long mergeCount(vector<int>& arr, int s, int e) {
 
 ## Practice Problems
 
-> Track your progress — check off each problem when solved.
-> Striver A2Z Sheet: https://takeuforward.org/dsa/strivers-a2z-sheet-learn-dsa-a-to-z
 
-- [ ] Selection Sort — https://www.geeksforgeeks.org/problems/selection-sort/1
-- [ ] Bubble Sort — https://www.geeksforgeeks.org/problems/bubble-sort/1
-- [ ] Insertion Sort — https://www.geeksforgeeks.org/problems/insertion-sort/1
-- [ ] Merge Sort — https://www.geeksforgeeks.org/problems/merge-sort/1
-- [ ] Recursive Bubble Sort — https://www.geeksforgeeks.org/problems/bubble-sort/1
-- [ ] Recursive Insertion Sort — https://www.geeksforgeeks.org/problems/insertion-sort/1
-- [ ] Quick Sort — https://www.geeksforgeeks.org/problems/quick-sort/1
+> **Required: 10 questions.** Do these in order, then move to the next topic. Check each box after an independent solve or a successful retry.
+> The remaining questions are in [Extra Practice](EXTRA_PRACTICE.md); they are optional and mixed without topic labels.
+
+- [ ] [LC 912 - Sort an Array](https://leetcode.com/problems/sort-an-array/)
+- [ ] [LC 75 - Sort Colors](https://leetcode.com/problems/sort-colors/)
+- [ ] [LC 88 - Merge Sorted Array](https://leetcode.com/problems/merge-sorted-array/)
+- [ ] [LC 1122 - Relative Sort Array](https://leetcode.com/problems/relative-sort-array/)
+- [ ] [LC 179 - Largest Number](https://leetcode.com/problems/largest-number/)
+- [ ] [LC 56 - Merge Intervals](https://leetcode.com/problems/merge-intervals/)
+- [ ] [LC 215 - Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array/)
+- [ ] [LC 493 - Reverse Pairs](https://leetcode.com/problems/reverse-pairs/)
+- [ ] [LC 164 - Maximum Gap](https://leetcode.com/problems/maximum-gap/)
+- [ ] [GFG - Count Inversions](https://www.geeksforgeeks.org/problems/inversion-of-array-1587115620/1)
 

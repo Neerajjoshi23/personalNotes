@@ -1,6 +1,7 @@
 # Chapter 12 — Greedy Algorithms
 
-> **Revision target:** 0.5 day  
+> **Revision target:** 10 required questions at 1 hour/day; split hard questions across sessions.
+> **Practice:** [Start the 10 questions](#practice-problems) | [Mixed extra practice](EXTRA_PRACTICE.md)
 > **Goal:** After reading this file, you need nothing else for this topic — no code files, no YouTube, no tutorials.
 
 ---
@@ -672,22 +673,18 @@ while (pq.size() > 1) {
 
 ## Practice Problems
 
-> Track your progress — check off each problem when solved.
-> Striver A2Z Sheet: https://takeuforward.org/dsa/strivers-a2z-sheet-learn-dsa-a-to-z
 
-- [ ] Assign Cookies — https://leetcode.com/problems/assign-cookies/
-- [ ] Fractional Knapsack — https://www.geeksforgeeks.org/problems/fractional-knapsack-1587115620/1
-- [ ] Lemonade Change — https://leetcode.com/problems/lemonade-change/
-- [ ] Valid Paranthesis Checker — https://leetcode.com/problems/valid-parenthesis-string/
-- [ ] N meetings in one room — https://www.geeksforgeeks.org/problems/n-meetings-in-one-room-1587115620/1
-- [ ] Jump Game - I — https://leetcode.com/problems/jump-game/
-- [ ] Jump Game II — https://leetcode.com/problems/jump-game-ii/
-- [ ] Minimum number of platforms required for a railway — https://www.geeksforgeeks.org/problems/minimum-number-of-platforms-required-for-a-railway4430/1
-- [ ] Job sequencing Problem — https://www.geeksforgeeks.org/problems/job-sequencing-problem-1587115620/1
-- [ ] Candy — https://leetcode.com/problems/candy/
-- [ ] Shortest Job First — https://www.geeksforgeeks.org/problems/shortest-job-first/1
-- [ ] LRU Page Replacement Algorithm — https://www.geeksforgeeks.org/problems/page-faults-in-lru5603/1
-- [ ] Insert Interval — https://leetcode.com/problems/insert-interval/
-- [ ] Merge Intervals — https://leetcode.com/problems/merge-intervals/
-- [ ] Non-overlapping Intervals — https://leetcode.com/problems/non-overlapping-intervals/
+> **Required: 10 questions.** Do these in order, then move to the next topic. Check each box after an independent solve or a successful retry.
+> The remaining questions are in [Extra Practice](EXTRA_PRACTICE.md); they are optional and mixed without topic labels.
+
+- [ ] [LC 455 - Assign Cookies](https://leetcode.com/problems/assign-cookies/)
+- [ ] [LC 860 - Lemonade Change](https://leetcode.com/problems/lemonade-change/)
+- [ ] [LC 678 - Valid Parenthesis String](https://leetcode.com/problems/valid-parenthesis-string/)
+- [ ] [LC 55 - Jump Game](https://leetcode.com/problems/jump-game/)
+- [ ] [LC 45 - Jump Game II](https://leetcode.com/problems/jump-game-ii/)
+- [ ] [LC 135 - Candy](https://leetcode.com/problems/candy/)
+- [ ] [LC 57 - Insert Interval](https://leetcode.com/problems/insert-interval/)
+- [ ] [LC 435 - Non-overlapping Intervals](https://leetcode.com/problems/non-overlapping-intervals/)
+- [ ] [LC 134 - Gas Station](https://leetcode.com/problems/gas-station/)
+- [ ] [LC 763 - Partition Labels](https://leetcode.com/problems/partition-labels/)
 

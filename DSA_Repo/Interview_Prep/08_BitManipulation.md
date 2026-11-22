@@ -1,6 +1,7 @@
 # Chapter 08 — Bit Manipulation
 
-> **Revision target:** 0.5 day  
+> **Revision target:** 10 required questions at 1 hour/day; split hard questions across sessions.
+> **Practice:** [Start the 10 questions](#practice-problems) | [Mixed extra practice](EXTRA_PRACTICE.md)
 > **Goal:** After reading this file, you need nothing else for this topic — no code files, no YouTube, no tutorials.
 
 ---
@@ -917,23 +918,18 @@ INT_MIN:          0x80000000 = 10000...0 (sign bit only)
 
 ## Practice Problems
 
-> Track your progress — check off each problem when solved.
-> Striver A2Z Sheet: https://takeuforward.org/dsa/strivers-a2z-sheet-learn-dsa-a-to-z
 
-- [ ] Check if the i-th bit is Set or Not — https://www.geeksforgeeks.org/problems/check-whether-k-th-bit-is-set-or-not-1587115620/1
-- [ ] Check if a Number is Odd or Not — https://www.geeksforgeeks.org/problems/odd-even-problem/1
-- [ ] Check if a Number is Power of 2 or Not — https://leetcode.com/problems/power-of-two/
-- [ ] Count the Number of Set Bits — https://leetcode.com/problems/number-of-1-bits/
-- [ ] Set/Unset the rightmost unset bit — https://www.geeksforgeeks.org/problems/set-the-rightmost-unset-bit4436/1
-- [ ] Swap Two Numbers — https://www.geeksforgeeks.org/problems/swap-two-numbers-without-using-third-variable/1
-- [ ] Divide two numbers without multiplication and division — https://leetcode.com/problems/divide-two-integers/
-- [ ] Minimum Bit Flips to Convert Number — https://leetcode.com/problems/minimum-bit-flips-to-convert-number/
-- [ ] Single Number - I — https://leetcode.com/problems/single-number/
-- [ ] Power Set Bit Manipulation — https://leetcode.com/problems/subsets/
-- [ ] XOR of numbers in a given range — https://www.geeksforgeeks.org/problems/find-xor-of-numbers-from-l-to-r/1
-- [ ] Single Number - III — https://leetcode.com/problems/single-number-iii/
-- [ ] Print Prime Factors of a Number — https://www.geeksforgeeks.org/problems/prime-factors5052/1
-- [ ] All Divisors of a Number — https://www.geeksforgeeks.org/problems/all-divisors-of-a-number/1
-- [ ] Count primes (Sieve of Eratosthenes) — https://leetcode.com/problems/count-primes/
-- [ ] Pow(x,n) — https://leetcode.com/problems/powx-n/
+> **Required: 10 questions.** Do these in order, then move to the next topic. Check each box after an independent solve or a successful retry.
+> The remaining questions are in [Extra Practice](EXTRA_PRACTICE.md); they are optional and mixed without topic labels.
+
+- [ ] [LC 231 - Power of Two](https://leetcode.com/problems/power-of-two/)
+- [ ] [LC 191 - Number of 1 Bits](https://leetcode.com/problems/number-of-1-bits/)
+- [ ] [LC 338 - Counting Bits](https://leetcode.com/problems/counting-bits/)
+- [ ] [LC 136 - Single Number](https://leetcode.com/problems/single-number/)
+- [ ] [LC 137 - Single Number II](https://leetcode.com/problems/single-number-ii/)
+- [ ] [LC 260 - Single Number III](https://leetcode.com/problems/single-number-iii/)
+- [ ] [LC 2220 - Minimum Bit Flips to Convert Number](https://leetcode.com/problems/minimum-bit-flips-to-convert-number/)
+- [ ] [LC 29 - Divide Two Integers](https://leetcode.com/problems/divide-two-integers/)
+- [ ] [LC 201 - Bitwise AND of Numbers Range](https://leetcode.com/problems/bitwise-and-of-numbers-range/)
+- [ ] [LC 268 - Missing Number](https://leetcode.com/problems/missing-number/)
 

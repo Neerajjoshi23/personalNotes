@@ -1,6 +1,7 @@
 # Chapter 15 — Graphs
 
-> **Revision target:** 1.5 days  
+> **Revision target:** 10 required questions at 1 hour/day; split hard questions across sessions.
+> **Practice:** [Start the 10 questions](#practice-problems) | [Mixed extra practice](EXTRA_PRACTICE.md)
 > **Goal:** After reading this file, you need nothing else for graphs — no YouTube, no code files, no tutorials. Every template, every algorithm, every trap is here.
 
 ---
@@ -1501,52 +1502,18 @@ bool isBipartite(int V, vector<int> adj[]) {
 
 ## Practice Problems
 
-> Track your progress — check off each problem when solved.
-> Striver A2Z Sheet: https://takeuforward.org/dsa/strivers-a2z-sheet-learn-dsa-a-to-z
 
-- [ ] BFS Traversal — https://www.geeksforgeeks.org/problems/bfs-traversal-of-graph/1
-- [ ] DFS Traversal — https://www.geeksforgeeks.org/problems/depth-first-traversal-for-a-graph/1
-- [ ] Number of provinces — https://leetcode.com/problems/number-of-provinces/
-- [ ] Rotten Oranges — https://leetcode.com/problems/rotting-oranges/
-- [ ] Flood fill algorithm — https://leetcode.com/problems/flood-fill/
-- [ ] Cycle Detection in Undirected Graph — https://www.geeksforgeeks.org/problems/detect-cycle-in-an-undirected-graph/1
-- [ ] Distance of nearest cell having 1 (01 Matrix) — https://leetcode.com/problems/01-matrix/
-- [ ] Surrounded Regions — https://leetcode.com/problems/surrounded-regions/
-- [ ] Number of enclaves — https://leetcode.com/problems/number-of-enclaves/
-- [ ] Word Ladder I — https://leetcode.com/problems/word-ladder/
-- [ ] Word Ladder II — https://leetcode.com/problems/word-ladder-ii/
-- [ ] Number of islands — https://leetcode.com/problems/number-of-islands/
-- [ ] Number of distinct islands — https://www.geeksforgeeks.org/problems/number-of-distinct-islands/1
-- [ ] Bipartite Graph — https://leetcode.com/problems/is-graph-bipartite/
-- [ ] Topological Sort (DFS) — https://www.geeksforgeeks.org/problems/topological-sort/1
-- [ ] Topological Sort (Kahn's BFS) — https://www.geeksforgeeks.org/problems/topological-sort/1
-- [ ] Detect cycle in Directed Graph — https://leetcode.com/problems/course-schedule/
-- [ ] Course Schedule I — https://leetcode.com/problems/course-schedule/
-- [ ] Course Schedule II — https://leetcode.com/problems/course-schedule-ii/
-- [ ] Find eventual safe states — https://leetcode.com/problems/find-eventual-safe-states/
-- [ ] Alien Dictionary — https://leetcode.com/problems/alien-dictionary/
-- [ ] Shortest path in undirected graph with unit weights — https://www.geeksforgeeks.org/problems/shortest-source-to-destination-path3050/1
-- [ ] Shortest path in DAG — https://www.geeksforgeeks.org/problems/shortest-path-in-undirected-graph/1
-- [ ] Dijkstra's Algorithm — https://www.geeksforgeeks.org/problems/implementing-dijkstra-set-1-adjacency-matrix/1
-- [ ] Shortest Path in Binary Matrix — https://leetcode.com/problems/shortest-path-in-binary-matrix/
-- [ ] Path with minimum effort — https://leetcode.com/problems/path-with-minimum-effort/
-- [ ] Cheapest flights within K stops — https://leetcode.com/problems/cheapest-flights-within-k-stops/
-- [ ] Network Delay Time — https://leetcode.com/problems/network-delay-time/
-- [ ] Number of ways to arrive at destination — https://leetcode.com/problems/number-of-ways-to-arrive-at-destination/
-- [ ] Minimum multiplications to reach end — https://www.geeksforgeeks.org/problems/minimum-multiplications-to-reach-end/1
-- [ ] Bellman Ford Algorithm — https://www.geeksforgeeks.org/problems/bellman-ford-algorithm/1
-- [ ] Floyd Warshall Algorithm — https://www.geeksforgeeks.org/problems/implementing-floyd-warshall2042/1
-- [ ] Find the city with the smallest number of neighbors — https://leetcode.com/problems/find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance/
-- [ ] Prim's Algorithm (MST) — https://www.geeksforgeeks.org/problems/minimum-spanning-tree/1
-- [ ] Kruskal's Algorithm (MST) — https://www.geeksforgeeks.org/problems/minimum-spanning-tree/1
-- [ ] Disjoint Set Union (DSU) — https://www.geeksforgeeks.org/problems/disjoint-set-union/1
-- [ ] Number of operations to make network connected — https://leetcode.com/problems/number-of-operations-to-make-network-connected/
-- [ ] Most stones removed with same row or column — https://leetcode.com/problems/most-stones-removed-with-same-row-or-column/
-- [ ] Accounts merge — https://leetcode.com/problems/accounts-merge/
-- [ ] Number of islands II — https://leetcode.com/problems/number-of-islands-ii/
-- [ ] Making a large island — https://leetcode.com/problems/making-a-large-island/
-- [ ] Swim in Rising Water — https://leetcode.com/problems/swim-in-rising-water/
-- [ ] Bridges in graph — https://leetcode.com/problems/critical-connections-in-a-network/
-- [ ] Articulation points in graph — https://www.geeksforgeeks.org/problems/articulation-point/1
-- [ ] Kosaraju's algorithm (SCC) — https://www.geeksforgeeks.org/problems/strongly-connected-components-kosarajus-algo/1
+> **Required: 10 questions.** Do these in order, then move to the next topic. Check each box after an independent solve or a successful retry.
+> The remaining questions are in [Extra Practice](EXTRA_PRACTICE.md); they are optional and mixed without topic labels.
+
+- [ ] [LC 200 - Number of Islands](https://leetcode.com/problems/number-of-islands/)
+- [ ] [LC 994 - Rotting Oranges](https://leetcode.com/problems/rotting-oranges/)
+- [ ] [LC 542 - 01 Matrix](https://leetcode.com/problems/01-matrix/)
+- [ ] [LC 785 - Is Graph Bipartite?](https://leetcode.com/problems/is-graph-bipartite/)
+- [ ] [LC 207 - Course Schedule](https://leetcode.com/problems/course-schedule/)
+- [ ] [LC 127 - Word Ladder](https://leetcode.com/problems/word-ladder/)
+- [ ] [LC 743 - Network Delay Time](https://leetcode.com/problems/network-delay-time/)
+- [ ] [LC 787 - Cheapest Flights Within K Stops](https://leetcode.com/problems/cheapest-flights-within-k-stops/)
+- [ ] [LC 721 - Accounts Merge](https://leetcode.com/problems/accounts-merge/)
+- [ ] [LC 1368 - Minimum Cost to Make at Least One Valid Path in a Grid](https://leetcode.com/problems/minimum-cost-to-make-at-least-one-valid-path-in-a-grid/)
 

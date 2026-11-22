@@ -1,6 +1,7 @@
 # Chapter 06 — Linked List
 
-> **Revision target:** 1 day  
+> **Revision target:** 10 required questions at 1 hour/day; split hard questions across sessions.
+> **Practice:** [Start the 10 questions](#practice-problems) | [Mixed extra practice](EXTRA_PRACTICE.md)
 > **Goal:** After reading this file, you need nothing else for this topic — no code files, no YouTube, no tutorials.
 
 ---
@@ -1108,40 +1109,18 @@ void deleteAt(Node* &head, int pos) {
 
 ## Practice Problems
 
-> Track your progress — check off each problem when solved.
-> Striver A2Z Sheet: https://takeuforward.org/dsa/strivers-a2z-sheet-learn-dsa-a-to-z
 
-- [ ] Introduction to Singly LinkedList — https://www.geeksforgeeks.org/problems/introduction-to-linked-list/1
-- [ ] Insertion at the head of Linked List — https://www.geeksforgeeks.org/problems/linked-list-insertion-1587115620/1
-- [ ] Deletion of a node in LL — https://leetcode.com/problems/delete-node-in-a-linked-list/
-- [ ] Find the length of the Linked List — https://www.geeksforgeeks.org/problems/count-nodes-of-linked-list/1
-- [ ] Search in Linked List — https://www.geeksforgeeks.org/problems/search-in-linked-list-1660148408/1
-- [ ] Introduction to Doubly LL — https://www.geeksforgeeks.org/problems/introduction-to-doubly-linked-list/1
-- [ ] Insert node before head in DLL — https://www.geeksforgeeks.org/problems/insert-a-node-in-doubly-linked-list/1
-- [ ] Delete head of Doubly Linked List — https://www.geeksforgeeks.org/problems/delete-node-in-doubly-linked-list/1
-- [ ] Reverse a Doubly Linked List — https://www.geeksforgeeks.org/problems/reverse-a-doubly-linked-list/1
-- [ ] Middle of a LinkedList — https://leetcode.com/problems/middle-of-the-linked-list/
-- [ ] Reverse a LinkedList — https://leetcode.com/problems/reverse-linked-list/
-- [ ] Detect a loop in LL — https://leetcode.com/problems/linked-list-cycle/
-- [ ] Find the starting point of loop in LL — https://leetcode.com/problems/linked-list-cycle-ii/
-- [ ] Length of loop in LL — https://www.geeksforgeeks.org/problems/find-length-of-loop/1
-- [ ] Check if LL is palindrome or not — https://leetcode.com/problems/palindrome-linked-list/
-- [ ] Segregate odd and even nodes in LL — https://leetcode.com/problems/odd-even-linked-list/
-- [ ] Remove Nth node from the back of LL — https://leetcode.com/problems/remove-nth-node-from-end-of-list/
-- [ ] Delete the middle node in LL — https://leetcode.com/problems/delete-the-middle-node-of-a-linked-list/
-- [ ] Sort LL (Merge Sort) — https://leetcode.com/problems/sort-list/
-- [ ] Sort a LL of 0's 1's and 2's — https://www.geeksforgeeks.org/problems/given-a-linked-list-of-0s-1s-and-2s-sort-it/1
-- [ ] Find the intersection point of two LL — https://leetcode.com/problems/intersection-of-two-linked-lists/
-- [ ] Add one to a number represented by LL — https://www.geeksforgeeks.org/problems/add-1-to-a-number-represented-as-linked-list/1
-- [ ] Add two numbers in Linked List — https://leetcode.com/problems/add-two-numbers/
-- [ ] Delete all occurrences of a key in DLL — https://www.geeksforgeeks.org/problems/delete-all-occurrences-of-a-given-key-in-a-doubly-linked-list/1
-- [ ] Find Pairs with Given Sum in DLL — https://www.geeksforgeeks.org/problems/find-pairs-with-given-sum-in-doubly-linked-list/1
-- [ ] Remove duplicates from sorted DLL — https://www.geeksforgeeks.org/problems/remove-duplicates-from-a-sorted-doubly-linked-list/1
-- [ ] Reverse LL in group of given size K — https://leetcode.com/problems/reverse-nodes-in-k-group/
-- [ ] Rotate a LL — https://leetcode.com/problems/rotate-list/
-- [ ] Flattening of LL — https://www.geeksforgeeks.org/problems/flattening-a-linked-list/1
-- [ ] Clone a LL with random and next pointer — https://leetcode.com/problems/copy-list-with-random-pointer/
-- [ ] Remove Duplicates from Sorted LL — https://leetcode.com/problems/remove-duplicates-from-sorted-list/
-- [ ] Remove Duplicates from Unsorted LL — https://www.geeksforgeeks.org/problems/remove-duplicates-from-an-unsorted-linked-list/1
-- [ ] Merge Two Sorted Linked Lists — https://leetcode.com/problems/merge-two-sorted-lists/
+> **Required: 10 questions.** Do these in order, then move to the next topic. Check each box after an independent solve or a successful retry.
+> The remaining questions are in [Extra Practice](EXTRA_PRACTICE.md); they are optional and mixed without topic labels.
+
+- [ ] [LC 206 - Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/)
+- [ ] [LC 876 - Middle of the Linked List](https://leetcode.com/problems/middle-of-the-linked-list/)
+- [ ] [LC 142 - Linked List Cycle II](https://leetcode.com/problems/linked-list-cycle-ii/)
+- [ ] [LC 234 - Palindrome Linked List](https://leetcode.com/problems/palindrome-linked-list/)
+- [ ] [LC 19 - Remove Nth Node From End of List](https://leetcode.com/problems/remove-nth-node-from-end-of-list/)
+- [ ] [LC 21 - Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/)
+- [ ] [LC 148 - Sort List](https://leetcode.com/problems/sort-list/)
+- [ ] [LC 445 - Add Two Numbers II](https://leetcode.com/problems/add-two-numbers-ii/)
+- [ ] [LC 25 - Reverse Nodes in k-Group](https://leetcode.com/problems/reverse-nodes-in-k-group/)
+- [ ] [LC 138 - Copy List with Random Pointer](https://leetcode.com/problems/copy-list-with-random-pointer/)
 

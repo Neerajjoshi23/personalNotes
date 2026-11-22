@@ -1,6 +1,7 @@
 # Chapter 07 — Recursion & Backtracking
 
-> **Revision target:** 1 day  
+> **Revision target:** 10 required questions at 1 hour/day; split hard questions across sessions.
+> **Practice:** [Start the 10 questions](#practice-problems) | [Mixed extra practice](EXTRA_PRACTICE.md)
 > **Goal:** After reading this file, you need nothing else for this topic — no code files, no YouTube, no tutorials.
 
 ---
@@ -1197,35 +1198,18 @@ bool isPalin(string& s, int i, int j) {
 
 ## Practice Problems
 
-> Track your progress — check off each problem when solved.
-> Striver A2Z Sheet: https://takeuforward.org/dsa/strivers-a2z-sheet-learn-dsa-a-to-z
 
-- [ ] Recursive Implementation of atoi() — https://leetcode.com/problems/string-to-integer-atoi/
-- [ ] Pow(x, n) — https://leetcode.com/problems/powx-n/
-- [ ] Count Good Numbers — https://leetcode.com/problems/count-good-numbers/
-- [ ] Sort a stack using recursion — https://www.geeksforgeeks.org/problems/sort-a-stack/1
-- [ ] Reverse a Stack — https://www.geeksforgeeks.org/problems/reverse-a-stack/1
-- [ ] Generate Binary Strings Without Consecutive 1s — https://www.geeksforgeeks.org/problems/generate-binary-strings-without-consecutive-1s/1
-- [ ] Generate Parentheses — https://leetcode.com/problems/generate-parentheses/
-- [ ] Power Set — https://leetcode.com/problems/subsets/
-- [ ] Count all subsequences with sum K — https://www.geeksforgeeks.org/problems/number-of-subsets-of-a-given-sum/1
-- [ ] Check if there exists a subsequence with sum K — https://www.geeksforgeeks.org/problems/subset-sum-problem/1
-- [ ] Combination Sum — https://leetcode.com/problems/combination-sum/
-- [ ] Combination Sum II — https://leetcode.com/problems/combination-sum-ii/
-- [ ] Subsets I — https://leetcode.com/problems/subsets/
-- [ ] Subsets II — https://leetcode.com/problems/subsets-ii/
-- [ ] Combination Sum III — https://leetcode.com/problems/combination-sum-iii/
-- [ ] Letter Combinations of a Phone Number — https://leetcode.com/problems/letter-combinations-of-a-phone-number/
-- [ ] Palindrome Partitioning — https://leetcode.com/problems/palindrome-partitioning/
-- [ ] Word Search — https://leetcode.com/problems/word-search/
-- [ ] N Queen — https://leetcode.com/problems/n-queens/
-- [ ] Rat in a Maze — https://www.geeksforgeeks.org/problems/rat-in-a-maze-problem/1
-- [ ] Word Break — https://leetcode.com/problems/word-break/
-- [ ] M Coloring Problem — https://www.geeksforgeeks.org/problems/m-coloring-problem/1
-- [ ] Sudoku Solver — https://leetcode.com/problems/sudoku-solver/
-- [ ] Expression Add Operators — https://leetcode.com/problems/expression-add-operators/
-- [ ] Fibonacci Number — https://leetcode.com/problems/fibonacci-number/
-- [ ] Climbing Stairs — https://leetcode.com/problems/climbing-stairs/
-- [ ] Print all Subsequences — https://www.geeksforgeeks.org/problems/print-all-subsequences/1
-- [ ] Permutations — https://leetcode.com/problems/permutations/
+> **Required: 10 questions.** Do these in order, then move to the next topic. Check each box after an independent solve or a successful retry.
+> The remaining questions are in [Extra Practice](EXTRA_PRACTICE.md); they are optional and mixed without topic labels.
+
+- [ ] [LC 78 - Subsets](https://leetcode.com/problems/subsets/)
+- [ ] [LC 90 - Subsets II](https://leetcode.com/problems/subsets-ii/)
+- [ ] [LC 46 - Permutations](https://leetcode.com/problems/permutations/)
+- [ ] [LC 47 - Permutations II](https://leetcode.com/problems/permutations-ii/)
+- [ ] [LC 39 - Combination Sum](https://leetcode.com/problems/combination-sum/)
+- [ ] [LC 40 - Combination Sum II](https://leetcode.com/problems/combination-sum-ii/)
+- [ ] [LC 22 - Generate Parentheses](https://leetcode.com/problems/generate-parentheses/)
+- [ ] [LC 131 - Palindrome Partitioning](https://leetcode.com/problems/palindrome-partitioning/)
+- [ ] [LC 79 - Word Search](https://leetcode.com/problems/word-search/)
+- [ ] [LC 51 - N-Queens](https://leetcode.com/problems/n-queens/)
 

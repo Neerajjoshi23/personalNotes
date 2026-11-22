@@ -424,13 +424,27 @@ Keyboard-only open/use/close flow, visible focus, focus return, screen-reader na
 
 ---
 
-## My notes (write from memory after reading)
+<details>
+<summary>FE7 · Accessibility + i18n — Core Architecture & Interview Cheat Sheet</summary>
 
-- 
-- 
-- 
+- **Core Principle:** Accessibility and i18n are architecture constraints baked into design-system primitives—not post-launch polish.
+- **Part 1 — Semantic HTML & Focus as State:**
+  - Use native elements (`<button>`, `<input>`, `<label htmlFor>`, `<a>`, `<header>/<main>/<nav>`) first; **ARIA changes screen-reader announcements only—it adds zero keyboard or click behavior**.
+  - Link visible labels via `htmlFor` + `id`, helper/error hints via `aria-describedby`, and reserve `aria-label` for icon-only buttons.
+  - Treat focus (`document.activeElement`) as state: maintain logical `Tab` order, visible `:focus-visible` outlines, move focus into modals on open, and restore focus to the trigger on close.
+- **Part 2 — Widget Keyboard & ARIA Contracts:**
+  - **Combobox / Autocomplete:** Keep real DOM focus on `<input role="combobox" aria-expanded aria-controls aria-autocomplete="list">`; use `aria-activedescendant` to point to the active `<li role="option" aria-selected>` inside `<ul role="listbox">` so typing is never interrupted. Prevent blur on option `onMouseDown`.
+  - **Modal / Dialog:** `role="dialog"`, `aria-modal="true"`, `aria-labelledby`, trap `Tab`/`Shift+Tab`, make background `inert`/`aria-hidden`, close on `Escape`, and return focus to trigger.
+  - **Tabs:** `role="tablist"` + `<button role="tab" aria-selected aria-controls>` + `<div role="tabpanel" aria-labelledby>` with roving `tabIndex` (`0` on active, `-1` on others) and `ArrowLeft`/`ArrowRight`/`Home`/`End` navigation.
+  - **Carousel:** Default to no auto-rotation; if enabled, pause on hover/focus, provide Pause/Play button, and disable under `prefers-reduced-motion`.
+- **Part 3 — Live Regions, Contrast & Reduced Motion:**
+  - Use `role="status"` (`aria-live="polite"`) for async updates without stealing focus (e.g., `"8 suggestions available"`, `"3 new messages"`); reserve `role="alert"` (`assertive`) strictly for urgent errors. Summarize updates instead of spamming.
+  - Never rely on color alone for state; link field errors with `aria-invalid` + `aria-describedby`.
+  - Respect `@media (prefers-reduced-motion: reduce)` by disabling sliding/auto-advance animations while keeping instant state changes.
+- **Part 4 — i18n, RTL & `Intl`:**
+  - Avoid fixed widths (German/Finnish expand 30–50%), never concatenate strings (use ICU plurals), use logical CSS (`margin-inline-start`), set `lang` + `dir` at the root, use `dir="auto"` for user-generated text, format dates/numbers/time zones via `Intl.*`, and lazy-load locale namespaces with a fallback chain (`pt-BR → pt → en`) [0.8.16–0.8.19].
+</details>
 
-**One thing I'd have got wrong before reading this:**
 
 ---
 

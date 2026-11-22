@@ -1,6 +1,7 @@
 # Chapter 17 — Tries
 
-> **Revision target:** 0.5 day  
+> **Revision target:** 10 required questions at 1 hour/day; split hard questions across sessions.
+> **Practice:** [Start the 10 questions](#practice-problems) | [Mixed extra practice](EXTRA_PRACTICE.md)
 > **Goal:** After reading this file, you need nothing else for Tries — no YouTube, no code files, no tutorials. Both character Trie and binary XOR Trie are covered completely.
 
 ---
@@ -719,12 +720,18 @@ int getMaxXOR(int num) {
 
 ## Practice Problems
 
-> Track your progress — check off each problem when solved.
-> Striver A2Z Sheet: https://takeuforward.org/dsa/strivers-a2z-sheet-learn-dsa-a-to-z
 
-- [ ] Implement Trie (Insert, Search, StartsWith) — https://leetcode.com/problems/implement-trie-prefix-tree/
-- [ ] Longest Word with All Prefixes — https://leetcode.com/problems/longest-word-in-dictionary/
-- [ ] Number of distinct substrings in a string — https://www.geeksforgeeks.org/problems/number-of-distinct-substrings-in-a-string/1
-- [ ] Maximum XOR of two numbers in an array — https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/
-- [ ] Maximum XOR with an element from an array — https://leetcode.com/problems/maximum-xor-with-an-element-from-array/
+> **Required: 10 questions.** Do these in order, then move to the next topic. Check each box after an independent solve or a successful retry.
+> The remaining questions are in [Extra Practice](EXTRA_PRACTICE.md); they are optional and mixed without topic labels.
+
+- [ ] [LC 208 - Implement Trie (Prefix Tree)](https://leetcode.com/problems/implement-trie-prefix-tree/)
+- [ ] [LC 211 - Design Add and Search Words Data Structure](https://leetcode.com/problems/design-add-and-search-words-data-structure/)
+- [ ] [LC 648 - Replace Words](https://leetcode.com/problems/replace-words/)
+- [ ] [LC 720 - Longest Word in Dictionary](https://leetcode.com/problems/longest-word-in-dictionary/)
+- [ ] [LC 1268 - Search Suggestions System](https://leetcode.com/problems/search-suggestions-system/)
+- [ ] [LC 2416 - Sum of Prefix Scores of Strings](https://leetcode.com/problems/sum-of-prefix-scores-of-strings/)
+- [ ] [LC 212 - Word Search II](https://leetcode.com/problems/word-search-ii/)
+- [ ] [LC 421 - Maximum XOR of Two Numbers in an Array](https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/)
+- [ ] [LC 1707 - Maximum XOR With an Element From Array](https://leetcode.com/problems/maximum-xor-with-an-element-from-array/)
+- [ ] [GFG - Number of Distinct Substrings](https://www.geeksforgeeks.org/problems/number-of-distinct-substrings-in-a-string/1)
 

@@ -1,6 +1,7 @@
 # Chapter 03 — Arrays
 
-> **Revision target:** 1 day  
+> **Revision target:** 10 required questions at 1 hour/day; split hard questions across sessions.
+> **Practice:** [Start the 10 questions](#practice-problems) | [Mixed extra practice](EXTRA_PRACTICE.md)
 > **Goal:** After reading this file, you need nothing else for this topic — no code files, no YouTube, no tutorials.
 
 ---
@@ -1305,53 +1306,18 @@ bool searchMatrixII(vector<vector<int>>& m, int t) {
 
 ## Practice Problems
 
-> Track your progress — check off each problem when solved.
-> Striver A2Z Sheet: https://takeuforward.org/dsa/strivers-a2z-sheet-learn-dsa-a-to-z
 
-- [ ] Largest Element in Array — https://www.geeksforgeeks.org/problems/largest-element-in-array4009/1
-- [ ] Second Largest Element — https://www.geeksforgeeks.org/problems/second-largest3735/1
-- [ ] Check if Array is Sorted — https://leetcode.com/problems/check-if-array-is-sorted-and-rotated/
-- [ ] Remove duplicates from Sorted Array — https://leetcode.com/problems/remove-duplicates-from-sorted-array/
-- [ ] Left Rotate Array by One — https://www.geeksforgeeks.org/problems/cyclically-rotate-an-array-by-one2614/1
-- [ ] Left Rotate Array by K Places — https://leetcode.com/problems/rotate-array/
-- [ ] Move Zeros to End — https://leetcode.com/problems/move-zeroes/
-- [ ] Linear Search — https://www.geeksforgeeks.org/problems/who-will-win-1587115621/1
-- [ ] Union of two sorted arrays — https://www.geeksforgeeks.org/problems/union-of-two-sorted-arrays-1587115621/1
-- [ ] Find missing number — https://leetcode.com/problems/missing-number/
-- [ ] Maximum Consecutive Ones — https://leetcode.com/problems/max-consecutive-ones/
-- [ ] Single Number — https://leetcode.com/problems/single-number/
-- [ ] Longest subarray with sum K (positives) — https://www.geeksforgeeks.org/problems/longest-sub-array-with-sum-k0809/1
-- [ ] Longest subarray with sum K (with negatives) — https://www.geeksforgeeks.org/problems/longest-sub-array-with-sum-k0809/1
-- [ ] Two Sum — https://leetcode.com/problems/two-sum/
-- [ ] Sort an array of 0s 1s and 2s — https://leetcode.com/problems/sort-colors/
-- [ ] Majority Element I — https://leetcode.com/problems/majority-element/
-- [ ] Kadane's Algorithm (Maximum Subarray) — https://leetcode.com/problems/maximum-subarray/
-- [ ] Stock Buy and Sell — https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
-- [ ] Rearrange Array Elements by Sign — https://leetcode.com/problems/rearrange-array-elements-by-sign/
-- [ ] Next Permutation — https://leetcode.com/problems/next-permutation/
-- [ ] Leaders in an Array — https://www.geeksforgeeks.org/problems/leaders-in-an-array-1587115620/1
-- [ ] Longest Consecutive Sequence — https://leetcode.com/problems/longest-consecutive-sequence/
-- [ ] Set Matrix Zeroes — https://leetcode.com/problems/set-matrix-zeroes/
-- [ ] Rotate Matrix 90 degrees — https://leetcode.com/problems/rotate-image/
-- [ ] Spiral Matrix — https://leetcode.com/problems/spiral-matrix/
-- [ ] Subarray Sum Equals K — https://leetcode.com/problems/subarray-sum-equals-k/
-- [ ] Pascal's Triangle — https://leetcode.com/problems/pascals-triangle/
-- [ ] Majority Element II — https://leetcode.com/problems/majority-element-ii/
-- [ ] 3Sum — https://leetcode.com/problems/3sum/
-- [ ] 4Sum — https://leetcode.com/problems/4sum/
-- [ ] Largest Subarray with Sum 0 — https://www.geeksforgeeks.org/problems/largest-subarray-with-0-sum/1
-- [ ] Count Subarrays with XOR = K — https://www.geeksforgeeks.org/problems/count-subarrays-with-given-xor-k0807/1
-- [ ] Merge Overlapping Intervals — https://leetcode.com/problems/merge-intervals/
-- [ ] Merge Two Sorted Arrays Without Extra Space — https://leetcode.com/problems/merge-sorted-array/
-- [ ] Find the Repeating and Missing Number — https://www.geeksforgeeks.org/problems/find-missing-and-repeating2512/1
-- [ ] Count Inversions — https://www.geeksforgeeks.org/problems/inversion-of-array-1587115620/1
-- [ ] Reverse Pairs — https://leetcode.com/problems/reverse-pairs/
-- [ ] Maximum Product Subarray — https://leetcode.com/problems/maximum-product-subarray/
-- [ ] Find the Duplicate Number — https://leetcode.com/problems/find-the-duplicate-number/
-- [ ] Unique Number of Occurrences — https://leetcode.com/problems/unique-number-of-occurrences/
-- [ ] Intersection of Two Arrays — https://leetcode.com/problems/intersection-of-two-arrays/
-- [ ] Find All Duplicates in Array — https://leetcode.com/problems/find-all-duplicates-in-an-array/
-- [ ] Wave Print — https://www.geeksforgeeks.org/problems/wave-array-1587115621/1
-- [ ] Search in a 2D Matrix — https://leetcode.com/problems/search-a-2d-matrix/
-- [ ] Search in a 2D Matrix II — https://leetcode.com/problems/search-a-2d-matrix-ii/
+> **Required: 10 questions.** Do these in order, then move to the next topic. Check each box after an independent solve or a successful retry.
+> The remaining questions are in [Extra Practice](EXTRA_PRACTICE.md); they are optional and mixed without topic labels.
+
+- [ ] [LC 238 - Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/)
+- [ ] [LC 53 - Maximum Subarray](https://leetcode.com/problems/maximum-subarray/)
+- [ ] [LC 121 - Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/)
+- [ ] [LC 560 - Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/)
+- [ ] [LC 128 - Longest Consecutive Sequence](https://leetcode.com/problems/longest-consecutive-sequence/)
+- [ ] [LC 169 - Majority Element](https://leetcode.com/problems/majority-element/)
+- [ ] [LC 189 - Rotate Array](https://leetcode.com/problems/rotate-array/)
+- [ ] [LC 73 - Set Matrix Zeroes](https://leetcode.com/problems/set-matrix-zeroes/)
+- [ ] [LC 48 - Rotate Image](https://leetcode.com/problems/rotate-image/)
+- [ ] [LC 54 - Spiral Matrix](https://leetcode.com/problems/spiral-matrix/)
 
