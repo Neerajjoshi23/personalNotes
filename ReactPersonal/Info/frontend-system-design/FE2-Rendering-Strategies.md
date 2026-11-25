@@ -189,13 +189,13 @@ The server and client start from a deterministic UTC string; localization happen
 ## Part 3: trade-offs on TTFB, FCP, LCP, INP, SEO and cost
 
 | Strategy | TTFB | FCP/LCP | INP risk | SEO | Cost |
-|---|---|---|---|---|
-| CSR | low server TTFB, but shell only | can be poor until JS/data load | high if bundle large | weak unless pre-rendered | cheap server, more client CPU |
-| SSR | can be slower if data waits | often better content LCP | hydration can hurt | strong | server compute per request |
-| SSG | excellent from CDN | excellent for static content | low if JS small | strong | cheap, build cost |
-| ISR | excellent when cached | good but possibly stale | same as page JS | strong | regeneration complexity |
-| Streaming SSR | earlier visible chunks | improves perceived load | hydration still matters | strong | server streaming complexity |
-| RSC / islands | depends on framework/cache | can reduce JS and LCP cost | often lower JS/INP | strong if server-rendered | server/framework complexity |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **CSR** | low server TTFB, but shell only | can be poor until JS/data load | high if bundle large | weak unless pre-rendered | cheap server, more client CPU |
+| **SSR** | can be slower if data waits | often better content LCP | hydration can hurt | strong | server compute per request |
+| **SSG** | excellent from CDN | excellent for static content | low if JS small | strong | cheap, build cost |
+| **ISR** | excellent when cached | good but possibly stale | same as page JS | strong | regeneration complexity |
+| **Streaming SSR** | earlier visible chunks | improves perceived load | hydration still matters | strong | server streaming complexity |
+| **RSC / islands** | depends on framework/cache | can reduce JS and LCP cost | often lower JS/INP | strong if server-rendered | server/framework complexity |
 
 ### TTFB
 
@@ -330,13 +330,28 @@ TTFB is affected by server work/cache; FCP/LCP improve when real content and her
 
 ---
 
-## My notes (write from memory after reading)
+<details>
+<summary>FE2 · Rendering Strategies — Picking Where HTML & Interactivity Are Born</summary>
 
-- 
-- 
-- 
+- **Golden Rule:** Never treat CSR, SSR, and SSG as a global ranking—choose **hybrid rendering per route and per component** based on **SEO/public caching**, **data freshness**, **interactivity**, and **server cost**.
+- **Part 1 — The Rendering Spectrum:**
+  - **CSR (Client-Side Rendering):** Empty `<div id="root">` + JS; browser builds DOM after downloading JS and fetching APIs. **No hydration.** Best for authenticated dashboards, collaborative canvases (`DrawBoard`), and internal consoles (zero SSR compute, fast client routing; weak initial **LCP** and no out-of-the-box SEO).
+  - **SSR (Server-Side Rendering):** Server builds fresh HTML **per request**, then browser **hydrates** JS. Best for public SEO pages with per-request personalization (search results, public profiles). High server CPU/TTFB cost at scale, and heavy hydration can still hurt **INP**.
+  - **SSG (Static Site Generation):** HTML built **once at build time** and served from global CDN, then **hydrated**. Best for docs, blogs, marketing pages (lowest `TTFB`, cheap CDN scale, stale until rebuild).
+  - **ISR (Incremental Static Regeneration):** Cached static HTML from CDN + background regeneration after TTL or webhook. Best for e-commerce product pages/news; pair with a dynamic check for volatile fields like **live price/inventory**.
+  - **Streaming SSR:** Server flushes HTML chunks progressively (shell/hero first, slow recommendations later)—improves perceived load, though hydration cost remains.
+  - **RSC (React Server Components):** Non-interactive components execute on the server and stream a serialized UI payload with **zero component JS shipped to the browser** (not the same as SSR; interactive components with `useState`/`onClick` stay Client Components).
+- **Part 2 — Hydration & Hydration Mismatches:**
+  - `HTML visible !== interactive`: an SSR page can have great **FCP** but poor **INP** while the main thread parses JS and hydrates the tree.
+  - **Islands / Partial Hydration:** Keep pages mostly static HTML and hydrate only isolated interactive widgets (cart button, gallery)—unsuitable for apps like `DrawBoard` where everything shares live state.
+  - **Preventing Hydration Mismatches:** Never render `Date.now()`, `Math.random()`, `window.*`, or local timezones on the initial pass; render a deterministic value (e.g., UTC or `useId()`) first, then localize inside `useEffect` post-hydration.
+- **Part 3 — Core Web Vitals & Architecture Cheat Sheet:**
+  - **Public product page:** `SSG/ISR` or `SSR` (SEO + LCP) + dynamic inventory check.
+  - **Logged-in dashboard / Admin console:** `CSR` with route splitting (no SEO; interaction & freshness dominate).
+  - **Personalized home feed:** `CSR` shell or `SSR` first page + list virtualization + image sizing.
+  - **Collaborative canvas (`DrawBoard`):** `CSR` for editor (CRDT/canvas loop) + `SSR/SSG` for public landing/metadata pages.
+</details>
 
-**One thing I'd have got wrong before reading this:**
 
 ---
 

@@ -383,13 +383,28 @@ A global store with a queue (cap visible toasts, dedupe), one `Toaster` at the r
 
 ---
 
-## My notes (write from memory after reading)
+<details>
+<summary>FE10 · Component & Design-System API Design — Complete Lecture Notes</summary>
 
-- 
-- 
-- 
+- **Opening Sequence:** Start from the consumer's code—write 3 usage snippets first (uncontrolled, controlled, customized) to drive the API, then cover state ownership, composition, accessibility, and library concerns [0.6.42–0.6.43].
+- **Part 1 — The 5 Grading Axes:**
+  1. **API Surface:** Small, typed, predictable (common case in 1–2 lines) [0.6.42–0.6.44].
+  2. **State Ownership:** Supports both uncontrolled (`defaultValue` / `defaultOpen`) and controlled (`value` + `onValueChange`) via one `useControllableState` hook (never copy props into state + `useEffect`) [0.6.42–0.6.44].
+  3. **Extensibility:** Avoid prop explosion (`<Button primary large rounded />`); use 2–3 enumerated variants (`variant`, `size`), design tokens + CSS variables (`--ds-*`), `data-state` styling hooks, composition, and merged `className`.
+  4. **Accessibility Baked In:** Component owns roles, deterministic `useId()` label/description wiring, keyboard handlers, focus trapping, and focus return—making the unsafe thing hard [0.6.44–0.6.46].
+  5. **Performance & SSR:** Lazy-unmount closed heavy overlays, portal to `document.body`, no `window`/`Math.random()` during SSR [0.6.43–0.6.44].
+- **Part 2 — Composition Patterns:**
+  - **Compound Components + Context** (`<Dialog.Root><Dialog.Trigger /><Dialog.Content /></Dialog.Root>`) instead of `React.Children.map` + `cloneElement` (which breaks when wrapped in a `<div>`); memoize context value.
+  - **`asChild`:** Clones child and merges ARIA + event handlers + `ref` without rendering an extra wrapper DOM element (child must spread `...props` and forward `ref`).
+  - **Render Props (`renderOption`)** for per-item custom markup where the library owns item state.
+  - **Headless Hooks + Styled Layer:** Bottom layer owns behavior/ARIA; top layer adds design tokens.
+- **Part 3 — Worked Component Designs:**
+  - **Modal (`Dialog`):** `createPortal(..., document.body)`, `role="dialog"`, `aria-modal="true"` paired with background `inert` + `Tab`/`Shift+Tab` focus trap + `Escape` + focus restoration on close; module-level stack for nested modals.
+  - **Select / Combobox:** Distinguish select-only vs. editable; keep real DOM focus on combobox + `aria-activedescendant` for highlighted option; virtualize `100+` items.
+  - **Toast System:** Module-level store (`useSyncExternalStore`) + imperative `toast.show()` + single root `<Toaster />` portal; cap visible queue (3–5), dedupe, pause timers on hover/focus/blur, `aria-live` region, never put required decisions in timed toasts.
+- **Part 4 — Library Concerns:** Semver + deprecation warnings/codemods, ESM + `"sideEffects": false` + no giant barrel files, `react`/`react-dom` as `peerDependencies`, SSR-safe portals & `useId()`.
+</details>
 
-**One thing I'd have got wrong before reading this:**
 
 ---
 

@@ -402,14 +402,41 @@ Clear or partition user-specific caches, IndexedDB stores and pending queues; un
 </details>
 
 ---
+<details>
+<summary>FE6 · Offline + Storage — Storage Toolbox, Caching Strategies, Outbox & Conflict Resolution</summary>
 
-## My notes (write from memory after reading)
+- **Golden Opening Line:** *"I separate offline into read offline and write offline. Reads are a service-worker caching problem; writes are a durable IndexedDB operation-log problem with idempotency keys, multi-tab coordination, domain-specific conflict rules, and strict logout cache cleanup."*
 
-- 
-- 
-- 
+#### 1. Browser Storage Toolbox (Match Primitive to Data Shape)
+- **`localStorage` / `sessionStorage`:** Synchronous string key-value (~5–10 MB). `localStorage` is shared across all tabs of the origin; `sessionStorage` is tab-specific. Use **only** for tiny UI flags (`theme`, `lastWorkspaceId`)—never for offline caches, queues, or tokens (blocks main thread, no transactions, XSS-readable) [0.6.25–0.6.28].
+- **`Cache Storage` (Service Worker):** Async HTTP `Request` -> `Response` locker. Best for app shell, hashed JS/CSS chunks, fonts, and images/thumbnails. Cannot run structured queries [0.6.25, 0.6.27–0.6.28].
+- **`IndexedDB`:** Async, transactional NoSQL database with object stores and indexes. Default store for cached entities (messages, drafts), offline mutation `outbox`, and Yjs/CRDT state [0.6.25, 0.6.27–0.6.28].
+- **`OPFS` (Origin Private File System):** Private disk file handles/streams for Web Workers processing large binary media blobs without blowing up RAM [0.6.25, 0.6.27–0.6.28].
+- **Quota & Eviction:** Inspect with `navigator.storage.estimate()`; request durability with `navigator.storage.persist()`; always treat client storage as **recoverable cache**, never permanent truth.
 
-**One thing I'd have got wrong before reading this:**
+#### 2. Service Worker & the Caching Strategies
+- **Lifecycle:** `register` -> `install` (precache versioned shell) -> `waiting` (avoid surprise reload mid-session) -> `activate` (delete old cache versions) -> `fetch` (event-driven background proxy off the main thread) [0.6.25–0.6.26].
+- **Strategy per Resource (Never Use One Globally):**
+  - **Cache-First:** Versioned hashed JS/CSS, fonts, immutable thumbnails [0.6.25, 0.6.27–0.6.28].
+  - **Network-First (with Cache Fallback):** Mutable `index.html` (picks up deploys when online, still boots offline) and critical fresh reads [0.6.25–0.6.26].
+  - **Stale-While-Revalidate (`SWR`):** News feed cards, avatars, metadata—instant cached paint + background refresh [0.6.25–0.6.26].
+  - **Cache-Only:** Strictly pre-saved files during `install` (e.g., `/offline.html` fallback page)—never touches the network.
+  - **Network-Only:** Strictly live server, never cached (e.g., payments, checkout, `/api/auth/callback`)—fails cleanly offline [0.6.25–0.6.26].
+
+#### 3. Durable Offline Writes (The Outbox Pattern)
+- **Flow:** User action -> generate UUID `idempotencyKey` **once** -> write op to **IndexedDB `outbox` FIRST** -> optimistic UI (`status: 'sending'`) -> `POST` with `Idempotency-Key` header -> server deduplicates and echoes canonical ID -> delete op from `outbox` and swap temp client ID for server ID [0.6.25, 0.6.27–0.6.28].
+- **Reliability Rules:** Replay in order when order matters; use exponential backoff + jitter; surface pending/failed counts in UI; flush on **app startup**, **`online` event**, and open tab (treat Background Sync API as a bonus optimization, not sole trigger) [0.6.25, 0.6.27–0.6.28].
+- **Multi-Tab Dedupe:** Server-side `Idempotency-Key` is the correctness guarantee; client-side `navigator.locks`, `BroadcastChannel`, or IndexedDB leases reduce duplicate network retries [0.6.25–0.6.28].
+
+#### 4. Conflicts on Reconnect & Logout Security
+- **Conflict Strategy by Domain:**
+  - **Chat send:** Append-only (ordered by server seq + client `idempotencyKey`) [0.6.25–0.6.26].
+  - **CRUD / Docs:** Version check (`If-Match: <baseVersion>`) -> `409 Conflict` / `412` prompts user merge [0.6.25–0.6.26].
+  - **Collaborative Canvas / Rich Text:** CRDT (`Yjs` + `y-indexeddb`) merges concurrent offline edits automatically [0.6.25–0.6.28].
+  - **Payments / Inventory:** Server authority (online-only) [0.6.25–0.6.26].
+- **Logout Cleanup:** Always clear or partition (`db-${userId}`) user-specific `Cache Storage`, `IndexedDB` stores, and pending `outbox` queues on logout so the next user on a shared device never sees private cached data [0.6.26–0.6.28].
+</details>
+
 
 ---
 

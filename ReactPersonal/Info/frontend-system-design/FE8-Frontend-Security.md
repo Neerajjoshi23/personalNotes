@@ -353,13 +353,52 @@ SRI verifies that a CDN resource matches an expected hash, preventing unexpected
 
 ---
 
-## My notes (write from memory after reading)
+<details>
+<summary>FE8 · Frontend Security — XSS, CSP, SameSite Cookies, CORS vs. CSRF & Iframes</summary>
 
-- 
-- 
-- 
+- **Golden Opening Line:** *"Frontend security is defense-in-depth at the browser trust boundary: keep untrusted data out of execution sinks, lock down script execution with a strict nonce-based CSP, keep session credentials out of JS-readable storage, and enforce authorization on the server."*
 
-**One thing I'd have got wrong before reading this:**
+#### 1. XSS Sinks, Structured Models & CSP
+- **3 XSS Types:**
+  - **Reflected XSS:** Payload comes in the current HTTP request (e.g., `?q=...`) and is echoed immediately in SSR HTML.
+  - **Stored XSS:** Payload is persisted in the database (comment, chat message, bio) and runs for every viewer later.
+  - **DOM-Based XSS:** Client JS reads an untrusted source (`location.hash`, `postMessage`, storage) and writes into a dangerous sink without touching the server.
+- **Why "React Prevents XSS" Is Half-True (5 Doors):**
+  1. `dangerouslySetInnerHTML` (sanitize with **DOMPurify** strict allowlist, or use a **structured JSON AST** like `RichNode` instead of raw HTML).
+  2. `href={userUrl}` (`javascript:alert(1)` works in React—parse with `new URL(href, origin)` and allowlist only `['https:', 'http:', 'mailto:']`).
+  3. Unsafe Markdown renderers (allow raw HTML / `javascript:` links by default).
+  4. Direct DOM APIs (`ref.current.innerHTML = ...`, `document.write`).
+  5. Third-party scripts / compromised CDN dependencies.
+- **Strict Nonce-Based CSP (HTTP Response Header on `index.html`):**
+  - `Content-Security-Policy: default-src 'self'; script-src 'nonce-<per-request-random>' 'strict-dynamic'; style-src 'self' 'nonce-<random>'; font-src 'self' https://gstatic.com; img-src 'self' data: https://example.com; connect-src 'self' https://example.com; object-src 'none'; base-uri 'none'; frame-ancestors 'none';`
+  - **Per-request `nonce`:** Generated fresh on every HTTP request by the server/edge worker (never cached/hardcoded) so attackers cannot predict it; `'strict-dynamic'` passes trust to dynamically imported child chunks.
+  - **Rollout tip:** Test with `Content-Security-Policy-Report-Only` first; CSP is defense-in-depth and never replaces sanitization.
+
+#### 2. Cookies (`HttpOnly`, `Secure`, `SameSite`) & Token Storage
+- **`localStorage` / `sessionStorage`:** Readable by any JS on the page—an XSS payload or compromised third-party script can exfiltrate tokens immediately.
+- **`HttpOnly; Secure; SameSite` Cookie:** `HttpOnly` blocks `document.cookie` reads from JS; `Secure` enforces HTTPS; `SameSite` controls cross-site attachment.
+- **SPA Bearer Pattern:** Keep a short-lived access token in **JS memory** (module variable) and rotate it via an `HttpOnly; Secure; SameSite` refresh cookie.
+- **The 3 `SameSite` Settings (`eTLD+1` site boundary—note subdomains like `://shop.com` and `://shop.com` are *same-site*!):**
+  - **`SameSite=Strict`:** Never sent on cross-site requests—not even clicking a normal external link into your site (best for high-security admin/banking consoles).
+  - **`SameSite=Lax` *(Browser Default)*:** Blocks cookies on cross-site `POST`, `fetch()`, `<iframe>`, and `<img>`, while allowing cookies on top-level `GET` navigation from external links (best default for 95% of apps).
+  - **`SameSite=None; Secure`:** Sent on all cross-site requests (required for cross-origin `<iframe>` embeds / LTI / SSO; requires HTTPS + strict anti-CSRF tokens).
+
+#### 3. `CORS` vs. `CSRF` (And How Anti-CSRF Tokens Work)
+- **CORS (Cross-Origin Resource Sharing):** Governs whether **JS on `evil.com` can READ a response** from `://shop.com` (`Access-Control-Allow-Origin`).
+  - *Trap:* Never dynamically reflect arbitrary `Origin` headers with `Access-Control-Allow-Credentials: true` (lets any site read private user responses).
+- **CSRF (Cross-Site Request Forgery):** `evil.com` tricks the victim's browser into **SENDING a state-changing request** (e.g., hidden `<form method="POST">` to `://shop.com/api/update-price`) where the browser automatically attaches ambient cookies.
+  - *Why CORS doesn't stop CSRF:* Simple `<form>` `POST`s fire without a CORS preflight `OPTIONS` check, and the server mutates data before the browser ever checks response CORS headers.
+- **How Anti-CSRF Tokens Defeat CSRF:**
+  1. **Synchronizer Token:** Server issues a per-session random `csrfToken` (via login/`/me` header, JSON, or `<meta>` tag); frontend stores it in memory/state and attaches `X-CSRF-Token: <token>` on every `POST`/`PUT`/`PATCH`/`DELETE`.
+  2. **Double-Submit Cookie:** Server sets a JS-readable `XSRF-TOKEN` cookie alongside the `HttpOnly` session cookie; frontend reads `XSRF-TOKEN` and sends it in the `X-XSRF-TOKEN` header; server verifies `cookie === header`.
+  - *Why `evil.com` can't steal the token via `GET /getinfo`:* `SameSite=Lax` blocks cookie attachment on cross-site `fetch()`, and CORS (`Access-Control-Allow-Origin`) blocks `evil.com` from reading the response. Plus, custom headers force a CORS preflight `OPTIONS` check that `evil.com` fails.
+
+#### 4. `postMessage`, Sandboxed `iframes` & Third-Party Scripts (`SRI` / Env Vars)
+- **`postMessage`:** Always check `event.origin` against an exact allowlist first (`if (!ALLOWED_ORIGINS.has(event.origin)) return;`), validate payload schema, and never pass `'*'` as `targetOrigin` when sending sensitive data.
+- **Sandboxed `iframes` & Clickjacking:** Isolate untrusted embeds with `<iframe sandbox="allow-scripts">` (never pair `allow-scripts` + `allow-same-origin` on same-origin frames, or the iframe can remove its own sandbox). Block framing of your own pages with CSP `frame-ancestors 'none'` (or an explicit LMS/enterprise allowlist on a reduced-privilege `/embed` route).
+- **Third-Party Scripts, `SRI` & Env Vars:** Third-party scripts run with full page privilege—bundle vetted npm packages when possible, or lock static CDN scripts with `integrity="sha384-..." crossorigin="anonymous"` (`SRI` verifies untampered bytes, not library safety). Never store secrets in `VITE_*` / `NEXT_PUBLIC_*` env vars—they are bundled publicly into client JS.
+</details>
+
 
 ---
 
