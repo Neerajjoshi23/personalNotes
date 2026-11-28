@@ -17,7 +17,50 @@ vector<int> bubble_sort(vector<int> arr,int n){
     }
     return arr;
 }
-
+void mergeTwoSortedArrays(vector<int>&arr,int start,int mid,int end){
+    int n1=mid-start+1;
+    int n2=end-mid;
+    vector<int> left(n1);
+    vector<int> right(n2);
+    for(int i=0;i<n1;i++){
+        left[i]=arr[start+i];
+    }
+    for(int i=0;i<n2;i++){
+        right[i]=arr[mid+1+i];
+    }
+    int first=0,second=0,actual=start;
+    while(first<n1 || second<n2){
+        if(first==n1){
+            arr[actual]=right[second];
+            second++;
+        }
+        else if(second==n2){
+            arr[actual]=left[first];
+            first++;
+        }
+        else{
+        if(left[first]<=right[second]){
+            arr[actual]=left[first];
+            first++;
+        }
+        else{
+            arr[actual]=right[second];
+            second++;
+        }
+        actual++;
+    }
+    }
+}
+void mergeSort(vector<int>&arr,int start,int end){
+    if(start>=end){
+        return;
+    }
+    int mid=start+(end-start)/2;
+    mergeSort(arr,start,mid);
+    mergeSort(arr,mid+1,end);
+    // Merge the two sorted halves
+    mergeTwoSortedArrays(arr,start,mid,end);
+}
 vector<int> selection_sort(vector<int> arr,int n){
     // TC -> O(n^2) SC -> O(1)
     // Selection Sort
